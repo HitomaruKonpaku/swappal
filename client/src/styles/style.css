@@ -1,0 +1,239 @@
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+footer {
+    padding: 1em;
+    clear: left;
+    align-content: center;
+  }
+/* Extra styles for the cancel button */
+.signupbuttonmain{
+  width:auto;
+  margin:2;
+  float:right;
+
+}
+/*.coverSlides{
+  display: none;
+}*/
+.card.horizontal {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+    }
+.loginbuttonmain{
+  marign:0;
+  float: right;
+}
+.mdl-grid {
+    max-width: 600px;
+}
+.mdl-card__media {
+    margin: 0;
+}
+.mdl-card__media > img {
+    max-width: 100%;
+}
+.mdl-card__actions {
+    display: flex;
+    box-sizing:border-box;
+    align-items: center;
+}
+.mdl-card__actions > .mdl-button--icon {
+    margin-right: 3px;
+    margin-left: 3px;
+}
+.containerform .loginbtn{
+  background-color: grey;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  margin: 8px 0;
+  width: 100%;
+}
+.social {
+    width: 370px;
+    float: none;
+    margin: 0 auto;
+}
+.containerform .signupbtn{
+  background-color: grey;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  margin: 8px 0;
+  width: 100%;
+}
+.cancelbtn {
+
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+
+}
+.facebookbtn{
+  width: auto;
+  padding: 10px 18px;
+  border: none;
+  background-color: #1d76e3;
+  color: white;
+}
+.checkboxterm{
+
+  width: auto;
+  float:left;
+}
+
+.containerform {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+.mySlides{
+  display: none;
+}
+.item {
+ color: black;
+ margin: 5px;
+ height: 50px;
+ line-height: 50px;
+}
+.w3-left, .w3-right, .w3-badge {
+  cursor:pointer
+}
+.w3-badge{
+  height:13px;width:13px;padding:0
+}
+.itemrating{
+  color: black;
+  height: 50px;
+  margin: 5px;
+  text-align: center;
+  line-height: 50px;
+}
+
+.flex-container-row{
+  display: flex;
+  flex-direction: row;
+}
+.flex-item-profile{
+  width: 100%;
+  height: 40%;
+  margin-top:3%;
+}
+.flex-container-column{
+  display: flex;
+  flex-direction: column;
+}
+.flex-item-tab{
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  color: grey;
+}
+.flex-item-detail-tab{
+  width: 100%;
+  height: 100%;
+  text-align: left;
+}
+.circle-rating{
+  width: 50%;
+	height: 50%;
+	background: red;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+  display: inline-block;
+  margin-top: 25%;
+  margin-left: 25%;
+  background-color: #e9dd91;
+
+}
+.swapme-button{
+  background-color: #6cbf6e;
+  margin: auto;
+  font-size: 25px;
+}
+.p-name-profile{
+  font-size: 20px;
+}
+.nav-tabs { border-bottom: 2px solid #DDD; }
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
+    .nav-tabs > li > a { border: none; color: #666; }
+        .nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; color: #4285F4 !important; background: transparent; }
+        .nav-tabs > li > a::after { content: ""; background: #4285F4; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+
+    .cancelbtn {
+       width: 100%;
+    }
+}
