@@ -201,11 +201,10 @@ span.psw {
   margin-top: 25%;
   margin-left: 25%;
   background-color: #e9dd91;
-
 }
 .swapme-button{
   background-color: #6cbf6e;
-  margin: auto;
+  margin-top: 10px;
   font-size: 25px;
 }
 .p-name-profile{
