@@ -10,7 +10,7 @@ const util = require('util');
 const mongodbUri = 'mongodb://localhost:27017/SwappalDB'
 // mongoose.Promise = global.Promise
 mongoose.Promise = Promise
-// mongoose.connect(mongodbUri)
+mongoose.connect(mongodbUri)
 
 // const
 const passHashKey = 'swappal'
@@ -100,7 +100,6 @@ let mailOptionsPassReset = function (email, link) {
     mailOps.html = html
     return mailOps
 }
-
 
 //====================================================================================================
 //========== RESPONSE DATA ===========================================================================
@@ -426,7 +425,8 @@ router.route('/accounts/passwordreset/:key')
 // profile
 router.route('/accounts/profile')
     .get((req, res) => {
-        let mail = req.query.email
+        let email = req.query.email
+        console.log(email)
 
         if (!email) {
             res.json({
@@ -435,14 +435,17 @@ router.route('/accounts/profile')
             return
         }
 
-        Account.findOne({ 'email': mail })
-            .select().exec()
+        Account.findOne({ 'email': email })
+            .select('profile')
+            .exec()
             .then((data) => {
+                console.log(data)
                 if (data) {
 
                 } else {
 
                 }
+                res.json({ data: data })
             })
             .catch((err) => {
 
