@@ -1,176 +1,178 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-3">
-      <a href="#">
-        <img src="../../images/user1.jpg"  class="img-fluid" alt="profile-picture" >
-      </a>
-    </div>
-    <div class="col-md-6 col-7 flex-container-column">
-      <div class="flex-item-profile">
-        <p class="p-name-profile">NAME</p>
-      </div>
-      <div class="flex-item-profile">
-        <p>description</p>
-      </div>
-    </div>
-    <div class="col-md-3 col-5" >
-      <div class="circle-rating">
-        <p>point</p>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-8">
-    </div>
-    <div class="col-md-4">
-      <button type="submit" name="swapme" class="swapme-button btn btn-success" >SWAP ME!</button>
-    </div>
-  </div>
-  <div class="container">
 
-<tabs>
-      <tab tabTitle="My Page">
-        <h3>Skills I Have</h3>
-        <br>
-        <div class="row">
-          <div class="col-md-9">
-            <ul>
-              <li>Skill</li>
-            </ul>
-          </div>
-          <div class="col-md-3">
-            <a href="#">Edit</a>
-          </div>
+  <div class="container">
+    <div class="row profile-panel-header">
+      <div class="col-md-3">
+        <a href="#">
+          <img src="../../images/user1.jpg"  class="img-fluid" alt="profile-picture" >
+        </a>
+      </div>
+      <div class="col-md-6 col-7 flex-container-column">
+        <div class="flex-item-profile">
+          <p class="p-name-profile">NAME</p>
         </div>
-        <br>
-        <h3>Skills I Need</h3>
-        <br>
-        <div class="row">
-          <div class="col-md-9">
-            <ul>
-              <li>Skill</li>
-            </ul>
-          </div>
-          <div class="col-md-3">
-            <a href="#">Edit</a>
-          </div>
+        <div class="flex-item-profile">
+          <p>description</p>
         </div>
-        <br>
-        <h3>Detail Info</h3>
-        <br>
-        <div class="row">
-          <div class="col-md-9">
-            <div class="containerform">
-              <p>detail</p>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <a href="#">Edit</a>
-          </div>
+      </div>
+      <div class="col-md-3 col-5" >
+        <div class="circle-rating">
+          <p>point</p>
         </div>
-      </tab>
-      <tab tabTitle="About Me">
-        <h3>Basic Information</h3>
-        <br>
-        <div class="row">
-          <div class="col-md-3 flex-container-column">
-            <div class="flex-item-tab">
-              First name
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+      </div>
+      <div class="col-md-4">
+        <button type="submit" name="swapme" class="swapme-button btn btn-success" >SWAP ME!</button>
+      </div>
+    </div>
+    <div class="container">
+      {{ profile }}
+  <tabs>
+        <tab tabTitle="My Page">
+            <h3>Skills I Have</h3>
+            <br>
+            <div class="row">
+              <div class="col-md-9">
+                <ul>
+                  <li>Skill</li>
+                </ul>
+              </div>
+              <div class="col-md-3">
+                <a href="#">Edit</a>
+              </div>
+            </div>
+            <br>
+            <h3>Skills I Need</h3>
+            <br>
+            <div class="row">
+              <div class="col-md-9">
+                <ul>
+                  <li>Skill</li>
+                </ul>
+              </div>
+              <div class="col-md-3">
+                <a href="#">Edit</a>
+              </div>
+            </div>
+            <br>
+            <h3>Detail Info</h3>
+            <br>
+            <div class="row">
+              <div class="col-md-9">
+                <div class="containerform">
+                  <p>detail</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <a href="#">Edit</a>
+              </div>
+            </div>
+
+        </tab>
+        <tab tabTitle="About Me">
+          <h3>Basic Information</h3>
+          <br>
+          <div class="row">
+            <div class="col-md-3 flex-container-column">
+              <div class="flex-item-tab">
+                First name
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="flex-item-detail-tab">
+                First name
+              </div>
+            </div>
+            <div class="col-md-2 col-2">
+              <a href="#">Edit</a>
             </div>
           </div>
-          <div class="col-md-7">
-            <div class="flex-item-detail-tab">
-              First name
+          <div class="row">
+            <div class="col-md-3 flex-container-column">
+              <div class="flex-item-tab">
+                Last name
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="flex-item-detail-tab">
+                Last name
+              </div>
             </div>
           </div>
-          <div class="col-md-2 col-2">
-            <a href="#">Edit</a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 flex-container-column">
-            <div class="flex-item-tab">
-              Last name
+          <div class="row">
+            <div class="col-md-3 flex-container-column">
+              <div class="flex-item-tab">
+                Gender
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="flex-item-detail-tab">
+                Gender
+              </div>
             </div>
           </div>
-          <div class="col-md-9">
-            <div class="flex-item-detail-tab">
-              Last name
+          <br>
+          <h3>My Mission</h3>
+          <br>
+          <p>Mission</p>
+          <br>
+          <h3>Contact Information</h3>
+          <br>
+          <div class="row">
+            <div class="col-md-3 flex-container-column">
+              <div class="flex-item-tab">
+                Email
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="flex-item-detail-tab">
+                email
+              </div>
+            </div>
+            <div class="col-md-2  col-2">
+              <a href="#">Edit</a>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 flex-container-column">
-            <div class="flex-item-tab">
-              Gender
+          <div class="row">
+            <div class="col-md-3 flex-container-column">
+              <div class="flex-item-tab">
+                Address
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="flex-item-detail-tab">
+                address
+              </div>
             </div>
           </div>
-          <div class="col-md-9">
-            <div class="flex-item-detail-tab">
-              Gender
+          <div class="row">
+            <div class="col-md-3 flex-container-column">
+              <div class="flex-item-tab">
+                Phone
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="flex-item-detail-tab">
+                phone
+              </div>
             </div>
           </div>
-        </div>
-        <br>
-        <h3>My Mission</h3>
-        <br>
-        <p>Mission</p>
-        <br>
-        <h3>Contact Information</h3>
-        <br>
-        <div class="row">
-          <div class="col-md-3 flex-container-column">
-            <div class="flex-item-tab">
-              Email
+          <div class="row">
+            <div class="col-md-3 flex-container-column">
+              <div class="flex-item-tab">
+                Facebook
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="flex-item-detail-tab">
+                fb
+              </div>
             </div>
           </div>
-          <div class="col-md-7">
-            <div class="flex-item-detail-tab">
-              email
-            </div>
-          </div>
-          <div class="col-md-2  col-2">
-            <a href="#">Edit</a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 flex-container-column">
-            <div class="flex-item-tab">
-              Address
-            </div>
-          </div>
-          <div class="col-md-9">
-            <div class="flex-item-detail-tab">
-              address
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 flex-container-column">
-            <div class="flex-item-tab">
-              Phone
-            </div>
-          </div>
-          <div class="col-md-9">
-            <div class="flex-item-detail-tab">
-              phone
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 flex-container-column">
-            <div class="flex-item-tab">
-              Facebook
-            </div>
-          </div>
-          <div class="col-md-9">
-            <div class="flex-item-detail-tab">
-              fb
-            </div>
-          </div>
-        </div>
-      </tab>
-      <tab tabTitle="Review">Tab 3 Content</tab>
-    </tabs>
+        </tab>
+        <tab tabTitle="Review">Tab 3 Content</tab>
+      </tabs>
+    </div>
   </div>
-</div>
