@@ -5,7 +5,7 @@ import { User } from '../_models/index';
 
 @Injectable()
 export class UserService {
-    private address: string = 'http://localhost:6969/api/accounts';
+    private address: string = 'http://localhost:3001/apis/accounts';
 
     constructor(private http: Http) { }
 
@@ -26,7 +26,7 @@ export class UserService {
         // let options = new RequestOptions({ headers: headers });
         // return this.http.post(this.address, user, options).map((response: Response) => response.json());
 
-        return this.http.post(this.address, user, this.jwt()).map((response: Response) => response.json());
+        return this.http.post(this.address + '/reg', user, this.jwt()).map((response: Response) => response.json());
     }
 
     update(user: User) {

@@ -7,20 +7,21 @@ import { APIService } from '../_services/index';
 })
 
 export class ProfileComponent implements OnInit {
-  profile: any ={}
-  name: string;
-  constructor(
-    private profileService : APIService,
-  ){}
-  ngOnInit() {
+    profile: any = {}
+    name: string;
+    constructor(
+        private profileService: APIService,
+    ) { }
+    ngOnInit() {
 
-      this.profileService.getProfile("test@gmail.com").subscribe(
-      data => {
-          console.log(data)
-          this.profile = data
-      },
-      error => {
-          console.log("error")
-      });
-  }
+        this.profileService.getProfile("ct95server@gmail.com")
+            .subscribe(
+            data => {
+                this.profile = data.data.profile
+                console.log(this.profile)
+            },
+            error => {
+                console.log("error")
+            })
+    }
 }

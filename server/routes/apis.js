@@ -252,22 +252,22 @@ router.route('/accounts/verify/:key')
 // login  
 router.route('/accounts/authenticate')
     .post((req, res) => {
-        let mail = req.body.email
+        let email = req.body.email
         let pass = req.body.pwd
 
-        if (!mail || !pass) {
+        if (!email || !pass) {
             res.json({
                 msg: msgMissingData
             })
             return
         }
 
-        console.log('Logging in as %s', email)
+        console.log('Logging in as ' + email)
 
-        Account.findOne({ 'email': mail, 'passHash': hash(pass) }).exec()
+        Account.findOne({ 'email': email, 'passHash': hash(pass) }).exec()
             .then(data => {
                 console.log(data)
-                consoleSeperator()
+
                 if (data) {
                     let token = {
                         token: tokenRandom(loginTokenLength),
@@ -278,11 +278,6 @@ router.route('/accounts/authenticate')
 
                     data.save()
                         .then(data => {
-                            console.log(data)
-                            consoleSeperator()
-                            console.log(token)
-                            consoleSeperator()
-
                             res.json({
                                 msg: 'success',
                                 data: token,

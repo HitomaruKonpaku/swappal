@@ -8,8 +8,8 @@ export class APIService {
     private address: string = 'http://localhost:3001/apis';
 
     constructor(private http: Http) { }
-    getProfile(email: any){
-      return this.http.get(this.address + '/accounts/profile'+'?email='+email, this.jwt()).map((response: Response) => response.json())
+    getProfile(email: any) {
+        return this.http.get(this.address + '/accounts/profile' + '?email=' + email, this.jwt()).map((response: Response) => response.json())
     }
     getAll() {
         return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
@@ -47,7 +47,7 @@ export class APIService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         if (currentUser && currentUser.token) {
-            headers.append('Authorization', 'Bearer' + currentUser.token);
+            // headers.append('Authorization', 'Bearer' + currentUser.token);
             // headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
         } else { }
         return new RequestOptions({ headers: headers });
