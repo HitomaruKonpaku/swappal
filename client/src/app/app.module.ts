@@ -10,17 +10,17 @@ import { routing } from './app.routing';
 
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService } from './_services/index';
+import { AlertService, AuthenticationService, UserService, APIService } from './_services/index';
 
-import { HeaderComponent, FooterComponent } from './_layouts/index';
+import { HeaderComponent, FooterComponent, BackgroundComponent } from './_layouts/index';
 
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { LogoutComponent } from './logout/index';
 import { RegisterComponent } from './register/index';
 import { ProfileComponent } from './profile/index';
-import {Tabs} from './profile/index';
-import {Tab} from './profile/index';
+import { Tabs } from './profile/index';
+import { Tab } from './profile/index';
 
 @NgModule({
   imports: [
@@ -33,6 +33,7 @@ import {Tab} from './profile/index';
     AppComponent,
     HeaderComponent,
     FooterComponent,
+    BackgroundComponent,
     AlertComponent,
     HomeComponent,
     LoginComponent,
@@ -47,6 +48,7 @@ import {Tab} from './profile/index';
     AlertService,
     AuthenticationService,
     UserService,
+    APIService,
   ],
   bootstrap: [
     AppComponent

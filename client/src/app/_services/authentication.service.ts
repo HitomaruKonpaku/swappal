@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthenticationService {
-    private address: string = 'http://localhost:6969/api/authenticate';
+    private address: string = 'http://localhost:3001/apis/accounts/authenticate';
     private localKey: string = 'currentUser';
 
     constructor(private http: Http) { }
