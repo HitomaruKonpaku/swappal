@@ -8,9 +8,13 @@ export class APIService {
     private address: string = 'http://localhost:3001/apis';
 
     constructor(private http: Http) { }
+
     getProfile(email: any) {
         return this.http.get(this.address + '/accounts/profile' + '?email=' + email, this.jwt()).map((response: Response) => response.json())
     }
+
+    // 
+
     getAll() {
         return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
     }

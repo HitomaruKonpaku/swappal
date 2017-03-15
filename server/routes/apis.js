@@ -6,11 +6,45 @@ const Promise = require('bluebird')
 const nodemailer = require('nodemailer')
 const util = require('util');
 
+var fs = require("fs");
+var tunnel = require('tunnel-ssh');
+
 // connect
-const mongodbUri = 'mongodb://localhost:27017/SwappalDB'
 // mongoose.Promise = global.Promise
 mongoose.Promise = Promise
-mongoose.connect(mongodbUri)
+
+var config = {
+    username: 'user',
+    password: 'user',
+    host: '128.199.102.237',
+    port: 22,
+    dstPort: 27017,
+    agent: process.env.SSH_AUTH_SOCK,
+    privateKey: require('fs').readFileSync('./.key/SSHPrivatekey2.ppk'),
+
+};
+
+var server = tunnel(config, function (error, server) {
+    if (error) {
+        console.log("SSH connection error: " + error);
+    }
+
+    mongoose.connect('mongodb://localhost:27017/swappal')
+        .then(() => {
+            console.log('MongoDB connection successful')
+        })
+        .catch((err) => {
+            console.log('MongoDB connection error')
+            console.log(err)
+        })
+
+    // var db = mongoose.connection;
+    // db.on('error', console.error.bind(console, 'DB connection error:'));
+    // db.once('open', function () {
+    //     // we're connected!
+    //     console.log("DB connection successful");
+    // });
+});
 
 // const
 const passHashKey = 'swappal'
