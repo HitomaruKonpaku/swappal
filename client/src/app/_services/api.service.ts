@@ -1,14 +1,16 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { User } from '../_models/index';
 
 @Injectable()
-export class UserService {
-    private address: string = 'http://localhost:3001/apis/accounts';
+export class APIService {
+    private address: string = 'http://localhost:3001/apis';
 
     constructor(private http: Http) { }
-
+    getProfile(email: any) {
+        return this.http.get(this.address + '/accounts/profile' + '?email=' + email, this.jwt()).map((response: Response) => response.json())
+    }
     getAll() {
         return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
     }
@@ -26,7 +28,7 @@ export class UserService {
         // let options = new RequestOptions({ headers: headers });
         // return this.http.post(this.address, user, options).map((response: Response) => response.json());
 
-        return this.http.post(this.address + '/reg', user, this.jwt()).map((response: Response) => response.json());
+        return this.http.post(this.address, user, this.jwt()).map((response: Response) => response.json());
     }
 
     update(user: User) {
@@ -45,7 +47,7 @@ export class UserService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         if (currentUser && currentUser.token) {
-            headers.append('Authorization', 'Bearer' + currentUser.token);
+            // headers.append('Authorization', 'Bearer' + currentUser.token);
             // headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
         } else { }
         return new RequestOptions({ headers: headers });
