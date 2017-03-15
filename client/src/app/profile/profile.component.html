@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="row">
+  <div class="row profile-panel-header">
     <div class="col-md-3">
       <a href="#">
-        <img src="../../images/user1.jpg"  class="img-fluid" alt="profile-picture" >
+        <img src="../../images/user1.jpg" class="img-fluid" alt="profile-picture">
       </a>
     </div>
     <div class="col-md-6 col-7 flex-container-column">
@@ -13,7 +13,7 @@
         <p>description</p>
       </div>
     </div>
-    <div class="col-md-3 col-5" >
+    <div class="col-md-3 col-5">
       <div class="circle-rating">
         <p>point</p>
       </div>
@@ -28,7 +28,10 @@
   </div>
   <div class="container">
 
-<tabs>
+    {{ profile.name }} <br> {{ profile.dob }} <br> {{ profile.gender }} <br> {{ profile. mission}} <br> {{ profile.location
+    }} <br> {{ profile.phone }} <br> {{ profile.exp }} <br> {{ profile.achievement }}
+
+    <tabs>
       <tab tabTitle="My Page">
         <h3>Skills I Have</h3>
         <br>
@@ -68,6 +71,7 @@
             <a href="#">Edit</a>
           </div>
         </div>
+
       </tab>
       <tab tabTitle="About Me">
         <h3>Basic Information</h3>

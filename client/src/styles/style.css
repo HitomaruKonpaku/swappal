@@ -201,21 +201,48 @@ span.psw {
   margin-top: 25%;
   margin-left: 25%;
   background-color: #e9dd91;
-
 }
 .swapme-button{
   background-color: #6cbf6e;
-  margin: auto;
+  margin-top: 10px;
   font-size: 25px;
+}
+.profile-panel-header{
+  border: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #DDD;
+  background-color: white;
+  margin-top: 3%;
 }
 .p-name-profile{
   font-size: 20px;
 }
-.nav-tabs { border-bottom: 2px solid #DDD; }
-    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
+.web-background-color{
+  background-color: #c0efe6;
+}
+/*.nav-tabs { border-bottom: 1px solid #DDD; }*/
+    /*.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
     .nav-tabs > li > a { border: none; color: #666; }
         .nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; color: #4285F4 !important; background: transparent; }
-        .nav-tabs > li > a::after { content: ""; background: #4285F4; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
+        .nav-tabs > li > a::after { content: ""; background: #4285F4; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }*/
+.tab-heading{
+  display: inline;
+   border: solid;
+   border-width: 1px 1px 0 1px;
+   border-radius: 5px;
+   background-color: white;
+   padding: 10px;
+   border-color: #DDD;
+}
+.tab-content{
+  border: solid;
+  border-width: 0 1px 1px 1px;
+  border-radius: 5px;
+  border-color: #DDD;
+  background-color: white;
+  padding: 10px;
+}
 @-webkit-keyframes animatezoom {
     from {-webkit-transform: scale(0)}
     to {-webkit-transform: scale(1)}
