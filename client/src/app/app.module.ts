@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { MaterialModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -22,21 +21,15 @@ import { RegisterComponent } from './register/index';
 import { ProfileComponent } from './profile/index';
 import { Tabs } from './profile/index';
 import { Tab } from './profile/index';
-import {DialogOverviewExampleDialog} from './profile/request.component';
-
-
 
 @NgModule({
   imports: [
-    MaterialModule,
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing,
+    routing
   ],
   declarations: [
-
-    DialogOverviewExampleDialog,
     AppComponent,
     HeaderComponent,
     FooterComponent,
@@ -49,7 +42,7 @@ import {DialogOverviewExampleDialog} from './profile/request.component';
     ProfileComponent,
     Tabs,
     Tab,
-],
+  ],
   providers: [
     AuthGuard,
     AlertService,
@@ -57,11 +50,8 @@ import {DialogOverviewExampleDialog} from './profile/request.component';
     UserService,
     APIService,
   ],
-  entryComponents:[DialogOverviewExampleDialog],
   bootstrap: [
-    AppComponent,
-
-
+    AppComponent
   ]
 })
 

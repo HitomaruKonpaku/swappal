@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from '../_services/index';
-import { DialogOverviewExampleDialog} from './request.component';
-import {MdDialog} from '@angular/material';
 
 @Component({
     moduleId: module.id,
@@ -13,7 +11,6 @@ export class ProfileComponent implements OnInit {
     name: string;
     constructor(
         private profileService: APIService,
-        private dialog: MdDialog
     ) { }
     ngOnInit() {
 
@@ -26,9 +23,5 @@ export class ProfileComponent implements OnInit {
             error => {
                 console.log("error")
             })
-    }
-
-    openDialog(){
-      this.dialog.open(DialogOverviewExampleDialog);
     }
 }
