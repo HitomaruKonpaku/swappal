@@ -14,22 +14,32 @@ var tunnel = require('tunnel-ssh');
 mongoose.Promise = Promise
 
 var config = {
-    username: 'user',
-    password: 'user',
     host: '128.199.102.237',
     port: 22,
+    // dstHost: 'mongodb://localhost:27017/swappal',
     dstPort: 27017,
+    username: 'user',
+    password: 'user',
+    localHost: '127.0.0.1',
+    localPort: 27017,
     agent: process.env.SSH_AUTH_SOCK,
     privateKey: require('fs').readFileSync('./.key/SSHPrivatekey2.ppk'),
+};
 
+var mongooseURI = 'mongodb://localhost:27017/swappal'
+
+var options = {
+    server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
+    replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
 };
 
 var server = tunnel(config, function (error, server) {
     if (error) {
         console.log("SSH connection error: " + error);
+        return
     }
 
-    mongoose.connect('mongodb://localhost:27017/swappal')
+    mongoose.connect(mongooseURI, options)
         .then(() => {
             console.log('MongoDB connection successful')
         })
@@ -38,13 +48,11 @@ var server = tunnel(config, function (error, server) {
             console.log(err)
         })
 
-    // var db = mongoose.connection;
-    // db.on('error', console.error.bind(console, 'DB connection error:'));
-    // db.once('open', function () {
-    //     // we're connected!
-    //     console.log("DB connection successful");
-    // });
 });
+
+//====================================================================================================
+//====================================================================================================
+//====================================================================================================
 
 // const
 const passHashKey = 'swappal'
@@ -60,6 +68,7 @@ const msgMissingData = 'Missing data'
 let Account = require('../models/Account')
 let AccountReg = require('../models/AccountReg')
 let News = require('../models/News')
+let Skill = require('../models/Skill')
 
 //====================================================================================================
 //====================================================================================================
@@ -536,6 +545,69 @@ router.route('/accounts/profile')
                     msg: 'error'
                 })
             })
+    })
+
+//====================================================================================================
+//====================================================================================================
+//====================================================================================================
+
+router.route('/skills')
+    .get((req, res) => {
+        let q = req.query
+
+        let s = q.search
+        let p = q.page || 1
+        let l = q.limit || 10
+
+        Skill.paginate(
+            {
+                name: { $regex: "^" + s, $options: 'i' }
+            },
+            {
+                lean: true,
+                page: p,
+                limit: l
+            })
+            .then((data) => {
+                responseSuccuess(res, data)
+            })
+            .catch((err) => {
+                responseError(res, err)
+            })
+    })
+    .post((req, res) => {
+        let name = req.body.name
+
+        if (!name) {
+            res.json({
+                msg: msgMissingData
+            })
+            return
+        }
+
+        Skill.findOne({ 'name': name }).exec()
+            .then((data) => {
+                if (!data) {
+                    let s = new Skill({
+                        name: name
+                    })
+
+                    s.save()
+                        .then((data) => {
+                            responseSuccuess(res, data)
+                        })
+                        .catch((err) => {
+                            responseError(res, err)
+                        })
+                } else {
+                    responseInvalid(res, { msg: 'duplicate' })
+                }
+            })
+            .catch((err) => {
+                responseError(res, err)
+            })
+
+
     })
 
 //====================================================================================================
