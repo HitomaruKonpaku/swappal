@@ -9,9 +9,7 @@ import { Component, Input } from '@angular/core';
   `],
   template: `
     <div [hidden]="!active" class="tab-content">
-      <div class="panel-body">
         <ng-content></ng-content>
-      </div>
     </div>
   `
 })

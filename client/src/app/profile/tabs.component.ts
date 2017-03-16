@@ -4,8 +4,12 @@ import { Tab } from './tab.component';
 @Component({
   selector: 'tabs',
   template:`
-    <ul class="nav-tabs">
-      <li class="tab-heading" role="presentation" *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active">
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+      crossorigin="anonymous" />
+  </head>
+    <ul class="nav nav-tabs">
+      <li role="presentation" *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active">
         <a href="#" aria-controls="profile" role="tab" data-toggle="tab">{{tab.title}}</a>
       </li>
     </ul>

@@ -21,7 +21,9 @@ import { RegisterComponent } from './register/index';
 import { ProfileComponent } from './profile/index';
 import { Tabs } from './profile/index';
 import { Tab } from './profile/index';
-import {DialogOverviewExample, DialogOverviewExampleDialog} from './profile/index';
+
+import {DialogOverviewExampleDialog} from './profile/index';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -43,8 +45,8 @@ import {DialogOverviewExample, DialogOverviewExampleDialog} from './profile/inde
     ProfileComponent,
     Tabs,
     Tab,
-    DialogOverviewExample,
     DialogOverviewExampleDialog,
+
   ],
   providers: [
     AuthGuard,
