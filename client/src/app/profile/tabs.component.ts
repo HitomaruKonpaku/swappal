@@ -30,7 +30,6 @@ export class Tabs implements AfterContentInit {
       this.selectTab(this.tabs.first);
     }
   }
-
   selectTab(tab: Tab){
     // deactivate all tabs
     this.tabs.toArray().forEach(tab => tab.active = false);
