@@ -26,6 +26,26 @@ describe("Test Login & Logout", function() {
     };
     expect(ngOnInit).toThrow();
   });
+  it("Logout.Component - ngOnInit",function(){
+    var ngOnInit = function(){
+        this.authenticationService.logout();   
+        this.router.navigate(['/']);     
+        return location.reload();
+    };
+    expect(ngOnInit).toThrow();
+  })
+  it("Login.Component - onSubmit (successful)",function(){
+    var onSubmit = function(){
+      return this.loading = true;
+    };
+    expect(onSubmit).toThrow();
+  });
+  it("Login.Component - onSubmit (fail)",function(){
+    var onSubmit = function(){
+      return this.loading = false;
+    };
+    expect(onSubmit).toThrow();
+  });
   it("AuthenticationService - login", function() {
     var login = function(data:any){
        return this.http.post(this.address, data, this.authHeader())
