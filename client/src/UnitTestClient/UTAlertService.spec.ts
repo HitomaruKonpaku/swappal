@@ -3,7 +3,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 
-describe("Test Alert",function(){
+describe("Test _service",function(){
     it("AlertService - success", function() {
         var success = function(message: string, keepAfterNavigationChange = false){
             this.keepAfterNavigationChange = keepAfterNavigationChange;
