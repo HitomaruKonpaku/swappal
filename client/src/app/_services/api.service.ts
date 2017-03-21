@@ -10,15 +10,10 @@ export class APIService {
     constructor(private http: Http) { }
 
     getProfile(email: any) {
-      return this.http.get(this.address + '/accounts/profile' + '?email=' + email, this.jwt()).map((response: Response) => response.json())
-
-    }
-    getSkills(email: any){
-      return this.http.get(this.address + '/accounts/skills' + '?email=' + email, this.jwt()).map((response: Response) => response.json())
-       
+        return this.http.get(this.address + '/accounts/profile' + '?email=' + email, this.jwt()).map((response: Response) => response.json())
     }
 
-    //
+    // 
 
     getAll() {
         return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
@@ -39,9 +34,7 @@ export class APIService {
 
         return this.http.post(this.address, user, this.jwt()).map((response: Response) => response.json());
     }
-    createProfile(profile: any){
-      return this.http.post(this.address, profile, this.jwt()).map((response: Response) => response.json());
-    }
+
     update(user: User) {
         return this.http.put('/api/users/' + user.id, user, this.jwt()).map((response: Response) => response.json());
     }

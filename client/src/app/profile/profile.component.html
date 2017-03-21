@@ -1,8 +1,6 @@
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
     crossorigin="anonymous" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <div class="background-color">
   <div class="container">
@@ -14,7 +12,7 @@
       </div>
       <div class="col-md-6 col-7 flex-container-column">
         <div class="flex-item-profile">
-          <p class="p-name-profile">{{ profile.name }}</p>
+          <p class="p-name-profile">NAME</p>
         </div>
         <div class="flex-item-profile">
           <p>description</p>
@@ -22,8 +20,7 @@
       </div>
       <div class="col-md-3 col-5">
         <div class="circle-rating">
-          <!-- <p>point</p> -->
-
+          <p>point</p>
         </div>
       </div>
     </div>
@@ -41,45 +38,42 @@
 
       <tabs>
         <tab tabTitle="My Page">
-          <div class="row">
-            <div class="col-md-9">
-              <h3>Skills I Have</h3>
-            </div>
-            <div class="col-md-3" style="text-align:right;">
-              <a role="button" (click)="switchForm()"><p class="glyphicon glyphicon-pencil"></p>Edit</a>
-            </div>
-          </div>
+          <h3>Skills I Have</h3>
           <hr>
           <div class="row">
-            <div class="col-md-12">
-              <ul [hidden]="hideDisplay">
+            <div class="col-md-9">
+              <ul>
                 <li>Skill</li>
               </ul>
-              <form [hidden]="hideEdit" class="form-group">
-                <input type="text">
-                <button type="submit" name="button">OK</button>
-                <button type="button" name="button" (click)="switchForm()" >Cancel</button>
-              </form>
+            </div>
+            <div class="col-md-3">
+              <a href="#">Edit</a>
             </div>
           </div>
           <br>
           <h3>Skills I Need</h3>
           <hr>
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-9">
               <ul>
                 <li>Skill</li>
               </ul>
+            </div>
+            <div class="col-md-3">
+              <a href="#">Edit</a>
             </div>
           </div>
           <br>
           <h3>Detail Info</h3>
           <hr>
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-9">
               <div class="containerform">
                 <p>detail</p>
               </div>
+            </div>
+            <div class="col-md-3">
+              <a href="#">Edit</a>
             </div>
           </div>
 
@@ -95,7 +89,7 @@
             </div>
             <div class="col-md-7">
               <div class="flex-item-detail-tab">
-                {{ profile.name }}
+                First name
               </div>
             </div>
             <div class="col-md-2 col-2">
@@ -110,7 +104,7 @@
             </div>
             <div class="col-md-9">
               <div class="flex-item-detail-tab">
-                {{ profile.name }}
+                Last name
               </div>
             </div>
           </div>
@@ -122,14 +116,14 @@
             </div>
             <div class="col-md-9">
               <div class="flex-item-detail-tab">
-                {{ profile.gender }}
+                Gender
               </div>
             </div>
           </div>
           <br>
           <h3>My Mission</h3>
           <br>
-          <p>{{ profile. mission}}</p>
+          <p>Mission</p>
           <br>
           <h3>Contact Information</h3>
           <br>
@@ -156,7 +150,7 @@
             </div>
             <div class="col-md-9">
               <div class="flex-item-detail-tab">
-                {{ profile.location}}
+                address
               </div>
             </div>
           </div>
@@ -168,7 +162,7 @@
             </div>
             <div class="col-md-9">
               <div class="flex-item-detail-tab">
-                {{ profile.phone }}
+                phone
               </div>
             </div>
           </div>

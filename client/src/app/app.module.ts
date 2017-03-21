@@ -22,8 +22,7 @@ import { ProfileComponent } from './profile/index';
 import { Tabs } from './profile/index';
 import { Tab } from './profile/index';
 
-import {RequestDialogComponent} from './profile/index';
-import {CreateProfileDialogComponent} from './login/index';
+import {DialogOverviewExampleDialog} from './profile/index';
 
 @NgModule({
   imports: [
@@ -46,8 +45,7 @@ import {CreateProfileDialogComponent} from './login/index';
     ProfileComponent,
     Tabs,
     Tab,
-    RequestDialogComponent,
-    CreateProfileDialogComponent,
+    DialogOverviewExampleDialog,
 
   ],
   providers: [
@@ -57,7 +55,7 @@ import {CreateProfileDialogComponent} from './login/index';
     UserService,
     APIService,
   ],
-  entryComponents:[RequestDialogComponent,CreateProfileDialogComponent ],
+  entryComponents:[DialogOverviewExampleDialog],
   bootstrap: [
     AppComponent
   ]

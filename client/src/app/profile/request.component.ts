@@ -6,4 +6,4 @@ import {MdDialog} from '@angular/material';
   selector: 'dialog-overview-example-dialog',
   templateUrl: './request.component.html',
 })
-export class RequestDialogComponent {}
+export class DialogOverviewExampleDialog {}

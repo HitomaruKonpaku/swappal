@@ -4,11 +4,11 @@ import { Component, Input } from '@angular/core';
   selector: 'tab',
   styles: [`
     .pane{
-      padding: 30px;
+      padding: 1em;
     }
   `],
   template: `
-    <div [hidden]="!active" class="tab-content pane">
+    <div [hidden]="!active" class="tab-content">
         <ng-content></ng-content>
     </div>
   `
