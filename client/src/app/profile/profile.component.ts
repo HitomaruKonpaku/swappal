@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Directive, Output, EventEmitter } from '@angular/core';
 import { APIService } from '../_services/index';
-import { DialogOverviewExampleDialog} from './request.component';
+import { RequestDialogComponent} from './request.component';
 import {MdDialog} from '@angular/material';
 
 @Component({
     moduleId: module.id,
     templateUrl: 'profile.component.html'
 })
-
 export class ProfileComponent implements OnInit {
     profile: any = {}
+    skills: any ={}
     name: string;
+    hideDisplay: boolean = false;
+    hideEdit: boolean = true;
     constructor(
         private profileService: APIService,
         private dialog: MdDialog
@@ -26,9 +28,27 @@ export class ProfileComponent implements OnInit {
             error => {
                 console.log("error")
             })
+        this.profileService.getSkills("ct95server@gmail.com")
+            .subscribe(
+            data => {
+                this.profile = data.data.skills
+                console.log(this.skills)
+            },
+            error => {
+                console.log("error")
+            })
     }
-
     openDialog(){
-      this.dialog.open(DialogOverviewExampleDialog);
+      this.dialog.open(RequestDialogComponent);
+    }
+    switchForm(){
+      if (this.hideEdit == false)
+      {this.hideEdit = true;
+      this.hideDisplay = false;}
+      else {
+        this.hideEdit = false;
+        this.hideDisplay = true;
+      }
+
     }
 }
