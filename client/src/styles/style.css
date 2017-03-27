@@ -202,18 +202,19 @@ span.psw {
   margin-left: 25%;
   background-color: #e9dd91;
 }
-.swapme-button{
-  background-color: #6cbf6e;
-  margin-top: 10px;
-  font-size: 25px;
+.div-swapme-button{
+  text-align: right;
 }
-.profile-panel-header{
-  border: solid;
-  border-width: 1px;
+.div-swapme-button .swapme-button{
+  background-color: #6cbf6e;
+  margin: 9%;
+  font-size: 30px;
   border-radius: 5px;
-  border-color: #DDD;
-  background-color: white;
-  margin-top: 3%;
+  width: 100%;
+  height: 80px;
+  color: white;
+  font-family:sans-serif;
+  float: right;
 }
 .p-name-profile{
   font-size: 20px;
@@ -221,28 +222,49 @@ span.psw {
 .web-background-color{
   background-color: #c0efe6;
 }
-/*.nav-tabs { border-bottom: 1px solid #DDD; }*/
-    /*.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
-    .nav-tabs > li > a { border: none; color: #666; }
-        .nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; color: #4285F4 !important; background: transparent; }
-        .nav-tabs > li > a::after { content: ""; background: #4285F4; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }*/
-.tab-heading{
-  display: inline;
-   border: solid;
-   border-width: 1px 1px 0 1px;
-   border-radius: 5px;
-   background-color: white;
-   padding: 10px;
-   border-color: #DDD;
-}
 .tab-content{
   border: solid;
   border-width: 0 1px 1px 1px;
-  border-radius: 5px;
   border-color: #DDD;
   background-color: white;
   padding: 10px;
 }
+.modal-width{
+  width: 600px;
+}
+.modal-button{
+  text-align: center;
+  margin-top: 10px;
+}
+.modal-width .img-request{
+  padding: 10px;
+  text-align: center;
+}
+.background-color{
+  background-color: #c0efe6;
+}
+.btn-group .dropdown{
+  background-color: lightgrey;
+}
+.btn-group .beforedropdown{
+  border: solid;
+  border-width: 1px 0px 1px 1px;
+  border-color: #DDD;
+  font-size: 12px;
+  width: 55px;
+  height: 30px;
+}
+.form-group .marginbtn{
+  margin-left: 7px;
+}
+.dropdownbtn{
+  width: 30px;
+  height: 30px;
+}
+.input-text-margin{
+  margin-top: 10px;
+}
+
 @-webkit-keyframes animatezoom {
     from {-webkit-transform: scale(0)}
     to {-webkit-transform: scale(1)}
