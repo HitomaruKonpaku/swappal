@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BaseRequestOptions } from '@angular/http';
-
+import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -22,12 +22,16 @@ import { ProfileComponent } from './profile/index';
 import { Tabs } from './profile/index';
 import { Tab } from './profile/index';
 
+import {RequestDialogComponent} from './profile/index';
+import {CreateProfileDialogComponent} from './login/index';
+
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    MaterialModule
   ],
   declarations: [
     AppComponent,
@@ -42,6 +46,9 @@ import { Tab } from './profile/index';
     ProfileComponent,
     Tabs,
     Tab,
+    RequestDialogComponent,
+    CreateProfileDialogComponent,
+
   ],
   providers: [
     AuthGuard,
@@ -50,6 +57,7 @@ import { Tab } from './profile/index';
     UserService,
     APIService,
   ],
+  entryComponents:[RequestDialogComponent,CreateProfileDialogComponent ],
   bootstrap: [
     AppComponent
   ]
