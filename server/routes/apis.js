@@ -547,6 +547,17 @@ router.route('/accounts/profile')
             })
     })
 
+router.route('/accounts/skills')
+    .get((req, res) => {
+        let email = req.query.email
+
+        Account.findOne({ 'email': email })
+            .select('skills')
+            .exec()
+            .then((data) => {
+                responseSuccuess(res, data)
+            })
+    })
 //====================================================================================================
 //====================================================================================================
 //====================================================================================================
@@ -673,3 +684,32 @@ function getTomorrow() {
 //====================================================================================================
 //====================================================================================================
 //====================================================================================================
+
+router.route('/test')
+    .get((req, res) => {
+        let m = 'ct95server@gmail.com'
+        let s = '58ca44aa71afe424d8694002'
+
+        Account.findOne({ 'email': m })
+            // .select('skills')
+            .exec()
+            .then((data) => {
+                let acc = data
+                console.log(acc)
+                console.log(acc.skills.have)
+
+                Skill.findOne({ '_id': s }).exec()
+                    .then((data) => {
+                        let skl = data
+                        acc.skills.have.push(skl)
+
+                        acc.save()
+                            .then((data) => {
+                                responseSuccuess(res, data)
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            })
+                    })
+            })
+    })
