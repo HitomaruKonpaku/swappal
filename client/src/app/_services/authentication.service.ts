@@ -17,7 +17,7 @@ export class AuthenticationService {
         //     .map((res: Response) => {
         //         console.log(res.json());
         //     }) // ...and calling .json() on the response to return data
-        //     .catch((error: any) => Observable.throw(error.json().error || 'Server error')); //...errors if 
+        //     .catch((error: any) => Observable.throw(error.json().error || 'Server error')); //...errors if
 
         return this.http.post(this.address, data, this.authHeader())
             .map((response: Response) => {
@@ -26,7 +26,7 @@ export class AuthenticationService {
                 console.log(res);
                 if (res && res.msg === 'success' && res.data.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem(this.localKey, JSON.stringify(res.data));
+                    localStorage.setItem(this.localKey, JSON.stringify(res));
                 }
                 return response.json();
             });

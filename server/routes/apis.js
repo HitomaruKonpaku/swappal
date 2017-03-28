@@ -192,7 +192,7 @@ router.route('/accounts/reg')
             pass: pwd,
         })
 
-        // 
+        //
         let validErr = acc.validateSync()
         if (validErr) {
             res.json({
@@ -292,7 +292,7 @@ router.route('/accounts/verify/:key')
             })
     })
 
-// login  
+// login
 router.route('/accounts/authenticate')
     .post((req, res) => {
         let email = req.body.email
@@ -323,6 +323,7 @@ router.route('/accounts/authenticate')
                         .then(data => {
                             res.json({
                                 msg: 'success',
+                                email: email,
                                 data: token,
                             })
                         })
@@ -397,7 +398,7 @@ router.route('/accounts/passwordreset')
             })
     })
 
-// reset pass 
+// reset pass
 router.route('/accounts/passwordreset/:key')
     .get((req, res) => {
         let key = req.params.key
@@ -516,7 +517,7 @@ router.route('/accounts/profile')
                     data.update({
                         'profile': {
                             name: name,
-                            dob: body.dob,
+                            dob: dob,
                             gender: gender,
                             mission: mission,
                             location: location,

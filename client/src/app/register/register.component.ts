@@ -1,9 +1,9 @@
 ﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { NgForm} from '@angular/forms';
 import { Location } from '@angular/common';
 
-import { AlertService, UserService } from '../_services/index';
+import { AlertService, APIService } from '../_services/index';
 
 @Component({
     moduleId: module.id,
@@ -13,16 +13,18 @@ import { AlertService, UserService } from '../_services/index';
 export class RegisterComponent {
     model: any = {};
     loading = false;
+    formGroup : FormGroup;
 
     constructor(
         private router: Router,
-        private userService: UserService,
+        private APIService: APIService,
         private alertService: AlertService,
-        private location: Location) { }
+        private location: Location
+        ) {}
 
     onSubmit(f: NgForm) {
         var value = f.value;
-        this.userService.create(value)
+        this.APIService.create(value)
             .subscribe(
             data => {
                 switch (data.msg) {

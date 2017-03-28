@@ -15,31 +15,25 @@ export class CreateProfileDialogComponent {
   constructor(
       private router: Router,
       private apiService: APIService,
-      private location: Location) { }
+      ) { }
 
   onSubmit(f: NgForm) {
       var value = f.value;
+      var name = value.name;
+    //  var dob = value.day + value.month + value.year;
+      var address = value.address;
+      var gender = value.gender;
+      var location = value.location;
+      // var skillhave = value.skillhave;
+      // var skillneed = value.skillneed;
+      var mission = value.mission;
+      var achievement = value.achievement;
       this.apiService.createProfile(value)
           .subscribe(
           data => {
               switch (data.msg) {
                   case 'success':
-                  //     this.alertService.success('Registration successful', true);
-                  //     this.router.navigate(['/login']);
-                  //     break;
-                  //
-                  // // case 'duplicate':
-                  // //     this.alertService.error('Email duplicate');
-                  // //     this.loading = false;
-                  // //     break;
-                  // // case 'error':
-                  // //     this.alertService.error('Error');
-                  // //     this.loading = false;
-                  // //     break;
-                  //
-                  // default: this.alertService.error(data.msg);
-                  //     this.loading = false;
-                  //     break;
+
                   this.router.navigate['/profile']
                   break;
                     default: this.loading = false;
@@ -50,5 +44,5 @@ export class CreateProfileDialogComponent {
               // this.alertService.error(error);
               // this.loading = false;
           });
-  }
+}
 }

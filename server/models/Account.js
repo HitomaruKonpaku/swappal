@@ -22,18 +22,21 @@ var jSchema = new Schema(
         }],
         profile: {
             name: String,
-            dob: Date,
+            nickname: String,
+            dob: String,
             gender: String,
             mission: String,
             location: String,
             phone: String,
             exp: String,
+            qoute: String,
             achievement: String,
             facebook: String,
         },
         skills: {
             have: Array,
             want: Array,
+            detail: String,
         },
     },
     {
