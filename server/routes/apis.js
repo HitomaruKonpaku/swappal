@@ -192,7 +192,7 @@ router.route('/accounts/reg')
             pass: pwd,
         })
 
-        //
+        // 
         let validErr = acc.validateSync()
         if (validErr) {
             res.json({
@@ -292,7 +292,7 @@ router.route('/accounts/verify/:key')
             })
     })
 
-// login
+// login  
 router.route('/accounts/authenticate')
     .post((req, res) => {
         let email = req.body.email
@@ -323,7 +323,6 @@ router.route('/accounts/authenticate')
                         .then(data => {
                             res.json({
                                 msg: 'success',
-                                email: email,
                                 data: token,
                             })
                         })
@@ -398,7 +397,7 @@ router.route('/accounts/passwordreset')
             })
     })
 
-// reset pass
+// reset pass 
 router.route('/accounts/passwordreset/:key')
     .get((req, res) => {
         let key = req.params.key
@@ -517,7 +516,7 @@ router.route('/accounts/profile')
                     data.update({
                         'profile': {
                             name: name,
-                            dob: dob,
+                            dob: body.dob,
                             gender: gender,
                             mission: mission,
                             location: location,
@@ -548,6 +547,17 @@ router.route('/accounts/profile')
             })
     })
 
+router.route('/accounts/skills')
+    .get((req, res) => {
+        let email = req.query.email
+
+        Account.findOne({ 'email': email })
+            .select('skills')
+            .exec()
+            .then((data) => {
+                responseSuccuess(res, data)
+            })
+    })
 //====================================================================================================
 //====================================================================================================
 //====================================================================================================
@@ -674,3 +684,32 @@ function getTomorrow() {
 //====================================================================================================
 //====================================================================================================
 //====================================================================================================
+
+router.route('/test')
+    .get((req, res) => {
+        let m = 'ct95server@gmail.com'
+        let s = '58ca44aa71afe424d8694002'
+
+        Account.findOne({ 'email': m })
+            // .select('skills')
+            .exec()
+            .then((data) => {
+                let acc = data
+                console.log(acc)
+                console.log(acc.skills.have)
+
+                Skill.findOne({ '_id': s }).exec()
+                    .then((data) => {
+                        let skl = data
+                        acc.skills.have.push(skl)
+
+                        acc.save()
+                            .then((data) => {
+                                responseSuccuess(res, data)
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            })
+                    })
+            })
+    })
