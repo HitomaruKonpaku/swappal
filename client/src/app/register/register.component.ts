@@ -13,7 +13,10 @@ import { AlertService, APIService } from '../_services/index';
 export class RegisterComponent {
     model: any = {};
     loading = false;
-    formGroup : FormGroup;
+<<<<<<< HEAD
+=======
+    // formGroup : FormGroup;
+>>>>>>> origin/dev-client
 
     constructor(
         private router: Router,

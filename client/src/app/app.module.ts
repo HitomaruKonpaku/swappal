@@ -19,6 +19,7 @@ import { LoginComponent } from './login/index';
 import { LogoutComponent } from './logout/index';
 import { RegisterComponent } from './register/index';
 import { ProfileComponent } from './profile/index';
+import { SearchComponent} from './search/index';
 import { Tabs } from './profile/index';
 import { Tab } from './profile/index';
 
@@ -44,6 +45,7 @@ import {CreateProfileDialogComponent} from './login/index';
     LogoutComponent,
     RegisterComponent,
     ProfileComponent,
+    SearchComponent,
     Tabs,
     Tab,
     RequestDialogComponent,

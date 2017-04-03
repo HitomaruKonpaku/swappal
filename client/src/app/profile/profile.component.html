@@ -167,7 +167,7 @@
             </div>
             <div class="col-md-9">
               <div class="flex-item-detail-tab">
-                ct95server@gmail.com
+                {{email}}
               </div>
             </div>
           </div>
@@ -184,7 +184,7 @@
             </div>
             <div class="col-md-9" [hidden]=displayEdit>
               <div class="flex-item-detail-tab">
-                <input type="text" class="form-control" id="inputLocation">
+                <input type="text" class="form-control" id="inputLocation" placeholder="{{profile.location}}">
               </div>
             </div>
           </div>
@@ -201,7 +201,7 @@
             </div>
             <div class="col-md-9" [hidden]=displayEdit>
               <div class="flex-item-detail-tab">
-                <input type="text" class="form-control" id="inputPhone">
+                <input type="text" class="form-control" id="inputPhone" placeholder="{{profile.phone}}">
               </div>
             </div>
           </div>
@@ -218,7 +218,7 @@
             </div>
             <div class="col-md-9" [hidden]=displayEdit>
               <div class="flex-item-detail-tab">
-                <input type="text" class="form-control" id="inputFacebook">
+                <input type="text" class="form-control" id="inputFacebook" placeholder="{{profile.facebook}}">
               </div>
             </div>
           </div>
@@ -237,7 +237,7 @@
             <textarea class="form-control" rows="3"></textarea>
             <div class="form-group" style="text-align:center;margin-top:10px;">
               <button type="submit" class="btn btn-info" name="Save">Save</button>
-              <button type="submit" class="btn btn-warning" name="Cancel" (click)="switchForm()">Cancel</button>
+              <button type="button" class="btn btn-warning" name="Cancel" (click)="switchForm()">Cancel</button>
             </div>
           </div>
         </tab>

@@ -23,7 +23,7 @@ var config = {
     localHost: '127.0.0.1',
     localPort: 27017,
     agent: process.env.SSH_AUTH_SOCK,
-    privateKey: require('fs').readFileSync('./.key/SSHPrivatekey2.ppk'),
+    privateKey: require('fs').readFileSync('./_key/SSHPrivatekey2.ppk'),
 };
 
 var mongooseURI = 'mongodb://localhost:27017/swappal'
@@ -192,7 +192,7 @@ router.route('/accounts/reg')
             pass: pwd,
         })
 
-        // 
+        //
         let validErr = acc.validateSync()
         if (validErr) {
             res.json({
@@ -292,7 +292,7 @@ router.route('/accounts/verify/:key')
             })
     })
 
-// login  
+// login
 router.route('/accounts/authenticate')
     .post((req, res) => {
         let email = req.body.email
@@ -321,9 +321,11 @@ router.route('/accounts/authenticate')
 
                     data.save()
                         .then(data => {
+                          var acc = data;
                             res.json({
                                 msg: 'success',
                                 data: token,
+                                acc :  acc,
                             })
                         })
                         .catch(err => {
@@ -397,7 +399,7 @@ router.route('/accounts/passwordreset')
             })
     })
 
-// reset pass 
+// reset pass
 router.route('/accounts/passwordreset/:key')
     .get((req, res) => {
         let key = req.params.key
@@ -491,17 +493,19 @@ router.route('/accounts/profile')
     })
     .post((req, res) => {
         let header = req.header
-        let body = req.body
-        let email = body.email
-        let name = body.name
-        let dob = body.dob
-        let gender = body.gender
-        let mission = body.mission
-        let location = body.location
-        let phone = body.phone
-        let exp = body.exp
-        let achievement = body.achievement
-        let facebook = body.facebook
+        let email = req.body.email
+        let name = req.body.name
+        let month = req.body.month
+        let day = req.body.day
+        let year = req.body.year
+        let dob = month + day + year
+        let gender = req.body.gender
+        let mission = req.body.mission
+        let location = req.body.location
+        let phone = req.body.phone
+        let exp = req.body.exp
+        let achievement = req.body.achievement
+        let facebook = req.body.facebook
 
         if (!email) {
             res.json({
@@ -513,10 +517,11 @@ router.route('/accounts/profile')
         Account.findOne({ 'email': email })
             .then(data => {
                 if (data) {
+
                     data.update({
                         'profile': {
                             name: name,
-                            dob: body.dob,
+                            dob: dob,
                             gender: gender,
                             mission: mission,
                             location: location,
@@ -530,6 +535,7 @@ router.route('/accounts/profile')
                             res.json({
                                 msg: 'success',
                                 data: data,
+
                             })
                         })
                         .catch()

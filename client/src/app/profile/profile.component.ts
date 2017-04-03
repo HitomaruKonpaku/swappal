@@ -11,7 +11,7 @@ import {MdDialog} from '@angular/material';
 export class ProfileComponent implements OnInit {
     profile: any = {}
     skills: any ={}
-    name: string;
+    email: string;
     displayInformation: boolean = false;
     displayEdit: boolean = true;
     constructor(
@@ -19,17 +19,18 @@ export class ProfileComponent implements OnInit {
         private dialog: MdDialog
     ) { }
     ngOnInit() {
-
-        this.profileService.getProfile("ct95server@gmail.com")
+        this.email = localStorage.getItem('currentEmail');
+        this.profileService.getProfile(this.email)
             .subscribe(
             data => {
                 this.profile = data.data.profile
                 console.log(this.profile)
+                console.log(this.profile.name);
             },
             error => {
                 console.log("error")
             })
-            this.profileService.getSkills("ct95server@gmail.com")
+            this.profileService.getSkills(this.email)
                 .subscribe(
                 data => {
                     this.profile = data.data.skills

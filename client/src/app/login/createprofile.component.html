@@ -8,65 +8,36 @@
 
   <h1 style="text-align: center;">Welcome to Swappal</h1>
     <!-- Tell us -->
-    <form class="form-group">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" >
     <label for="InputTellUs"><p class="glyphicon glyphicon-user"></p> Tell us about you</label>
-    <input type="name" name="name" class="form-control" id="InputTellUs" placeholder="What's your name?">
+    <input type="input" name="name" ngModel class="form-control" id="InputTellUs" placeholder="What's your name?">
     <br>
     <div class="row">
       <div class="col-md-7">
-        <!-- <form class="form-inline"> -->
-          <div class="form-group">
-            <label for="DOBCombobox">DOB</label>
-            <div class="btn-group marginbtn" >
-              <button type="button" name="month" class="btn btn-default beforedropdown">Month</button>
-              <button type="button" class="btn dropdown dropdown-toggle dropdownbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="sr-only">Toggle Dropdown</span>
-              </button>
-              <ul class="dropdown-menu">
-                <li><a href="#">demo</a></li>
-              </ul>
-            </div>
-            <div class="btn-group marginbtn">
-              <button type="button" name="day" class="btn btn-default beforedropdown">Day</button>
-              <button type="button" class="btn dropdown dropdown-toggle dropdownbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="sr-only">Toggle Dropdown</span>
-              </button>
-              <ul class="dropdown-menu">
-                <li><a href="#">demo</a></li>
-              </ul>
-            </div>
-            <div class="btn-group marginbtn">
-              <button type="button" name="year" class="btn btn-default beforedropdown">Year</button>
-              <button type="button" class="btn dropdown dropdown-toggle dropdownbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="sr-only">Toggle Dropdown</span>
-              </button>
-              <ul class="dropdown-menu">
-                <li><a href="#">demo</a></li>
-              </ul>
-            </div>
-          </div>
-        <!-- </form> -->
+        <input type="date">
       </div>
       <div class="col-md-5">
           <label for="GenderRadio">Gender</label>
-          <label class="radio-inline"><input type="radio" name="gender">Male</label>
-          <label class="radio-inline"><input type="radio" name="gender">Female</label>
+          <label class="radio-inline"><input type="radio" name="gender" ngModel>Male</label>
+          <label class="radio-inline"><input type="radio" name="gender" ngModel>Female</label>
       </div>
     </div>
     <hr>
     <label for="InputHelpOther1"><p class="glyphicon glyphicon-user"></p> Help others get in touch</label>
-    <input type="email" class="form-control" id="InputHelpOther1" placeholder="What's your email address?">
-    <input type="location" name="location" class="form-control input-text-margin" id="InputHelpOther1" placeholder="Fill your location so we could find the swap friends around you">
+    <!-- <input type="email" class="form-control" id="InputHelpOther1" placeholder="What's your email address?"> -->
+    <p name="email">{{email}}</p>
+    <input type="input" name="location" ngModel class="form-control input-text-margin" id="InputHelpOther1" placeholder="Fill your location so we could find the swap friends around you">
     <hr>
     <label for="InputHelpOther2"><p class="glyphicon glyphicon-user"></p> Help others know more about you</label>
-    <input type="skillhave" name="skillhave" class="form-control input-text-margin" id="InputHelpOther2" placeholder="You're expert in">
-    <input type="skillneed" name="skillneed" class="form-control input-text-margin" id="InputHelpOther2" placeholder="You want to learn more">
-    <input type="mission" name="mission" class="form-control input-text-margin" id="InputHelpOther2" placeholder="You are here because">
-    <input type="achievement" name="achievement" class="form-control input-text-margin" id="InputHelpOther2" placeholder="Your achievement in swapping are">
+    <input type="input" name="skillhave" class="form-control input-text-margin" id="InputHelpOther2" placeholder="You're expert in">
+    <input type="input" name="skillneed" class="form-control input-text-margin" id="InputHelpOther2" placeholder="You want to learn more">
+    <input type="input" name="mission" ngModel class="form-control input-text-margin" id="InputHelpOther2" placeholder="You are here because">
+    <input type="input" name="achievement" ngModel class="form-control input-text-margin" id="InputHelpOther2" placeholder="Your achievement in swapping are">
     <div style="text-align:center;margin-top:10px;">
       <div class="form-group">
         <button type="submit" class="btn btn-info" name="done">Done</button>
       </div>
     </div>
+
     </form>
 </div>

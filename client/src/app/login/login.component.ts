@@ -7,9 +7,11 @@ import {MdDialog} from '@angular/material';
 import { HeaderComponent } from '../_layouts/index';
 
 
+
 @Component({
     moduleId: module.id,
-    templateUrl: './login.component.html'
+    templateUrl: './login.component.html',
+
 })
 
 export class LoginComponent implements OnInit {
@@ -17,7 +19,6 @@ export class LoginComponent implements OnInit {
     profile: any = {};
     loading = false;
     returnUrl: string;
-
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -39,33 +40,19 @@ export class LoginComponent implements OnInit {
 
     onSubmit(f: NgForm) {
         var v = f.value;
-        var e = v.email;
-        var p = v.pwd;
-
         this.loading = true;
         this.authenticationService.login(v)
             .subscribe(
             data => {
                 switch (data.msg) {
                     case 'success':
-                      //  alert(data.email);
-                      this.profileService.getProfile(data.email).subscribe(
-                        data =>{
 
-                            this.profile = data.data.profile;
-                            // console.log(this.profile.name);
-                            // alert(this.profile.name);
-                            if (!this.profile){
-                              this.openDialog();
-                            }
-                        }
-                        ,error =>{
-
-                        });
+                      this.profile = data.acc.profile;
+                      if (!this.profile){
+                        this.openDialog();
+                      }
                       this.alertService.success('Log in successful', true);
-                      //  this.router.navigate([this.returnUrl]);
-                        // reload page
-                      //  location.reload();
+                      this.router.navigate(['/']);
                         break;
                     default:
                         this.alertService.error(data.msg);
@@ -80,4 +67,5 @@ export class LoginComponent implements OnInit {
     openDialog(){
       this.dialog.open(CreateProfileDialogComponent);
     }
+
 }

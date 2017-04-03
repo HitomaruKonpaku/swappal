@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map'
 export class AuthenticationService {
     private address: string = 'http://localhost:3001/apis/accounts/authenticate';
     private localKey: string = 'currentUser';
+    private localEmail : string = 'currentEmail';
 
     constructor(private http: Http) { }
 
@@ -23,11 +24,14 @@ export class AuthenticationService {
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let res = response.json();
-                console.log(res);
-                if (res && res.msg === 'success' && res.data.token) {
+
+                if (res && res.msg === 'success' && res.data) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem(this.localKey, JSON.stringify(res));
+                    localStorage.setItem(this.localKey, JSON.stringify(res.data));
+                    localStorage.setItem(this.localEmail, data.email);
                 }
+                //console.log(JSON.stringify(res.token.token));
+                // localStorage.setItem(this.localKey,JSON.stringify(res.token.token));
                 return response.json();
             });
     }
