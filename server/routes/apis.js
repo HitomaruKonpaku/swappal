@@ -551,12 +551,43 @@ router.route('/accounts/skills')
     .get((req, res) => {
         let email = req.query.email
 
-        Account.findOne({ 'email': email })
+        Account
+            .findOne({ 'email': email })
             .select('skills')
+            .populate('skills.have')
+            .populate('skills.want')
             .exec()
             .then((data) => {
+                console.log(data)
                 responseSuccuess(res, data)
             })
+    })
+    .post((req, res) => {
+        let email = req.body.email
+        let have = req.body.have
+        let want = req.body.want
+
+        console.log(email)
+        console.log(have)
+        console.log(want)
+
+        Account
+            .findOne({ 'email': email })
+            .exec()
+            .then((result) => {
+                if (!result) { }
+
+                result.skills.have = have
+                result.skills.want = want
+                console.log(result)
+
+                result
+                    .save()
+                    .then((result) => {
+                        res.json(result)
+                    })
+            })
+
     })
 //====================================================================================================
 //====================================================================================================
@@ -566,7 +597,7 @@ router.route('/skills')
     .get((req, res) => {
         let q = req.query
 
-        let s = q.search
+        let s = q.search || ''
         let p = q.page || 1
         let l = q.limit || 10
 
