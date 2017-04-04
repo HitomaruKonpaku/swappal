@@ -32,8 +32,8 @@ var jSchema = new Schema(
             facebook: String,
         },
         skills: {
-            have: Array,
-            want: Array,
+            have: [{ type: Schema.Types.ObjectId, ref: 'skills' }],
+            want: [{ type: Schema.Types.ObjectId, ref: 'skills' }],
         },
     },
     {
