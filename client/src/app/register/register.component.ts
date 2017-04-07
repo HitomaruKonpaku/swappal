@@ -13,10 +13,6 @@ import { AlertService, APIService } from '../_services/index';
 export class RegisterComponent {
     model: any = {};
     loading = false;
-<<<<<<< HEAD
-=======
-    // formGroup : FormGroup;
->>>>>>> origin/dev-client
 
     constructor(
         private router: Router,
@@ -35,16 +31,6 @@ export class RegisterComponent {
                         this.alertService.success('Registration successful', true);
                         this.router.navigate(['/login']);
                         break;
-
-                    // case 'duplicate':
-                    //     this.alertService.error('Email duplicate');
-                    //     this.loading = false;
-                    //     break;
-                    // case 'error':
-                    //     this.alertService.error('Error');
-                    //     this.loading = false;
-                    //     break;
-
                     default: this.alertService.error(data.msg);
                         this.loading = false;
                         break;

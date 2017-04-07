@@ -15,9 +15,6 @@ export class CreateProfileDialogComponent {
   model: any = {};
   loading = false;
   email : any;
-  day = new Array(12);
-  month = new Array(31);
-  year = new Array(2017);
 
   constructor(
       private router: Router,

@@ -1,13 +1,18 @@
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
     crossorigin="anonymous" />
+  <script>
+  $(document).ready(() => {
+    $('.chosen-select').chosen({})
+  })
+
+  </script>
 </head>
 <body>
   <div class="web-background-color">
     <div class="container" style="background-color:#c4c9cd">
         <form class="form-inline">
           <div class="form-group">
-            <input type="text" name="keyword" class="form-control"  style="width:700px; height:35px;">
           </div>
           <div class="form-group" style="margin-left:10px">
             <select class="form-control" style="width:100px;">

@@ -495,10 +495,7 @@ router.route('/accounts/profile')
         let header = req.header
         let email = req.body.email
         let name = req.body.name
-        let month = req.body.month
-        let day = req.body.day
-        let year = req.body.year
-        let dob = month + day + year
+        let dob = req.body.dob
         let gender = req.body.gender
         let mission = req.body.mission
         let location = req.body.location

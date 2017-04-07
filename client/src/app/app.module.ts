@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BaseRequestOptions } from '@angular/http';
 import { MaterialModule } from '@angular/material';
+ // import { Ng2StickyModule } from 'ng2-sticky';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -12,7 +13,7 @@ import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, UserService, APIService } from './_services/index';
 
-import { HeaderComponent, FooterComponent, BackgroundComponent } from './_layouts/index';
+import { HeaderComponent, FooterComponent } from './_layouts/index';
 
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
@@ -32,13 +33,13 @@ import {CreateProfileDialogComponent} from './login/index';
     FormsModule,
     HttpModule,
     routing,
-    MaterialModule
+    MaterialModule,
+    // Ng2StickyModule,
   ],
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    BackgroundComponent,
     AlertComponent,
     HomeComponent,
     LoginComponent,

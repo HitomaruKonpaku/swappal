@@ -18,13 +18,24 @@ footer {
     clear: left;
     align-content: center;
   }
+/*body{
+  position: relative;
+}
+.footer-css{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}*/
 /* Extra styles for the cancel button */
+
 .signupbuttonmain{
   width:auto;
   margin:2;
   float:right;
 
 }
+
 .container-main{
   margin:20px;
   height:800px;
