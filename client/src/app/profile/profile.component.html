@@ -157,7 +157,7 @@
           <hr>
           <p [hidden]=displayInformation>{{ profile. mission}}</p>
           <div [hidden]=displayEdit>
-            <textarea class="form-control" name="mission" rows="3">{{ profile. mission}}</textarea>
+            <input type="text" class="form-control" name="mission" ngModel={{profile.mission}} value="{{profile.mission}}" style="height:150px;">
           </div>
           <br>
           <h3>Contact Information</h3>
@@ -230,14 +230,14 @@
           <hr>
           <p [hidden]=displayInformation>{{ profile.achievement}}</p>
           <div [hidden]=displayEdit>
-            <textarea class="form-control" rows="3">{{ profile.achievement}}</textarea>
+            <input type="text" class="form-control" name="achievement" ngModel={{profile.achievement}} value="{{profile.achievement}}" style="height:150px;">
           </div>
           <br>
           <h3>Your Recommended Friend</h3>
           <hr>
           <p [hidden]=displayInformation>....</p>
           <div [hidden]=displayEdit>
-            <textarea class="form-control" rows="3"></textarea>
+            <input type="text" class="form-control" name="achievement" style="height:150px;">
             <div class="form-group" style="text-align:center;margin-top:10px;">
               <button type="submit" class="btn btn-info" name="Save">Save</button>
               <button type="button" class="btn btn-warning" name="Cancel" (click)="switchForm()">Cancel</button>

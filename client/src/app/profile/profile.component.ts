@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
         private router: Router
     ) { }
     ngOnInit() {
+
         this.email = localStorage.getItem('currentEmail');
         this.profileService.getProfile(this.email)
             .subscribe(
@@ -55,7 +56,7 @@ export class ProfileComponent implements OnInit {
                   case 'success':
                   console.log("success");
 
-                  this.router.navigate['/']
+                  this.router.navigate(['/']);
                   break;
                     default: this.loading = false;
                     break;
