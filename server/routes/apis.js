@@ -753,19 +753,12 @@ router.route('/search')
         let page = Number(req.body.page) || 1
         let limit = Number(req.body.limit) || 10
 
-        console.log('--------------------HAVE')
-        console.log(have)
-        console.log('--------------------WANT')
-        console.log(want)
-        console.log('--------------------')
+        let query = {}
+        if (have && have.length > 0) query['skills.have'] = { $all: have }
+        if (want && want.length > 0) query['skills.want'] = { $all: want }
 
         Account
-            .paginate({
-                $and: [
-                    { 'skills.have': { $all: have } },
-                    { 'skills.want': { $all: want } },
-                ]
-            },
+            .paginate(query,
             {
                 select: {
                     'email': 1,
@@ -785,21 +778,4 @@ router.route('/search')
             .then((result) => {
                 res.json({ result })
             })
-        // .find({
-        //     $and: [
-        //         { 'skills.have': { $all: have } },
-        //         { 'skills.want': { $all: want } },
-        //     ]
-        // })
-        // .select({
-        //     'email': 1,
-        //     'profile': 1,
-        //     'skills': 1,
-        // })
-        // .populate([
-        //     'skills.have',
-        //     'skills.want',
-        // ])
-        // .exec()
-
     })
