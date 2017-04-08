@@ -744,3 +744,62 @@ router.route('/test')
                     })
             })
     })
+
+
+router.route('/search')
+    .post((req, res) => {
+        let have = req.body.have || []
+        let want = req.body.want || []
+        let page = Number(req.body.page) || 1
+        let limit = Number(req.body.limit) || 10
+
+        console.log('--------------------HAVE')
+        console.log(have)
+        console.log('--------------------WANT')
+        console.log(want)
+        console.log('--------------------')
+
+        Account
+            .paginate({
+                $and: [
+                    { 'skills.have': { $all: have } },
+                    { 'skills.want': { $all: want } },
+                ]
+            },
+            {
+                select: {
+                    'email': 1,
+                    'profile': 1,
+                    'skills': 1,
+                },
+                sort: {},
+                populate: [
+                    'skills.have',
+                    'skills.want',
+                ],
+                // lean: false,
+                // leanWithId: true,
+                page: page,
+                limit: limit,
+            })
+            .then((result) => {
+                res.json({ result })
+            })
+        // .find({
+        //     $and: [
+        //         { 'skills.have': { $all: have } },
+        //         { 'skills.want': { $all: want } },
+        //     ]
+        // })
+        // .select({
+        //     'email': 1,
+        //     'profile': 1,
+        //     'skills': 1,
+        // })
+        // .populate([
+        //     'skills.have',
+        //     'skills.want',
+        // ])
+        // .exec()
+
+    })
