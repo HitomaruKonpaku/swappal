@@ -547,6 +547,48 @@ router.route('/accounts/profile')
             })
     })
 
+router.route('/accounts/skills')
+    .get((req, res) => {
+        let email = req.query.email
+
+        Account
+            .findOne({ 'email': email })
+            .select('skills')
+            .populate('skills.have')
+            .populate('skills.want')
+            .exec()
+            .then((data) => {
+                console.log(data)
+                responseSuccuess(res, data)
+            })
+    })
+    .post((req, res) => {
+        let email = req.body.email
+        let have = req.body.have
+        let want = req.body.want
+
+        console.log(email)
+        console.log(have)
+        console.log(want)
+
+        Account
+            .findOne({ 'email': email })
+            .exec()
+            .then((result) => {
+                if (!result) { }
+
+                result.skills.have = have
+                result.skills.want = want
+                console.log(result)
+
+                result
+                    .save()
+                    .then((result) => {
+                        res.json(result)
+                    })
+            })
+
+    })
 //====================================================================================================
 //====================================================================================================
 //====================================================================================================
@@ -555,7 +597,7 @@ router.route('/skills')
     .get((req, res) => {
         let q = req.query
 
-        let s = q.search
+        let s = q.search || ''
         let p = q.page || 1
         let l = q.limit || 10
 
@@ -673,3 +715,91 @@ function getTomorrow() {
 //====================================================================================================
 //====================================================================================================
 //====================================================================================================
+
+router.route('/test')
+    .get((req, res) => {
+        let m = 'ct95server@gmail.com'
+        let s = '58ca44aa71afe424d8694002'
+
+        Account.findOne({ 'email': m })
+            // .select('skills')
+            .exec()
+            .then((data) => {
+                let acc = data
+                console.log(acc)
+                console.log(acc.skills.have)
+
+                Skill.findOne({ '_id': s }).exec()
+                    .then((data) => {
+                        let skl = data
+                        acc.skills.have.push(skl)
+
+                        acc.save()
+                            .then((data) => {
+                                responseSuccuess(res, data)
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            })
+                    })
+            })
+    })
+
+
+router.route('/search')
+    .post((req, res) => {
+        let have = req.body.have || []
+        let want = req.body.want || []
+        let page = Number(req.body.page) || 1
+        let limit = Number(req.body.limit) || 10
+
+        console.log('--------------------HAVE')
+        console.log(have)
+        console.log('--------------------WANT')
+        console.log(want)
+        console.log('--------------------')
+
+        Account
+            .paginate({
+                $and: [
+                    { 'skills.have': { $all: have } },
+                    { 'skills.want': { $all: want } },
+                ]
+            },
+            {
+                select: {
+                    'email': 1,
+                    'profile': 1,
+                    'skills': 1,
+                },
+                sort: {},
+                populate: [
+                    'skills.have',
+                    'skills.want',
+                ],
+                // lean: false,
+                // leanWithId: true,
+                page: page,
+                limit: limit,
+            })
+            .then((result) => {
+                res.json({ result })
+            })
+        // .find({
+        //     $and: [
+        //         { 'skills.have': { $all: have } },
+        //         { 'skills.want': { $all: want } },
+        //     ]
+        // })
+        // .select({
+        //     'email': 1,
+        //     'profile': 1,
+        //     'skills': 1,
+        // })
+        // .populate([
+        //     'skills.have',
+        //     'skills.want',
+        // ])
+        // .exec()
+
+    })
