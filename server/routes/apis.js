@@ -321,11 +321,11 @@ router.route('/accounts/authenticate')
 
                     data.save()
                         .then(data => {
-                          var acc = data;
+                            var acc = data;
                             res.json({
                                 msg: 'success',
                                 data: token,
-                                acc :  acc,
+                                acc: acc,
                             })
                         })
                         .catch(err => {
@@ -554,12 +554,43 @@ router.route('/accounts/skills')
     .get((req, res) => {
         let email = req.query.email
 
-        Account.findOne({ 'email': email })
+        Account
+            .findOne({ 'email': email })
             .select('skills')
+            .populate('skills.have')
+            .populate('skills.want')
             .exec()
             .then((data) => {
+                console.log(data)
                 responseSuccuess(res, data)
             })
+    })
+    .post((req, res) => {
+        let email = req.body.email
+        let have = req.body.have
+        let want = req.body.want
+
+        console.log(email)
+        console.log(have)
+        console.log(want)
+
+        Account
+            .findOne({ 'email': email })
+            .exec()
+            .then((result) => {
+                if (!result) { }
+
+                result.skills.have = have
+                result.skills.want = want
+                console.log(result)
+
+                result
+                    .save()
+                    .then((result) => {
+                        res.json(result)
+                    })
+            })
+
     })
 //====================================================================================================
 //====================================================================================================
@@ -569,7 +600,7 @@ router.route('/skills')
     .get((req, res) => {
         let q = req.query
 
-        let s = q.search
+        let s = q.search || ''
         let p = q.page || 1
         let l = q.limit || 10
 
@@ -714,5 +745,39 @@ router.route('/test')
                                 console.log(err)
                             })
                     })
+            })
+    })
+
+router.route('/search')
+    .post((req, res) => {
+        let have = req.body.have || []
+        let want = req.body.want || []
+        let page = Number(req.body.page) || 1
+        let limit = Number(req.body.limit) || 10
+
+        let query = {}
+        if (have && have.length > 0) query['skills.have'] = { $all: have }
+        if (want && want.length > 0) query['skills.want'] = { $all: want }
+
+        Account
+            .paginate(query,
+            {
+                select: {
+                    'email': 1,
+                    'profile': 1,
+                    'skills': 1,
+                },
+                sort: {},
+                populate: [
+                    'skills.have',
+                    'skills.want',
+                ],
+                // lean: false,
+                // leanWithId: true,
+                page: page,
+                limit: limit,
+            })
+            .then((result) => {
+                res.json({ result })
             })
     })
