@@ -1,22 +1,20 @@
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
     crossorigin="anonymous" />
-  <script>
-  $(document).ready(() => {
-    $('.chosen-select').chosen({})
-  })
-
-  </script>
 </head>
 <body>
   <div class="web-background-color">
-    <div class="container" style="background-color:#c4c9cd">
-        <form class="form-inline">
+    <div class="container" style="background-color:#c4c9cd; height:50px; padding:7px;">
+        <form class="form-inline" #f="ngForm" (ngSubmit)="onSubmit(f)">
           <div class="form-group">
+            <select [(ngModel)]="id" name="id" class="form-control" style="width:700px;">
+              <option *ngFor="let skill of skills" ngValue="{{skill.id}}">{{skill.name}}</option>
+            </select>
           </div>
           <div class="form-group" style="margin-left:10px">
-            <select class="form-control" style="width:100px;">
-              <option>option</option>
+            <select [(ngModel)]="searchOpt" name="searchOpt" class="form-control" style="width:100px;">
+              <option ngValue="want">Need</option>
+              <option ngValue="have">Have</option>
             </select>
           </div>
           <div class="form-group" style="margin-left:10px">
