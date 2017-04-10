@@ -1,7 +1,7 @@
 import { Component, ContentChildren, QueryList, AfterContentInit } from '@angular/core';
 import { Tab } from '../app/profile/tab.component';
 
-describe("Profile - Tabs Component",function(){
+describe("Test Profile - Tabs Component",function(){
     it("Tabs Component - ngAfterContentInit",function(){
         var ngAfterContentInit = function(){
             return this.selectTab(this.tabs.first);
