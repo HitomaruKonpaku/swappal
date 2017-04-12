@@ -13,7 +13,16 @@ export class SearchComponent implements OnInit{
   objectskills : any = {};
   skills : Skill[] = [];
   idskill : string;
-  searchOpt : string[]=[];
+  searchOpt :string;
+  skillHave: any = [];
+  skillWant: any = [];
+  resultUserProfiles : any = [];
+  resultUserSkill: any =[];
+  resultUserSkillsHave: any =[];
+  resultUserSkillsWant: any =[];
+
+  displayInformation: boolean = true;
+
 
   constructor(
     private apiService: APIService,
@@ -35,22 +44,43 @@ export class SearchComponent implements OnInit{
 
   }
 
-  onSubmit(f:NgForm){
-    var value = f.value;
-    console.log (f);
-    console.log (value);
+  onSubmit(){
+    var str = '{'+ '"'+this.searchOpt+'"' +':["'+this.idskill+'"]}';
 
-    console.log (value.searchOpt.idskill);
+    var json = JSON.parse(str);
 
-    this.apiService.searchSkill(value.searchOpt.idskill)
+
+    this.apiService.searchSkill(json)
     .subscribe(
-      data => {
+      data =>{
+
+        if (this.displayInformation == true){
+          this.displayInformation = false;
+        }else{
+          this.displayInformation = true;
+        }
+        console.log(data)
+
+        for (let i = 0; i<data.result.docs.length;i++){
+          this.resultUserProfiles[i] = data.result.docs[i].profile;
+          this.resultUserSkill[i] = data.result.docs[i].skills;
+          for( let j =0 ; j< this.resultUserSkill[i].have.length;j++){
+            this.skillHave[j] =  this.resultUserSkill[i].have[j];
+          }
+          console.log(this.skillHave)
+
+          for (let k = 0; k <this.resultUserSkill[i].want.length;k++){
+            this.skillWant[k] = this.resultUserSkill[i].want[k];
+          }
+          console.log(this.skillWant)
+        }
+
+
 
       },
-      error => {
-          console.log("error")
+      error =>{
+        console.log("error")
       }
     )
-
   }
 }

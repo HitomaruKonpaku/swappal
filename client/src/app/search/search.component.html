@@ -5,26 +5,21 @@
 <body>
   <div class="web-background-color">
     <div class="container" style="background-color:#c4c9cd; height:50px; padding:7px;">
-        <form class="form-inline" #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <form class="form-inline" >
           <div class="form-group">
-            <select [(ngModel)]="id" name="id" class="form-control" style="width:700px;">
+            <select [(ngModel)]="searchOpt" name="searchOpt" class="form-control" style="width:100px;">
+              <option ngValue="want">I Have</option>
+              <option ngValue="have">I Need</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-left:10px">
+            <select [(ngModel)]="idskill" name="id" class="form-control" style="width:830px;">
               <option *ngFor="let skill of skills" ngValue="{{skill.id}}">{{skill.name}}</option>
             </select>
           </div>
-          <div class="form-group" style="margin-left:10px">
-            <select [(ngModel)]="searchOpt" name="searchOpt" class="form-control" style="width:100px;">
-              <option ngValue="want">Need</option>
-              <option ngValue="have">Have</option>
-            </select>
-          </div>
-          <div class="form-group" style="margin-left:10px">
-            <select class="form-control" style="width:100px;">
-              <option>option</option>
-            </select>
-          </div>
-          <div class="form-group" style="margin-left:10px">
-            <button class="btn btn-default " style="width:170px;"type="submit" name="button">search</button>
-          </div>
+
+          <button class="btn btn-default " style="width:170px;margin-left:10px;" type="submit" (click)="onSubmit()" name="button">search</button>
+
         </form>
 
     </div>
@@ -45,25 +40,27 @@
       </div>
     </div>
       <div class="container" style="height:600px; margin-top:10px;">
-        <div class="row">
+        <div class="row" [hidden]=displayInformation>
           <div class="col-md-6 col-sm-6">
             <div class="panel panel-default" style="height:200px; width:520px; margin:10px">
-              <div class="flex-container-column">
+              <div class="flex-container-row">
                 <div style="height:140px; width:140px; margin:10px;">
                   <img class="img-circle img-fluid"src="../../images/user1.jpg" alt="">
                 </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-sm-6">
-            <div class="panel panel-default" style="height:200px; width:520px; margin:10px">
-              <div class="flex-container-column">
-                <div style="height:140px; width:140px; margin:10px;">
-                  <img class="img-circle img-fluid"src="../../images/user3.jpg" alt="">
-                </div>
-                <div class="height:140px; width: 100px; background-color:blue;">
-
+                <div style="height:140px; width:300px; margin:10px; ">
+                  <div class="flex-container-column">
+                    <div style="height:100px;width:100%; ">
+                      <p *ngFor="let resultUserProfile of resultUserProfiles"><a href="#">{{resultUserProfile.name}}</a></p>
+                    </div>
+                    <div class="flex-container-row" style="height:40px;width:100%; ">
+                      <div style="height:100%;width:100%;">
+                          Skill have :<p *ngFor="let have of skillHave;">{{have.name}}</p>
+                      </div>
+                      <div style="height:100%;width:100%;">
+                        Skill Need: <p *ngFor="let want of skillWant">{{want.name}}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
