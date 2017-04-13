@@ -57,9 +57,9 @@ var server = tunnel(config, function (error, server) {
 // const
 const passHashKey = 'swappal'
 const verificationTokenLength = 64
-const verificationLink = 'http://localhost:3001/apis/accounts/verify/'
+const verificationLink = 'http://api.swappal.ml:3001/apis/accounts/verify/'
 const resetPassTokenLength = 128
-const passResetLink = 'http://localhost:3001/apis/accounts/passwordreset/'
+const passResetLink = 'http://api.swappal.ml:3001/apis/accounts/passwordreset/'
 const loginTokenLength = 128
 
 const msgMissingData = 'Missing data'
