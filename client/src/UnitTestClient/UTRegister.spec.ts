@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 
 import { AlertService, UserService } from '../app/_services';
 
-describe("Register Component",function(){
+describe("Test Register",function(){
     it("Register Component - onSubmit 1",function(){
         var onSubmit = function(){
             return this.alertService.success('Registration successful', true);

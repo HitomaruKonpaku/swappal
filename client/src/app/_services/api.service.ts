@@ -5,7 +5,7 @@ import { User } from '../_models/index';
 
 @Injectable()
 export class APIService {
-    private address: string = 'http://localhost:3001/apis';
+    private address: string = 'http://api.swappal.ml:3001/apis';
 
     constructor(private http: Http) { }
 
@@ -15,17 +15,26 @@ export class APIService {
     }
     getSkills(email: any){
       return this.http.get(this.address + '/accounts/skills' + '?email=' + email, this.jwt()).map((response: Response) => response.json())
-       
+
     }
+
+
 
     //
 
     getAll() {
         return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
     }
+    getAllSkills(){
+        return this.http.get(this.address + '/skills' + '?=limit100', this.jwt()).map((response: Response) => response.json())
+    }
+
 
     getById(id: number) {
         return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
+    }
+    searchSkill(search : any){
+      return this.http.post(this.address+'/search', search, this.jwt()).map((response: Response) => response.json());
     }
 
     create(user: any) {
@@ -37,10 +46,13 @@ export class APIService {
         // let options = new RequestOptions({ headers: headers });
         // return this.http.post(this.address, user, options).map((response: Response) => response.json());
 
-        return this.http.post(this.address, user, this.jwt()).map((response: Response) => response.json());
+        return this.http.post(this.address+ '/accounts/reg', user, this.jwt()).map((response: Response) => response.json());
     }
-    createProfile(profile: any){
-      return this.http.post(this.address, profile, this.jwt()).map((response: Response) => response.json());
+    createProfile(user: any){
+      return this.http.post(this.address + '/accounts/profile', user, this.jwt()).map((response: Response) => response.json());
+    }
+    updateProfile(user : any){
+      return this.http.post(this.address + '/accounts/profile', user, this.jwt()).map((response: Response) => response.json());
     }
     update(user: User) {
         return this.http.put('/api/users/' + user.id, user, this.jwt()).map((response: Response) => response.json());

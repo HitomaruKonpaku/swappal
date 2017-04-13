@@ -1,9 +1,9 @@
 ﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { NgForm} from '@angular/forms';
 import { Location } from '@angular/common';
 
-import { AlertService, UserService } from '../_services/index';
+import { AlertService, APIService } from '../_services/index';
 
 @Component({
     moduleId: module.id,
@@ -16,13 +16,14 @@ export class RegisterComponent {
 
     constructor(
         private router: Router,
-        private userService: UserService,
+        private APIService: APIService,
         private alertService: AlertService,
-        private location: Location) { }
+        private location: Location
+        ) {}
 
     onSubmit(f: NgForm) {
         var value = f.value;
-        this.userService.create(value)
+        this.APIService.create(value)
             .subscribe(
             data => {
                 switch (data.msg) {
@@ -30,16 +31,6 @@ export class RegisterComponent {
                         this.alertService.success('Registration successful', true);
                         this.router.navigate(['/login']);
                         break;
-
-                    // case 'duplicate':
-                    //     this.alertService.error('Email duplicate');
-                    //     this.loading = false;
-                    //     break;
-                    // case 'error':
-                    //     this.alertService.error('Error');
-                    //     this.loading = false;
-                    //     break;
-
                     default: this.alertService.error(data.msg);
                         this.loading = false;
                         break;

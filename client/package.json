@@ -33,8 +33,12 @@
     "@angular/platform-browser": "~2.4.0",
     "@angular/platform-browser-dynamic": "~2.4.0",
     "@angular/router": "~3.4.0",
+    "angular-chosen-localytics": "^1.6.0",
     "angular-in-memory-web-api": "~0.2.4",
+    "chosen-js": "^1.7.0",
     "core-js": "^2.4.1",
+    "ng2-sticky": "^0.5.0",
+    "ng2-sticky-kit": "^2.0.3",
     "rxjs": "5.0.1",
     "systemjs": "0.19.40",
     "zone.js": "^0.7.4"
