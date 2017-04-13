@@ -25,9 +25,16 @@ export class APIService {
     getAll() {
         return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
     }
+    getAllSkills(){
+        return this.http.get(this.address + '/skills' + '?=limit100', this.jwt()).map((response: Response) => response.json())
+    }
+
 
     getById(id: number) {
         return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
+    }
+    searchSkill(search : any){
+      return this.http.post(this.address+'/search', search, this.jwt()).map((response: Response) => response.json());
     }
 
     create(user: any) {

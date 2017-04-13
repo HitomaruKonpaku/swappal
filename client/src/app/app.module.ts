@@ -12,7 +12,7 @@ import { routing } from './app.routing';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, UserService, APIService } from './_services/index';
-
+import { Skill} from './_models/index';
 import { HeaderComponent, FooterComponent } from './_layouts/index';
 
 import { HomeComponent } from './home/index';
@@ -59,6 +59,9 @@ import {CreateProfileDialogComponent} from './login/index';
     AuthenticationService,
     UserService,
     APIService,
+    Skill,
+
+
   ],
   entryComponents:[RequestDialogComponent,CreateProfileDialogComponent ],
   bootstrap: [
