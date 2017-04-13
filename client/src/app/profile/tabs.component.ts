@@ -10,7 +10,7 @@ import { Tab } from './tab.component';
   </head>
     <ul class="nav nav-tabs">
       <li role="presentation" *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active">
-        <a href="#" aria-controls="profile" role="tab" data-toggle="tab">{{tab.title}}</a>
+        <a role="button" aria-controls="profile" role="tab" data-toggle="tab">{{tab.title}}</a>
       </li>
     </ul>
     <ng-content></ng-content>

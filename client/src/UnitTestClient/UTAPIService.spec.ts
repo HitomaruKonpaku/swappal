@@ -37,6 +37,18 @@ describe("Test _service", function() {
       };
       expect(dele).toThrow();
   });
+  it("APIService - getProfile", function(){
+      var getProfile = function(email: any){
+          return this.http.get(this.address + '/accounts/profile' + '?email=' + email, this.jwt()).map((response: Response) => response.json())
+      };
+      expect(getProfile).toThrow();
+  });
+  it("APIService - getSkills", function(){
+      var getSkills = function(email: any){
+          return this.http.get(this.address + '/accounts/skills' + '?email=' + email, this.jwt()).map((response: Response) => response.json())
+      };
+      expect(getSkills).toThrow();
+  });
 //   it("Service - User Service - jwt", function(){
       
 //       var jwt = function(){

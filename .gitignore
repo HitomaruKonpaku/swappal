@@ -42,3 +42,9 @@ jspm_packages
 # Project Setting
 .key
 _key
+README.md
+
+server/key.zip
+
+*.md
+client/src/index.html
