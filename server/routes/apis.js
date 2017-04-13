@@ -109,7 +109,7 @@ let mailTransporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'ct95server@gmail.com',
-        pass: 'chanh1412'
+        pass: 'qwertasdfgzxcvb12345'
     }
 })
 
