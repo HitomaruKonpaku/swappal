@@ -4,14 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BaseRequestOptions } from '@angular/http';
 import { MaterialModule } from '@angular/material';
- // import { Ng2StickyModule } from 'ng2-sticky';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService, APIService } from './_services/index';
+import { AlertService, AuthenticationService, APIService } from './_services/index';
 import { Skill} from './_models/index';
 import { HeaderComponent, FooterComponent } from './_layouts/index';
 
@@ -21,6 +20,7 @@ import { LogoutComponent } from './logout/index';
 import { RegisterComponent } from './register/index';
 import { ProfileComponent } from './profile/index';
 import { SearchComponent} from './search/index';
+import { ContactUsComponent, AboutUsComponent, FAQsComponent} from './foundation/index';
 import { Tabs } from './profile/index';
 import { Tab } from './profile/index';
 
@@ -34,7 +34,6 @@ import {CreateProfileDialogComponent} from './login/index';
     HttpModule,
     routing,
     MaterialModule,
-    // Ng2StickyModule,
   ],
   declarations: [
     AppComponent,
@@ -47,6 +46,9 @@ import {CreateProfileDialogComponent} from './login/index';
     RegisterComponent,
     ProfileComponent,
     SearchComponent,
+    ContactUsComponent,
+    AboutUsComponent,
+    FAQsComponent,
     Tabs,
     Tab,
     RequestDialogComponent,
@@ -57,11 +59,9 @@ import {CreateProfileDialogComponent} from './login/index';
     AuthGuard,
     AlertService,
     AuthenticationService,
-    UserService,
     APIService,
     Skill,
-
-
+    SearchComponent,
   ],
   entryComponents:[RequestDialogComponent,CreateProfileDialogComponent ],
   bootstrap: [

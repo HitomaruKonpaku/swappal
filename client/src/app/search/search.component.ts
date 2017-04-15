@@ -1,13 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Injectable} from '@angular/core';
 import {MdDialog} from '@angular/material';
 import { APIService } from '../_services/index';
 import {Skill} from '../_models/index';
 import { NgForm } from '@angular/forms';
 
+
 @Component({
   moduleId: module.id,
   templateUrl: './search.component.html',
 })
+@Injectable()
 export class SearchComponent implements OnInit{
 
   objectskills : any = {};
@@ -16,11 +18,12 @@ export class SearchComponent implements OnInit{
   searchOpt :string;
   skillHave: any = [];
   skillWant: any = [];
+  resultUser : any = [];
   resultUserProfiles : any = [];
   resultUserSkill: any =[];
   resultUserSkillsHave: any =[];
   resultUserSkillsWant: any =[];
-
+  profiles : any =[];
   displayInformation: boolean = true;
 
 
@@ -41,7 +44,7 @@ export class SearchComponent implements OnInit{
     error => {
         console.log("error")
     })
-
+                  // console.log(decodeURIComponent('%40'))
   }
 
   onSubmit(){
@@ -62,25 +65,22 @@ export class SearchComponent implements OnInit{
         console.log(data)
 
         for (let i = 0; i<data.result.docs.length;i++){
+          this.resultUser[i] = data.result.docs[i];
           this.resultUserProfiles[i] = data.result.docs[i].profile;
           this.resultUserSkill[i] = data.result.docs[i].skills;
           for( let j =0 ; j< this.resultUserSkill[i].have.length;j++){
             this.skillHave[j] =  this.resultUserSkill[i].have[j];
           }
-          console.log(this.skillHave)
-
           for (let k = 0; k <this.resultUserSkill[i].want.length;k++){
             this.skillWant[k] = this.resultUserSkill[i].want[k];
           }
-          console.log(this.skillWant)
         }
-
-
-
+        console.log(this.resultUser);
       },
       error =>{
         console.log("error")
       }
     )
   }
+
 }

@@ -5,7 +5,7 @@ import { User } from '../_models/index';
 
 @Injectable()
 export class APIService {
-    private address: string = 'http://api.swappal.ml:3001/apis';
+    private address: string = 'http://localhost:3001/apis';
 
     constructor(private http: Http) { }
 

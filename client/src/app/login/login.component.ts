@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
             data => {
                 switch (data.msg) {
                     case 'success':
-
+                      console.log(data);
                       this.profile = data.acc.profile;
                       if (!this.profile){
                         this.openDialog();

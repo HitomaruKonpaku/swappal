@@ -18,6 +18,77 @@ footer {
     clear: left;
     align-content: center;
   }
+  .text1{
+  position: absolute;
+   top: 700px;
+   left: 80px;
+
+
+}
+.text2{
+  position: absolute;
+   top: 700px;
+   left: 580px;
+}
+.text3{
+  position: absolute;
+   top: 700px;
+   left: 1000px;
+}
+.text4{
+  position: absolute;
+   top: 350px;
+   right: 250px;
+}
+.textaboutus{
+  text-align: center;
+  left:700px;
+}
+.contentaboutus{
+  text-align: center;
+}
+
+#panel, #flip {
+    padding: 5px;
+    text-align: left;
+    background-color: #f7f7f7;
+    border: solid 1px #f7f7f7;
+}
+
+
+#panel {
+    padding: 20px;
+    display: none;
+}
+
+#panel2, #flip2 {
+    padding: 5px;
+    text-align: left;
+    background-color: #f7f7f7;
+    border: solid 1px #f7f7f7;
+}
+
+
+#panel2 {
+    padding: 20px;
+    display: none;
+}
+
+#panel3, #flip3 {
+    padding: 5px;
+    text-align: left;
+    background-color: #f7f7f7;
+    border: solid 1px #f7f7f7;
+}
+
+
+#panel3 {
+    padding: 20px;
+    display: none;
+}
+.faqstitle{
+  color: #555555;
+}
 /*body{
   position: relative;
 }

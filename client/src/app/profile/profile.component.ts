@@ -3,7 +3,8 @@ import { APIService } from '../_services/index';
 import { RequestDialogComponent} from './request.component';
 import {MdDialog} from '@angular/material';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute, Params } from '@angular/router';
+import {SearchComponent} from '../search/index';
 
 @Component({
     moduleId: module.id,
@@ -11,38 +12,35 @@ import { Router } from '@angular/router';
 })
 
 export class ProfileComponent implements OnInit {
-    profile: any = {}
-    skills: any ={}
-    email: string;
+    profile: any = {};
+    skills: any ={};
+    skillHave: any = [];
+    skillWant: any = [];
+    currentEmail: string;
     loading = false;
     displayInformation: boolean = false;
     displayEdit: boolean = true;
+    currentToken: string;
+    otherEmail : string;
     constructor(
         private profileService: APIService,
         private dialog: MdDialog,
-        private router: Router
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
+        private foundUser: SearchComponent,
     ) { }
     ngOnInit() {
-
-        this.email = localStorage.getItem('currentEmail');
-        this.profileService.getProfile(this.email)
-            .subscribe(
-            data => {
-                this.profile = data.data.profile
-                console.log(this.profile)
-            },
-            error => {
-                console.log("error")
-            })
-            this.profileService.getSkills(this.email)
-                .subscribe(
-                data => {
-                    this.skills = data.data.skills
-                    console.log(this.skills)
-                },
-                error => {
-                    console.log("error")
-                })
+      this.currentEmail = localStorage.getItem('currentEmail');
+      this.currentToken = localStorage.getItem('currentToken');
+      this.activatedRoute.queryParams.subscribe((params: Params) => {
+              this.otherEmail = params['email'];
+            });
+        if (!this.otherEmail){
+          this.getProfile(this.currentEmail);
+        }
+        else{
+          this.getProfile(this.otherEmail);
+        }
     }
     onSubmit(f:NgForm){
       var value = f.value;
@@ -63,8 +61,6 @@ export class ProfileComponent implements OnInit {
               }
           },
           error => {
-              // this.alertService.error(error);
-              // this.loading = false;
           });
     }
     openDialog(){
@@ -78,5 +74,31 @@ export class ProfileComponent implements OnInit {
         this.displayInformation = true;
         this.displayEdit = false;
       }
+    }
+    getProfile(email : any){
+      this.profileService.getProfile(email)
+          .subscribe(
+          data => {
+              this.profile = data.data.profile
+              // console.log(this.profile)
+          },
+          error => {
+              console.log("error")
+          })
+      this.profileService.getSkills(email)
+          .subscribe(
+          data => {
+              this.skills = data.data.skills
+              console.log(this.skills)
+              for (let i = 0; i < this.skills.have.length;i++){
+                this.skillHave[i] = this.skills.have[i];
+              }
+              for (let i = 0; i <this.skills.want.length;i++){
+                this.skillWant[i] = this.skills.want[i];
+              }
+          },
+          error => {
+              console.log("error")
+          })
     }
 }

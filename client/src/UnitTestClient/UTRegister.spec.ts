@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
 
-import { AlertService, UserService } from '../app/_services';
+import { AlertService, APIService } from '../app/_services';
 
 describe("Test Register",function(){
     it("Register Component - onSubmit 1",function(){
