@@ -28,8 +28,8 @@ export class RegisterComponent {
             data => {
                 switch (data.msg) {
                     case 'success':
-                        this.alertService.success('Registration successful', true);
-                        this.router.navigate(['/login']);
+                        // this.alertService.success('Registration successful', true);
+                        this.router.navigate(['/verification']);
                         break;
                     default: this.alertService.error(data.msg);
                         this.loading = false;

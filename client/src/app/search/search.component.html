@@ -40,12 +40,12 @@
       </div>
     </div>
       <div class="container" style="height:600px; margin-top:10px;">
-        <div class="row" [hidden]=displayInformation>
+        <div class="row" *ngIf="isShowData">
           <div class="col-md-6 col-sm-6">
             <div class="panel panel-default" style="height:200px; width:520px; margin:10px">
               <div class="flex-container-row">
                 <div style="height:140px; width:140px; margin:10px;">
-                  <img class="img-circle img-fluid"src="../../images/user1.jpg" alt="">
+                  <img class="img-circle img-fluid"src="../../images/user.jpg" alt="">
                 </div>
                 <div style="height:140px; width:300px; margin:10px; ">
                   <div class="flex-container-column">
@@ -65,6 +65,9 @@
               </div>
             </div>
           </div>
+        </div>
+        <div style="text-align:center; font-size:50dp; color:grey;" *ngIf="!isShowData">
+          <p>THERE IS NO PEOPLE IN THIS SKILL.</p>
         </div>
       </div>
       <div class="container" style=" position: relative;left: 50%; margin-left: -150px;">

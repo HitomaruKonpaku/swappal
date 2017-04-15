@@ -1,3 +1,5 @@
+
+
 <header>
     <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
       <div class="navbar-header">
@@ -20,6 +22,25 @@
                   <li class="nav-item" *ngIf="isLogin">
                       <a class="nav-link" routerLink="/logout" routerLinkActive="active">Logout</a>
                   </li>
+                  <li class="nav-item" *ngIf="isLogin">
+                     <div id="noti_Container">
+                    <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
+
+              <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
+              <div id="noti_Button"><span class="glyphicon glyphicon-bell"></span></div>
+
+              <!--THE NOTIFICAIONS DROPDOWN BOX.-->
+              <div id="notifications">
+
+                  <h3>Notifications</h3>
+                  <div style="height:300px;" class="scroll">
+
+                  </div>
+
+                </div>
+              </div>
+
+                </li>
               </ul>
           </div>
     </nav>

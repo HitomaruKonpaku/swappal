@@ -17,7 +17,7 @@ import { HeaderComponent, FooterComponent } from './_layouts/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { LogoutComponent } from './logout/index';
-import { RegisterComponent } from './register/index';
+import { RegisterComponent ,VerificationComponent} from './register/index';
 import { ProfileComponent } from './profile/index';
 import { SearchComponent} from './search/index';
 import { ContactUsComponent, AboutUsComponent, FAQsComponent} from './foundation/index';
@@ -49,6 +49,7 @@ import {CreateProfileDialogComponent} from './login/index';
     ContactUsComponent,
     AboutUsComponent,
     FAQsComponent,
+    VerificationComponent,
     Tabs,
     Tab,
     RequestDialogComponent,

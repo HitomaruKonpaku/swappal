@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
                         this.openDialog();
                       }
                       this.alertService.success('Log in successful', true);
+                      this.loading = true;
                       this.router.navigate(['/']);
                         break;
                     default:

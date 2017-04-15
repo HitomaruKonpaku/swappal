@@ -12,6 +12,7 @@ import {SearchComponent} from '../search/index';
 })
 
 export class ProfileComponent implements OnInit {
+  show: boolean = true;
     profile: any = {};
     skills: any ={};
     skillHave: any = [];

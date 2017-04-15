@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit{
   resultUserSkillsHave: any =[];
   resultUserSkillsWant: any =[];
   profiles : any =[];
-  displayInformation: boolean = true;
+  isShowData: boolean = false;
 
 
   constructor(
@@ -56,26 +56,26 @@ export class SearchComponent implements OnInit{
     this.apiService.searchSkill(json)
     .subscribe(
       data =>{
-
-        if (this.displayInformation == true){
-          this.displayInformation = false;
-        }else{
-          this.displayInformation = true;
-        }
         console.log(data)
-
-        for (let i = 0; i<data.result.docs.length;i++){
-          this.resultUser[i] = data.result.docs[i];
-          this.resultUserProfiles[i] = data.result.docs[i].profile;
-          this.resultUserSkill[i] = data.result.docs[i].skills;
-          for( let j =0 ; j< this.resultUserSkill[i].have.length;j++){
-            this.skillHave[j] =  this.resultUserSkill[i].have[j];
-          }
-          for (let k = 0; k <this.resultUserSkill[i].want.length;k++){
-            this.skillWant[k] = this.resultUserSkill[i].want[k];
-          }
+        if (data.result.docs.length==0){
+          this.isShowData = false;
+          console.log(this.isShowData);
         }
-        console.log(this.resultUser);
+        else{
+          for (let i = 0; i<data.result.docs.length;i++){
+            this.resultUser[i] = data.result.docs[i];
+            this.resultUserProfiles[i] = data.result.docs[i].profile;
+            this.resultUserSkill[i] = data.result.docs[i].skills;
+            for( let j =0 ; j< this.resultUserSkill[i].have.length;j++){
+              this.skillHave[j] =  this.resultUserSkill[i].have[j];
+            }
+            for (let k = 0; k <this.resultUserSkill[i].want.length;k++){
+              this.skillWant[k] = this.resultUserSkill[i].want[k];
+            }
+          }
+          this.isShowData = true;
+          console.log(this.isShowData);
+        }
       },
       error =>{
         console.log("error")
