@@ -38,14 +38,6 @@ export class APIService {
     }
 
     create(user: any) {
-        // return this.http.post('/api/users', user, this.jwt()).map((response: Response) => response.json());
-        // console.log(user);
-
-        // let bodyString = user;
-        // let headers = new Headers({ 'Content-Type': 'application/json' });
-        // let options = new RequestOptions({ headers: headers });
-        // return this.http.post(this.address, user, options).map((response: Response) => response.json());
-
         return this.http.post(this.address+ '/accounts/reg', user, this.jwt()).map((response: Response) => response.json());
     }
     createProfile(user: any){

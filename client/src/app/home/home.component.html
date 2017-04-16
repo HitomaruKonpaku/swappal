@@ -1,40 +1,35 @@
-<head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
-    crossorigin="anonymous" />
-</head>
 <div class="web-background-color">
-  <div class="w3-display-container w3-section" style="max-width:1350px">
-      <img src="../images/cover2.png" alt="background-image" width="100%" height="550">
-      <div class="w3-display-middle w3-center">
+  <div >
+      <img src="../images/cover2.png"  class="img-fluid" alt="background-image">
+      <div class="searchBar">
         <form class="form-inline">
           <div class="row">
-              <input type="text" class="w3-round-jumbo form-control" placeholder="What are you looking for?" style="margin-top:25%;width:550px; height:50px;">
-              <button type="submit" class="w3-round-jumbo btn"
-              style="margin-top:25%;margin-left:5px; width:60px; height:50px;color:#222930;backgroud-color:white;"
+              <input type="search" class="form-control" placeholder="What are you looking for?" style="width:550px; height:50px;border-radius:50px;">
+              <button type="submit" class="btn btn-default"
+              style="margin-left:5px; width:60px; height:50px;color:#222930;background-color:white;border-radius:50px;"
               routerLink="/search" routerLinkActive="active">
-                <p class="glyphicon glyphicon-search"></p>
+                <i class="material-icons">search</i>
               </button>
           </div>
         </form>
       </div>
   </div>
-  <button [routerLink]="['/verification']" class="btn btn-link">test</button>
-  <!-- <div class="container-main" > -->
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1 col-xs-offset-1" style=" background-color:#f7fade;">
-      <p class="w3-margin-top w3-margin-bottom">
-        <b>User Review</b><br><var>This is great website</var>
-      </p>
+  <div style="margin-top:10px;">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 offset-xs-1" style=" background-color:#f7fade;padding:10px;">
+        <p style="margin-top:10px;" >
+          <b>User Review</b><br><var>This is great website</var>
+        </p>
+      </div>
     </div>
-  </div>
     <br>
       <div class="row">
-        <div class="col-md-8 col-md-offset-1 col-xs-offset-1" style="border:solid; border-width:0 1px 0 0; border-color:#DDD;background-color:white;" >
+        <div class="col-md-8 offset-md-1 offset-xs-3" style="border:solid; border-width:0 1px 0 0; border-color:#DDD;background-color:white;" >
           <div class="flex-container-column" style="margin-top:20px;">
             <div class="flex-news-header" >
               <!-- hot news -->
               <div class="col-md-5">
-                <img src="../images/hotnews.jpg" alt="hot-news" class="img-rounded" style="width:100%;height:100%;">
+                <img src="../images/hotnews.jpg" alt="hot-news" class="img-rounded img-fluid" style="width:100%;height:100%;">
               </div>
               <div class="col-md-7" style="  border:solid;border-width:0 0 1px 0;border-color:#DDD;">
                 <div class="flex-container-column">
@@ -52,21 +47,21 @@
             <div class="flex-news-children">
               <!-- children news -->
                 <div class="col-md-4">
-                    <img src="../images/news1.jpg" alt="news1" style="height:70%;width:100%;">
+                    <img src="../images/news1.jpg" alt="news1" class="img-fluid">
                     <div class="flex-news-children-title">
                       <b>Christopher Gray on How to Be a Social Entrepreneur</b>
                       <a href="#seemore" style="color:#4eb1ba">Read More</a>
                     </div>
                 </div>
                 <div class="col-md-4">
-                  <img src="../images/news2.jpg" alt="news1" style="height:70%;width:100%;">
+                  <img src="../images/news2.jpg" alt="news1" class="img-fluid">
                   <div class="flex-news-children-title">
                     <b>One Man’s Journey From Prison to College</b>
                     <a href="#seemore" style="color:#4eb1ba">Read More</a>
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <img src="../images/news3.jpg" alt="news1" style="height:70%;width:100%;">
+                  <img src="../images/news3.jpg" alt="news1" class="img-fluid">
                   <div class="flex-news-children-title">
                     <b>The Innovation Campus: Building Better Ideas</b>
                     <a href="#seemore" style="color:#4eb1ba">Read More</a>
@@ -84,7 +79,7 @@
             <div class="flex-highestrating-content">
               <!-- <ul>
                 <li role="presentation"> -->
-                  <div class="flex-highestrating-item w3-round-jumbo" style="text-align:center;">
+                  <div class="flex-highestrating-item" style="text-align:center;border-radius:50px;">
                     <a class="nav-link" routerLink="/profile" routerLinkActive="active">{{profile.name}}</a>
                   </div>
                 <!-- </li>
@@ -93,4 +88,5 @@
           </div>
         </div>
       </div>
+  </div>
 </div>

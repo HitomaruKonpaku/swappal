@@ -1,11 +1,10 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import {CreateProfileDialogComponent} from './createprofile.component';
 import { AlertService, AuthenticationService, APIService } from '../_services/index';
 import {MdDialog} from '@angular/material';
 import { HeaderComponent } from '../_layouts/index';
-
+declare var $: any;
 
 
 @Component({
@@ -19,6 +18,8 @@ export class LoginComponent implements OnInit {
     profile: any = {};
     loading = false;
     returnUrl: string;
+    email :any ;
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -37,7 +38,12 @@ export class LoginComponent implements OnInit {
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
+    ngAfterviewInit(){
 
+//save di doi xiu
+
+    }
+    //chay thu coi
     onSubmit(f: NgForm) {
         var v = f.value;
         this.loading = true;
@@ -46,14 +52,17 @@ export class LoginComponent implements OnInit {
             data => {
                 switch (data.msg) {
                     case 'success':
-                      console.log(data);
                       this.profile = data.acc.profile;
                       if (!this.profile){
-                        this.openDialog();
+                        $('#CreateProfileModal').modal('show');
+                        this.email = localStorage.getItem('currentEmail');
+                      }
+                      else{
+                        location.reload();
+                        this.router.navigate(['/']);
                       }
                       this.alertService.success('Log in successful', true);
-                      this.loading = true;
-                      this.router.navigate(['/']);
+
                         break;
                     default:
                         this.alertService.error(data.msg);
@@ -65,8 +74,32 @@ export class LoginComponent implements OnInit {
                 this.loading = false;
             });
     }
-    openDialog(){
-      this.dialog.open(CreateProfileDialogComponent);
+    onCreateProfile(a:NgForm){
+      var value = a.value;
+      console.log (a);
+      console.log (value);
+      value.email = this.email;
+      this.profileService.createProfile(value)
+          .subscribe(
+          data => {
+              switch (data.msg) {
+                  case 'success':
+                  location.reload();
+                  this.router.navigate(['/']);
+                  this.alertService.success('Create profile successful', true);
+                  break;
+                    default: this.loading = false;
+                    break;
+              }
+          },
+          error => {
+              // this.alertService.error(error);
+              // this.loading = false;
+          });
     }
+
+    // openDialog(){
+    //   this.dialog.open(CreateProfileDialogComponent);
+    // }
 
 }

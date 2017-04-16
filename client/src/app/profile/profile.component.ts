@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from '../_services/index';
-import { RequestDialogComponent} from './request.component';
+// import { RequestDialogComponent} from './request.component';
 import {MdDialog} from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { Router,ActivatedRoute, Params } from '@angular/router';
@@ -12,7 +12,7 @@ import {SearchComponent} from '../search/index';
 })
 
 export class ProfileComponent implements OnInit {
-  show: boolean = true;
+    show: boolean = true;
     profile: any = {};
     skills: any ={};
     skillHave: any = [];
@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
     constructor(
         private profileService: APIService,
         private dialog: MdDialog,
-        private router: Router,
+        // private router: Router,
         private activatedRoute: ActivatedRoute,
         private foundUser: SearchComponent,
     ) { }
@@ -55,7 +55,7 @@ export class ProfileComponent implements OnInit {
                   case 'success':
                   console.log("success");
 
-                  this.router.navigate(['/']);
+                  // this.router.navigate(['/']);
                   break;
                     default: this.loading = false;
                     break;
@@ -64,9 +64,9 @@ export class ProfileComponent implements OnInit {
           error => {
           });
     }
-    openDialog(){
-      this.dialog.open(RequestDialogComponent);
-    }
+    // openDialog(){
+    //   this.dialog.open(RequestDialogComponent);
+    // }
     switchForm(){
       if (this.displayInformation == true){
         this.displayInformation = false;

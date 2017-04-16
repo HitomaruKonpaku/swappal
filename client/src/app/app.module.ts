@@ -21,10 +21,9 @@ import { RegisterComponent ,VerificationComponent} from './register/index';
 import { ProfileComponent } from './profile/index';
 import { SearchComponent} from './search/index';
 import { ContactUsComponent, AboutUsComponent, FAQsComponent} from './foundation/index';
-import { Tabs } from './profile/index';
-import { Tab } from './profile/index';
 
-import {RequestDialogComponent} from './profile/index';
+
+// import {RequestDialogComponent} from './profile/index';
 import {CreateProfileDialogComponent} from './login/index';
 
 @NgModule({
@@ -50,9 +49,7 @@ import {CreateProfileDialogComponent} from './login/index';
     AboutUsComponent,
     FAQsComponent,
     VerificationComponent,
-    Tabs,
-    Tab,
-    RequestDialogComponent,
+    // RequestDialogComponent,
     CreateProfileDialogComponent,
 
   ],
@@ -64,7 +61,7 @@ import {CreateProfileDialogComponent} from './login/index';
     Skill,
     SearchComponent,
   ],
-  entryComponents:[RequestDialogComponent,CreateProfileDialogComponent ],
+  entryComponents:[CreateProfileDialogComponent],
   bootstrap: [
     AppComponent
   ]
