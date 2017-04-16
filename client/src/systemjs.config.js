@@ -8,10 +8,6 @@
       // paths serve as alias
       'npm:': 'node_modules/'
     },
-    // may xai cli ha
-    //uhm co xai
-    // map tells the System loader where to look for things
-
     map: {
       // our app is within the app folder
       app: 'app',
@@ -26,7 +22,6 @@
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       '@angular/material': 'npm:@angular/material/bundles/material.umd.js',
-      //  'ng2-sticky':'npm:ng2-sticky/dist',
 
       // other libraries
       'rxjs':                      'npm:rxjs',
