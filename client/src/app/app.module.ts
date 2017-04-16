@@ -24,7 +24,7 @@ import { ContactUsComponent, AboutUsComponent, FAQsComponent} from './foundation
 
 
 // import {RequestDialogComponent} from './profile/index';
-import {CreateProfileDialogComponent} from './login/index';
+// import {CreateProfileDialogComponent} from './login/index';
 
 @NgModule({
   imports: [
@@ -50,7 +50,7 @@ import {CreateProfileDialogComponent} from './login/index';
     FAQsComponent,
     VerificationComponent,
     // RequestDialogComponent,
-    CreateProfileDialogComponent,
+    // CreateProfileDialogComponent,
 
   ],
   providers: [
@@ -61,7 +61,7 @@ import {CreateProfileDialogComponent} from './login/index';
     Skill,
     SearchComponent,
   ],
-  entryComponents:[CreateProfileDialogComponent],
+  // entryComponents:[CreateProfileDialogComponent],
   bootstrap: [
     AppComponent
   ]
