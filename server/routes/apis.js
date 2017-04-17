@@ -719,35 +719,6 @@ function getTomorrow() {
 //====================================================================================================
 //====================================================================================================
 
-router.route('/test')
-    .get((req, res) => {
-        let m = 'ct95server@gmail.com'
-        let s = '58ca44aa71afe424d8694002'
-
-        Account.findOne({ 'email': m })
-            // .select('skills')
-            .exec()
-            .then((data) => {
-                let acc = data
-                console.log(acc)
-                console.log(acc.skills.have)
-
-                Skill.findOne({ '_id': s }).exec()
-                    .then((data) => {
-                        let skl = data
-                        acc.skills.have.push(skl)
-
-                        acc.save()
-                            .then((data) => {
-                                responseSuccuess(res, data)
-                            })
-                            .catch((err) => {
-                                console.log(err)
-                            })
-                    })
-            })
-    })
-
 router.route('/search')
     .post((req, res) => {
         let have = req.body.have || []
@@ -780,4 +751,62 @@ router.route('/search')
             .then((result) => {
                 res.json({ result })
             })
+    })
+
+router.route('/request/new')
+    .post((req, res) => {
+        let token = req.body.token
+        let from = req.body.from
+        let to = req.body.to
+        let sklFrom = req.body.skillFrom
+        let sklTo = req.body.skillTo
+
+
+
+
+        async.parallel([
+            function (callback) {
+                callback(null, 'one', 'two')
+            },
+            function (arg1, arg2, callback) {
+                // arg1 now equals 'one' and arg2 now equals 'two'
+                callback(null, 'three')
+            },
+            function (arg1, callback) {
+                // arg1 now equals 'three'
+                callback(null, 'done')
+            }
+        ]).then(function (value) {
+            console.log(value === 'done') // => true
+        })
+
+        Account
+            .where('email').in([from, to])
+            .select({ 'email': 1 })
+            .exec()
+            .then((result) => {
+                let accF = result.find((item) => { return item.email === from })
+                let accT = result.find((item) => { return item.email === to })
+
+
+
+
+                responseSuccuess(res, result)
+            })
+
+    })
+
+router.route('/request/reply')
+    .post((req, res) => {
+
+    })
+
+router.route('/request/accept')
+    .post((req, res) => {
+
+    })
+
+router.route('/request/deny')
+    .post((req, res) => {
+
     })

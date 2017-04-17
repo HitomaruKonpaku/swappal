@@ -1,288 +1,327 @@
-<head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
-    crossorigin="anonymous" />
-</head>
 <div class="web-background-color">
   <div class="container">
-    <div class="row panel panel-default">
-      <div class="col-md-3">
-        <a href="#" class="thumbnail">
-          <img src="../../images/user1.jpg" class="img-fluid" alt="profile-picture">
-        </a>
-      </div>
-      <div class="col-md-6 col-7 flex-container-column">
-        <div class="flex-item-profile">
-          <p class="p-name-profile">{{ profile.nickname }}</p>
-        </div>
-        <div class="flex-item-profile">
-          <p>description</p>
-        </div>
-      </div>
-      <div class="col-md-3 col-5">
-        <div class="circle-rating">
-          <p></p>
+    <div class="card">
+      <div class="card-block">
+        <div class="row">
+          <div class="col-md-3">
+            <a href="#" class=" thumbnail" style="margin-top: 10px;">
+              <img src="../../images/user.jpg" class="img-fluid" alt="profile-picture">
+            </a>
+          </div>
+          <div class="col-md-6 col-7 flex-container-column">
+            <div class="flex-item-profile">
+              <!-- <p class="p-name-profile">{{ profile.nickname }}</p> -->
+              <p class="p-name-profile">{{ profile.name }}</p>
+            </div>
+            <div class="flex-item-profile">
+              <p>description</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-5">
+            <!-- rating -->
+            <div class="circle-rating">
+              <p>point</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <!-- swap me button -->
     <div class="row">
       <div class="col-md-8">
       </div>
+
       <div class="col-md-4 md-dialog-container div-swapme-button" id="Mydialogcontaine" >
-        <button md-button (click)="openDialog()" type="submit" name="swapme" class="swapme-button">SWAP ME!</button>
+        <button md-button type="submit" data-toggle="modal" data-target="#SwapModal" class="swapme-button">SWAP ME!</button>
+      </div>
+      <div class="modal fade" id="SwapModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="padding:20px;">
+              <div class="img-request" style="text-align:center;">
+                <h1>REQUEST SWAP</h1>
+              <img src="../images/request-handshake.png" alt="Swap icon" style="max-width:100px; max-height:100px;" >
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-6">
+                  <p><label>From: </label></p>
+                </div>
+                <div class="col-6">
+                  <p><label>To: </label></p>
+                </div>
+              </div>
+            <input type="text" class="form-control"style="height:120px;">
+            </div>
+            <div style="text-align:center;">
+              <button type="submit" class="btn btn-success btn-lg"><i class="material-icons">done</i></button>
+              <button type="button" class="btn btn-danger btn-lg .cancelbtn" data-dismiss="modal"><i class="material-icons">close</i></button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+      <!-- Nav tabs -->
+        <div style="margin-bottom:40px;">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#mypage" role="tab">My Page</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#aboutme" role="tab">About Me</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#review" role="tab">Review</a>
+            </li>
+          </ul>
 
-      <tabs>
-        <tab tabTitle="My Page">
-          <div class="row">
-            <div class="col-md-9 col-sm-9 col-lg-9">
-              <h3>Skills I Have</h3>
-            </div>
-            <div class="col-md-3 col-sm-3 col-lg-3">
-              <a role="link" (click)="switchForm()" style="color:#4eb1ba"><p class="glyphicon glyphicon-pencil"></p>Edit</a>
-            </div>
-          </div>
-          <hr>
-            <!-- display skill have -->
-            <div [hidden]="displayInformation">
-              <ul>
-                <li>{{skills.have}}</li>
-              </ul>
-            </div>
-            <!-- edit skill have  -->
-            <div class="form-group" [hidden]="displayEdit">
-              <label for="inputEmail3"  class="col-md-2 control-label">Professional Skills: </label>
-              <div class="col-md-10">
-                <input type="email" class="form-control" id="inputEmail3" style="height:100px;">
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane active" id="mypage" role="tabpanel">
+              <div class="row">
+                <div class="col-md-9 col-sm-9 col-lg-9">
+                  <h3>Skills I Have</h3>
+                </div>
+                <div class="col-md-3 col-sm-3 col-lg-3">
+                  <a role="link" (click)="switchForm()" style="color:#4eb1ba"><p class="glyphicon glyphicon-pencil"></p>Edit</a>
+                </div>
               </div>
-            </div>
-          <br>
-          <h3>Skills I Need</h3>
-          <hr>
-          <!-- display skill need -->
-          <div [hidden]="displayInformation">
-            <ul>
-              <li>{{skills.want}}</li>
-            </ul>
-          </div>
-          <!-- edit skill need-->
-          <div class="form-group" [hidden]="displayEdit">
-            <label for="inputEmail3"  class="col-md-2 control-label">Professional Skills: </label>
-            <div class="col-md-10">
-              <input type="email" class="form-control" id="inputEmail3" style="height:100px;">
-            </div>
-          </div>
-          <br>
-            <h3>Detail Info</h3>
-            <hr>
-            <!-- display detail -->
-            <div class="containerform" [hidden]="displayInformation">
-              <p>{{skills.detail}}</p>
-            </div>
-            <!-- edit detail -->
-            <div [hidden]=displayEdit>
-              <textarea class="form-control" rows="3"></textarea>
-              <div class="form-group" style="text-align:center;margin-top:10px;">
-                <button type="submit" class="btn btn-info" name="Save">Save</button>
-                <button type="submit" class="btn btn-warning" name="Cancel" (click)="switchForm()">Cancel</button>
-              </div>
-            </div>
-        </tab>
-        <tab tabTitle="About Me">
-          <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-          <div class="row">
-            <div class="col-md-9">
-              <h3>Basic Information</h3>
-            </div>
-            <div class="col-md-3 col-3">
-              <a role="button" (click)="switchForm()" style="color:#4eb1ba"><p class="glyphicon glyphicon-pencil"></p>Edit</a>
-            </div>
-          </div>
-          <hr>
-          <!-- form edit -->
-
-          <div class="row">
-            <div class="col-md-3 flex-container-column">
-              <div class="flex-item-tab">
-                Full name
-              </div>
-            </div>
-            <div class="col-md-9" [hidden]=displayInformation>
-              <div class="flex-item-detail-tab">
-                {{ profile.name }}
-              </div>
-            </div>
-            <div class="col-md-9" [hidden]=displayEdit>
-              <div class="flex-item-detail-tab">
-                <input required type="text" ngModel={{profile.name}}  value="{{profile.name}}"name="name"class="form-control" id="inputFullname">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 flex-container-column">
-              <div class="flex-item-tab">
-                Date Of Birth
-              </div>
-            </div>
-            <div class="col-md-9" [hidden]=displayInformation>
-              <div class="flex-item-detail-tab">
-                {{profile.dob}}
-              </div>
-            </div>
-            <div class="col-md-9">
-              <div class="flex-item-detail-tab" [hidden]=displayEdit>
-                <input required type="text" name="dob" value="{{profile.dob}}" ngModel={{profile.dob}} class="form-control" id="inputDOB">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 flex-container-column">
-              <div class="flex-item-tab">
-                Gender
-              </div>
-            </div>
-            <div class="col-md-9" [hidden]=displayInformation>
-              <div class="flex-item-detail-tab">
-                {{ profile.gender }}
-              </div>
-            </div>
-            <div class="col-md-9" [hidden]=displayEdit>
-              <div class="flex-item-detail-tab">
-                <input required type="text" name="gender" ngModel={{profile.gender}} value="{{profile.gender}}" class="form-control" id="inputGender">
-              </div>
-            </div>
-          </div>
-          <br>
-          <h3>My Mission</h3>
-          <hr>
-          <p [hidden]=displayInformation>{{ profile. mission}}</p>
-          <div [hidden]=displayEdit>
-            <input type="text" class="form-control" name="mission" ngModel={{profile.mission}} value="{{profile.mission}}" style="height:150px;">
-          </div>
-          <br>
-          <h3>Contact Information</h3>
-          <hr>
-          <div class="row">
-            <div class="col-md-3 flex-container-column">
-              <div class="flex-item-tab">
-                Email
-              </div>
-            </div>
-            <div class="col-md-9">
-              <div class="flex-item-detail-tab">
-                {{email}}
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 flex-container-column">
-              <div class="flex-item-tab">
-                Address
-              </div>
-            </div>
-            <div class="col-md-9" [hidden]=displayInformation>
-              <div class="flex-item-detail-tab">
-                {{profile.location}}
-              </div>
-            </div>
-            <div class="col-md-9" [hidden]=displayEdit>
-              <div class="flex-item-detail-tab">
-                <input type="text" ngModel value="{{profile.location}}" name="location"class="form-control" id="inputLocation" placeholder="{{profile.location}}">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 flex-container-column">
-              <div class="flex-item-tab">
-                Phone
-              </div>
-            </div>
-            <div class="col-md-9" [hidden]=displayInformation>
-              <div class="flex-item-detail-tab">
-                {{ profile.phone }}
-              </div>
-            </div>
-            <div class="col-md-9" [hidden]=displayEdit>
-              <div class="flex-item-detail-tab">
-                <input type="text" name="phone" value="{{profile.phone}}" ngModel class="form-control" id="inputPhone" placeholder="{{profile.phone}}">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 flex-container-column">
-              <div class="flex-item-tab">
-                Facebook
-              </div>
-            </div>
-            <div class="col-md-9" [hidden]=displayInformation>
-              <div class="flex-item-detail-tab">
-                {{profile.facebook}}
-              </div>
-            </div>
-            <div class="col-md-9" [hidden]=displayEdit>
-              <div class="flex-item-detail-tab">
-                <input type="text" name="facebook" ngModel value="{{profile.facebook}}" class="form-control" id="inputFacebook" placeholder="{{profile.facebook}}">
-              </div>
-            </div>
-          </div>
-          <br>
-          <h3>Achievement</h3>
-          <hr>
-          <p [hidden]=displayInformation>{{ profile.achievement}}</p>
-          <div [hidden]=displayEdit>
-            <input type="text" class="form-control" name="achievement" ngModel={{profile.achievement}} value="{{profile.achievement}}" style="height:150px;">
-          </div>
-          <br>
-          <h3>Your Recommended Friend</h3>
-          <hr>
-          <p [hidden]=displayInformation>....</p>
-          <div [hidden]=displayEdit>
-            <input type="text" class="form-control" name="achievement" style="height:150px;">
-            <div class="form-group" style="text-align:center;margin-top:10px;">
-              <button type="submit" class="btn btn-info" name="Save">Save</button>
-              <button type="button" class="btn btn-warning" name="Cancel" (click)="switchForm()">Cancel</button>
-            </div>
-          </div>
-          </form>
-        </tab>
-        <!-- Review content -->
-        <tab tabTitle="Review">
-          <div class="row">
-            <div class="col-10">
-              <h3>User's Review</h3>
               <hr>
-              <div class="user-review">
-                <div class="flex-review-item">
-                  <div class="img-review">
-                    <img src="../../images/user2.jpg" class="img-fluid">
+                <!-- display skill have -->
+                <div [hidden]="displayInformation">
+                  <ul>
+                    <li *ngFor="let have of skillHave">{{have.name}}</li>
+                  </ul>
+                </div>
+                <!-- edit skill have  -->
+                <div class="form-group" [hidden]="displayEdit">
+                  <label for="inputEmail3"  class="col-md-2 control-label">Professional Skills: </label>
+                  <div class="col-md-10">
+                    <input type="email" class="form-control" id="inputEmail3" style="height:100px;">
                   </div>
-                  <div class="review-information">
-                    <div class="row" style="margin:10px;">
-                      <div class="col-3" style="text-align:left;">
-                        <a href="#" role="button">NAME</a>
-                      </div>
-                      <div class="col-6" style="text-align:center;">
-                        rate
-                      </div>
-                      <div class="col-3"style="text-align:right;">
-                        point
-                      </div>
-                    </div>
-                    <div class="review-description">
-                      "description"
-                    </div>
+                </div>
+              <br>
+              <h3>Skills I Need</h3>
+              <hr>
+              <!-- display skill need -->
+              <div [hidden]="displayInformation">
+                <ul>
+                  <li *ngFor="let want of skillWant">{{want.name}}</li>
+                </ul>
+              </div>
+              <!-- edit skill need-->
+              <div class="form-group" [hidden]="displayEdit">
+                <label for="inputEmail3"  class="col-md-2 control-label">Professional Skills: </label>
+                <div class="col-md-10">
+                  <input type="email" class="form-control" id="inputEmail3" style="height:100px;">
+                </div>
+              </div>
+              <br>
+                <h3>Detail Info</h3>
+                <hr>
+                <!-- display detail -->
+                <div class="containerform" [hidden]="displayInformation">
+                  <p>{{skills.detail}}</p>
+                </div>
+                <!-- edit detail -->
+                <div [hidden]=displayEdit>
+                  <textarea class="form-control" rows="3"></textarea>
+                  <div class="form-group" style="text-align:center;margin-top:10px;">
+                    <button type="submit" class="btn btn-info" name="Save">Save</button>
+                    <button type="submit" class="btn btn-warning" name="Cancel" (click)="switchForm()">Cancel</button>
+                  </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="aboutme" role="tabpanel">
+              <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+              <div class="row">
+                <div class="col-md-9">
+                  <h3>Basic Information</h3>
+                </div>
+                <div class="col-md-3 col-3">
+                  <a role="button" (click)="switchForm()" style="color:#4eb1ba"><p class="glyphicon glyphicon-pencil"></p>Edit</a>
+                </div>
+              </div>
+              <hr>
+              <!-- form edit -->
+
+              <div class="row">
+                <div class="col-md-3 flex-container-column">
+                  <div class="flex-item-tab">
+                    Full name
+                  </div>
+                </div>
+                <div class="col-md-9" [hidden]=displayInformation>
+                  <div class="flex-item-detail-tab">
+                    {{ profile.name }}
+                  </div>
+                </div>
+                <div class="col-md-9" [hidden]=displayEdit>
+                  <div class="flex-item-detail-tab">
+                    <input required type="text" ngModel={{profile.name}}  value="{{profile.name}}"name="name"class="form-control" id="inputFullname">
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-3 flex-container-column">
+                  <div class="flex-item-tab">
+                    Date Of Birth
+                  </div>
+                </div>
+                <div class="col-md-9" [hidden]=displayInformation>
+                  <div class="flex-item-detail-tab">
+                    {{profile.dob}}
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="flex-item-detail-tab" [hidden]=displayEdit>
+                    <input required type="text" name="dob" value="{{profile.dob}}" ngModel={{profile.dob}} class="form-control" id="inputDOB">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3 flex-container-column">
+                  <div class="flex-item-tab">
+                    Gender
+                  </div>
+                </div>
+                <div class="col-md-9" [hidden]=displayInformation>
+                  <div class="flex-item-detail-tab">
+                    {{ profile.gender }}
+                  </div>
+                </div>
+                <div class="col-md-9" [hidden]=displayEdit>
+                  <div class="flex-item-detail-tab">
+                    <input required type="text" name="gender" ngModel={{profile.gender}} value="{{profile.gender}}" class="form-control" id="inputGender">
+                  </div>
+                </div>
+              </div>
+              <br>
+              <h3>My Mission</h3>
+              <hr>
+              <p [hidden]=displayInformation>{{ profile. mission}}</p>
+              <div [hidden]=displayEdit>
+                <input type="text" class="form-control" name="mission" ngModel={{profile.mission}} value="{{profile.mission}}" style="height:150px;">
+              </div>
+              <br>
+              <h3>Contact Information</h3>
+              <hr>
+              <div class="row">
+                <div class="col-md-3 flex-container-column">
+                  <div class="flex-item-tab">
+                    Email
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="flex-item-detail-tab">
+                    {{currentEmail}}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3 flex-container-column">
+                  <div class="flex-item-tab">
+                    Address
+                  </div>
+                </div>
+                <div class="col-md-9" [hidden]=displayInformation>
+                  <div class="flex-item-detail-tab">
+                    {{profile.location}}
+                  </div>
+                </div>
+                <div class="col-md-9" [hidden]=displayEdit>
+                  <div class="flex-item-detail-tab">
+                    <input type="text" ngModel value="{{profile.location}}" name="location"class="form-control" id="inputLocation" placeholder="{{profile.location}}">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3 flex-container-column">
+                  <div class="flex-item-tab">
+                    Phone
+                  </div>
+                </div>
+                <div class="col-md-9" [hidden]=displayInformation>
+                  <div class="flex-item-detail-tab">
+                    {{ profile.phone }}
+                  </div>
+                </div>
+                <div class="col-md-9" [hidden]=displayEdit>
+                  <div class="flex-item-detail-tab">
+                    <input type="text" name="phone" value="{{profile.phone}}" ngModel class="form-control" id="inputPhone" placeholder="{{profile.phone}}">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3 flex-container-column">
+                  <div class="flex-item-tab">
+                    Facebook
+                  </div>
+                </div>
+                <div class="col-md-9" [hidden]=displayInformation>
+                  <div class="flex-item-detail-tab">
+                    {{profile.facebook}}
+                  </div>
+                </div>
+                <div class="col-md-9" [hidden]=displayEdit>
+                  <div class="flex-item-detail-tab">
+                    <input type="text" name="facebook" ngModel value="{{profile.facebook}}" class="form-control" id="inputFacebook" placeholder="{{profile.facebook}}">
+                  </div>
+                </div>
+              </div>
+              <br>
+              <h3>Achievement</h3>
+              <hr>
+              <p [hidden]=displayInformation>{{ profile.achievement}}</p>
+              <div [hidden]=displayEdit>
+                <input type="text" class="form-control" name="achievement" ngModel={{profile.achievement}} value="{{profile.achievement}}" style="height:150px;">
+              </div>
+              <br>
+              <h3>Your Recommended Friend</h3>
+              <hr>
+              <p [hidden]=displayInformation>....</p>
+              <div [hidden]=displayEdit>
+                <input type="text" class="form-control" name="achievement" style="height:150px;">
+                <div class="form-group" style="text-align:center;margin-top:10px;">
+                  <button type="submit" class="btn btn-info" name="Save">Save</button>
+                  <button type="button" class="btn btn-warning" name="Cancel" (click)="switchForm()">Cancel</button>
+                </div>
+              </div>
+              </form>
             </div>
-            <div class="col-2" style="width:180px; height:180px;">
-              <div class="circle-rating-review">
-                point
+            <div class="tab-pane" id="review" role="tabpanel">
+              <div class="row">
+                <div class="col-10">
+                  <h3>User's Review</h3>
+                  <hr>
+                  <div class="user-review">
+                    <div class="flex-review-item">
+                      <div class="img-review">
+                        <img src="../../images/user.jpg" class="img-fluid">
+                      </div>
+                      <div class="review-information">
+                        <div class="row" style="margin:10px;">
+                          <div class="col-3" style="text-align:left;">
+                            <a href="#" role="button">NAME</a>
+                          </div>
+                          <div class="col-6" style="text-align:center;">
+                            rate
+                          </div>
+                          <div class="col-3"style="text-align:right;">
+                            point
+                          </div>
+                        </div>
+                        <div class="review-description">
+                          "description"
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2" style="width:180px; height:180px;">
+                </div>
               </div>
             </div>
-          </div>
-        </tab>
-      </tabs>
-
+        </div>
+      </div>
   </div>
 </div>

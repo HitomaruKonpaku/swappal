@@ -18,11 +18,10 @@ export class LogoutComponent implements OnInit {
         // reset login status
         this.authenticationService.logout();
 
-        // navigate to homepage        
+        // navigate to homepage
         this.router.navigate(['/']);
 
-        // reload page        
+        // reload page
         location.reload();
     }
 }
-

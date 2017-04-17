@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
     private profileService : APIService,
   ){}
   ngOnInit(){
-    this.profileService.getProfile("ct95server@gmail.com")
+    this.profileService.getProfile("quang511@gmail.com")
         .subscribe(
         data => {
             this.profile = data.data.profile
@@ -19,8 +19,5 @@ export class HomeComponent implements OnInit {
         error => {
             console.log("error")
         })
-  }
-  clickonUser(){
-
   }
 }
