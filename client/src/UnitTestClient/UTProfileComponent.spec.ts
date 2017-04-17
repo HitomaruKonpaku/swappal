@@ -18,12 +18,27 @@ describe("Test profile",function(){
         };
         expect(ngOnInit).toThrow();
     });
-    // it("profile.component - openDialog",function(){
-    //     var openDialog = function(){
-    //         return this.dialog.open(RequestDialogComponent);
-    //     };
-    //     expect(openDialog).toThrow();
-    // });
+    it("profile.component - ngOnInit 2",function(){
+        var ngOnInit = function(){
+            this.currentEmail = localStorage.getItem('currentEmail');
+            this.currentToken = localStorage.getItem('currentToken');
+            if (!this.otherEmail){
+                return this.getProfile(this.currentEmail);
+            }
+            else{
+                return this.getProfile(this.otherEmail);
+            }
+        };
+        expect(ngOnInit).toThrow();
+    });
+    it("profile.component - ngOnInit 3",function(){
+        var ngOnInit =function(){
+            this.activatedRoute.queryParams.subscribe((params: any) => {
+              return this.otherEmail = params['email'];
+            });
+        }
+        expect(ngOnInit).toThrow();
+    })
     it("profile.component - switchForm 1",function(){
         var switchForm = function(){
             return this.hideDisplay = false;
