@@ -503,6 +503,7 @@ router.route('/accounts/profile')
         let exp = req.body.exp
         let achievement = req.body.achievement
         let facebook = req.body.facebook
+        let nickname = req.body.nickname
 
         if (!email) {
             res.json({
@@ -526,6 +527,7 @@ router.route('/accounts/profile')
                             exp: exp,
                             achievement: achievement,
                             facebook: facebook,
+                            nickname: nickname,
                         }
                     })
                         .then(data => {
@@ -602,7 +604,7 @@ router.route('/skills')
 
         let s = q.search || ''
         let p = q.page || 1
-        let l = q.limit || 10
+        let l = q.limit || 100
 
         Skill.paginate(
             {
