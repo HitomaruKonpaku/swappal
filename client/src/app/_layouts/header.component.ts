@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { AuthenticationService } from '../_services/index';
+import { AuthenticationService, APIService } from '../_services/index';
 declare var $: any;
 @Component({
     moduleId: module.id,
@@ -10,9 +9,12 @@ declare var $: any;
 
 export class HeaderComponent implements OnInit {
     isLogin: boolean;
+    currentEmail:string;
+    profile: any ={};
 
     constructor(
         private authService: AuthenticationService,
+        private profileService: APIService,
     ) {
       $(document).ready(function () {
 
@@ -57,6 +59,16 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() {
         this.updateLoginStatus();
+        this.currentEmail = localStorage.getItem('currentEmail');
+        this.profileService.getProfile(this.currentEmail)
+            .subscribe(
+            data => {
+                this.profile = data.data.profile
+                console.log(this.profile)
+            },
+            error => {
+                console.log("error")
+            })
     }
 
     updateLoginStatus() {

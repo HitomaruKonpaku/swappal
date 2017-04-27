@@ -1,61 +1,98 @@
-<div class="row">
-    <div class="col-md-6 offset-md-3">
-        <h2>Login</h2>
+<div class="web-background-color" style="height:100%;">
+  <div class="row">
+      <div class="col-md-6 offset-md-3 col-xs-6 offset-xs-3">
+          <h2>Đăng Nhập</h2>
 
-        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-            <div class="form-group">
-                <input type="email" class="form-control" name="email" placeholder="Email" ngModel required>
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" name="pwd" placeholder="Password" ngModel required>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Log In</button>
-                <a [routerLink]="['/register']" class="btn btn-link">Register</a>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- Button trigger modal -->
-
-<!-- Modal -->
-<div class="modal" id="CreateProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="padding:20px;">
-      <h1 style="text-align: center;">Welcome to Swappal</h1>
-        <!-- Tell us -->
-        <form #a="ngForm" (ngSubmit)="onCreateProfile(a)">
-          <label for="InputTellUs"><p class="glyphicon glyphicon-user"></p> Tell us about you</label>
-          <input type="input" name="name" ngModel class="form-control" id="InputTellUs" placeholder="What's your name?">
-          <br>
-          <div class="row">
-            <div class="col-md-7">
-              <input type="date">
-            </div>
-            <div class="col-md-5">
-                <label for="GenderRadio">Gender</label>
-                <label class="radio-inline"><input type="radio" name="gender" ngModel>Male</label>
-                <label class="radio-inline"><input type="radio" name="gender" ngModel>Female</label>
-            </div>
+          <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+              <div class="form-group">
+                  <input type="email" class="form-control" name="email" placeholder="Email" ngModel required>
+              </div>
+              <div class="form-group">
+                  <input type="password" class="form-control" name="pwd" placeholder="Mật khẩu" ngModel required>
+              </div>
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Đăng Nhập</button>
+                  <a [routerLink]="['/register']" class="btn btn-link">Đăng Ký</a>
+              </div>
+          </form>
+          <div class="form-group">
+            <button class="btn-social-facebook" (click)="signIn('facebook')"></button>
+            <!-- <div *ngIf="user">
+            <table>
+              <tr>
+                <td>Name:</td>
+                <td>{{user.name}}</td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>{{user.email}}</td>
+              </tr>
+              <tr>
+                <td>UID</td>
+                <td>{{user.uid}}</td>
+              </tr>
+              <tr>
+                <td>Provider</td>
+                <td>{{user.provider}}</td>
+              </tr>
+              <tr>
+                <td>Image</td>
+                <td>{{user.image}}</td>
+              </tr>
+            </table>
+          </div> -->
           </div>
-          <hr>
-          <label for="InputHelpOther1"><p class="glyphicon glyphicon-user"></p> Help others get in touch</label>
-          <!-- <input type="email" class="form-control" id="InputHelpOther1" placeholder="What's your email address?"> -->
-          <p name="email">{{email}}</p>
-          <input type="input" name="location" ngModel class="form-control input-text-margin" id="InputHelpOther1" placeholder="Fill your location so we could find the swap friends around you">
-          <hr>
-          <label for="InputHelpOther2"><p class="glyphicon glyphicon-user"></p> Help others know more about you</label>
-          <input type="input" name="skillhave" class="form-control input-text-margin" id="InputHelpOther2" placeholder="You're expert in">
-          <input type="input" name="skillneed" class="form-control input-text-margin" id="InputHelpOther2" placeholder="You want to learn more">
-          <input type="input" name="mission" ngModel class="form-control input-text-margin" id="InputHelpOther2" placeholder="You are here because">
-          <input type="input" name="achievement" ngModel class="form-control input-text-margin" id="InputHelpOther2" placeholder="Your achievement in swapping are">
-          <div style="text-align:center;margin-top:10px;">
-            <div class="form-group">
-              <button type="submit" class="btn btn-info" name="done">Done</button>
-            </div>
+          <div class="form-group">
+            <button class="btn-social-google"></button>
           </div>
-        </form>
+      </div>
+  </div>
 
+
+  <!-- Button trigger modal -->
+
+  <!-- Modal -->
+  <div class="modal" id="CreateProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="padding:20px;">
+        <h1 style="text-align: center;">Welcome to Swappal</h1>
+          <!-- Tell us -->
+          <form #a="ngForm" (ngSubmit)="onCreateProfile(a)">
+            <label for="InputTellUs"><p class="glyphicon glyphicon-user"></p> Tell us about you</label>
+            <input type="input" name="name" ngModel class="form-control" id="InputTellUs" placeholder="What's your name?" required>
+            <br>
+            <div class="row">
+              <div class="col-md-5">
+                <input type="date" ngModel name="dob" class="form-control" required>
+              </div>
+              <div class="col-md-7">
+                  <label >Gender</label>
+                  <input type="radio" name="gender" value="Male" ngModel required> Male
+                  <input type="radio" name="gender" value="Female" ngModel required> Female<br>
+
+              </div>
+            </div>
+            <hr>
+            <label for="InputHelpOther1"><p class="glyphicon glyphicon-user"></p> Help others get in touch</label>
+            <!-- <input type="email" class="form-control" id="InputHelpOther1" placeholder="What's your email address?"> -->
+            <p name="email">{{email}}</p>
+            <input type="input" name="location" ngModel class="form-control input-text-margin" id="InputHelpOther1" placeholder="Fill your location so we could find the swap friends around you">
+            <hr>
+            <label for="InputHelpOther2"><p class="glyphicon glyphicon-user"></p> Help others know more about you</label>
+            <input type="input" name="skillhave" class="form-control input-text-margin" id="InputHelpOther2" placeholder="You're expert in">
+            <input type="input" name="skillneed" class="form-control input-text-margin" id="InputHelpOther2" placeholder="You want to learn more">
+            <input type="input" name="mission" ngModel class="form-control input-text-margin" id="InputHelpOther2" placeholder="You are here because">
+            <input type="input" name="achievement" ngModel class="form-control input-text-margin" id="InputHelpOther2" placeholder="Your achievement in swapping are">
+            <div style="text-align:center;margin-top:10px;">
+              <div class="form-group">
+                <button type="submit" class="btn btn-info" name="done">Done</button>
+              </div>
+            </div>
+
+          </form>
+
+      </div>
     </div>
   </div>
+
 </div>
