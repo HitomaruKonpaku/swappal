@@ -42,9 +42,17 @@ export class SearchComponent implements OnInit{
   }
 
   onSubmit(){
-    var str = '{"have":["'+this.idskillneed+'"],"want":["'+this.idskillhave+'"]}';
-
+    var str: any;
+    if (this.idskillhave=="null" ){
+      str = '{"have":["'+this.idskillneed+'"]}'
+    }else if (this.idskillneed=="null"){
+      str = '{"want":["'+this.idskillhave+'"]}'
+    }else {
+      str = '{"have":["'+this.idskillneed+'"],"want":["'+this.idskillhave+'"]}';
+    }
+    // str = '{"have":["'+this.idskillneed+'"],"want":["'+this.idskillhave+'"]}';
     var json = JSON.parse(str);
+    console.log(str);
 
 
     this.apiService.searchSkill(json)

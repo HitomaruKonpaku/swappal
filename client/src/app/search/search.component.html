@@ -13,6 +13,7 @@
           <div class="form-group">
             <select [(ngModel)]="idskillneed" name="id" class="form-control">
               <!-- <option ngValue="">Choose Skill</option> -->
+              <option ngValue= null>Chọn kĩ năng</option>
                 <option *ngFor="let skill of skills" ngValue="{{skill.id}}">{{skill.name}}</option>
             </select>
           </div>
@@ -28,7 +29,7 @@
         <div class="col-md-9">
           <!-- <div class="form-group"> -->
             <select [(ngModel)]="idskillhave" name="id" class="form-control" style="width:100%;">
-              <!-- <option ngValue="">Choose Skill</option> -->
+                <option ngValue= null >Chọn kĩ năng</option>
                 <option *ngFor="let skill of skills" ngValue="{{skill.id}}">{{skill.name}}</option>
             </select>
           <!-- </div> -->
