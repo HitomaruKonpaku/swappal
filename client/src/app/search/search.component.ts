@@ -14,16 +14,10 @@ export class SearchComponent implements OnInit{
 
   objectskills : any = {};
   skills : Skill[] = [];
-  idskill : string;
+  idskillneed : string;
+  idskillhave : string;
   searchOpt :string;
-  skillHave: any = [];
-  skillWant: any = [];
   resultUser : any = [];
-  resultUserProfiles : any = [];
-  resultUserSkill: any =[];
-  resultUserSkillsHave: any =[];
-  resultUserSkillsWant: any =[];
-  profiles : any =[];
   isShowData: boolean = false;
 
 
@@ -48,7 +42,7 @@ export class SearchComponent implements OnInit{
   }
 
   onSubmit(){
-    var str = '{'+ '"'+this.searchOpt+'"' +':["'+this.idskill+'"]}';
+    var str = '{"have":["'+this.idskillneed+'"],"want":["'+this.idskillhave+'"]}';
 
     var json = JSON.parse(str);
 
@@ -59,22 +53,13 @@ export class SearchComponent implements OnInit{
         console.log(data)
         if (data.result.docs.length==0){
           this.isShowData = false;
-          console.log(this.isShowData);
         }
         else{
           for (let i = 0; i<data.result.docs.length;i++){
             this.resultUser[i] = data.result.docs[i];
-            this.resultUserProfiles[i] = data.result.docs[i].profile;
-            this.resultUserSkill[i] = data.result.docs[i].skills;
-            for( let j =0 ; j< this.resultUserSkill[i].have.length;j++){
-              this.skillHave[j] =  this.resultUserSkill[i].have[j];
-            }
-            for (let k = 0; k <this.resultUserSkill[i].want.length;k++){
-              this.skillWant[k] = this.resultUserSkill[i].want[k];
-            }
-          }
+        }
           this.isShowData = true;
-          console.log(this.isShowData);
+          console.log(this.resultUser);
         }
       },
       error =>{

@@ -54,8 +54,6 @@ export class ProfileComponent implements OnInit {
               switch (data.msg) {
                   case 'success':
                   console.log("success");
-
-                  // this.router.navigate(['/']);
                   break;
                     default: this.loading = false;
                     break;
@@ -64,9 +62,6 @@ export class ProfileComponent implements OnInit {
           error => {
           });
     }
-    // openDialog(){
-    //   this.dialog.open(RequestDialogComponent);
-    // }
     switchForm(){
       if (this.displayInformation == true){
         this.displayInformation = false;
@@ -76,12 +71,12 @@ export class ProfileComponent implements OnInit {
         this.displayEdit = false;
       }
     }
+
     getProfile(email : any){
       this.profileService.getProfile(email)
           .subscribe(
           data => {
               this.profile = data.data.profile
-              // console.log(this.profile)
           },
           error => {
               console.log("error")

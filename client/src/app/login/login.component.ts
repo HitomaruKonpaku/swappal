@@ -1,9 +1,10 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit,OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AlertService, AuthenticationService, APIService } from '../_services/index';
 import {MdDialog} from '@angular/material';
 import { HeaderComponent } from '../_layouts/index';
+import { AuthService } from 'angular2-social-login';
 declare var $: any;
 
 
@@ -13,12 +14,14 @@ declare var $: any;
 
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
     model: any = {};
     profile: any = {};
     loading = false;
     returnUrl: string;
     email :any ;
+    user : any;
+    sub : any;
 
     constructor(
         private route: ActivatedRoute,
@@ -27,6 +30,7 @@ export class LoginComponent implements OnInit {
         private authenticationService: AuthenticationService,
         private alertService: AlertService,
         private dialog: MdDialog,
+        private _auth: AuthService,
     ) { }
 
     ngOnInit() {
@@ -76,30 +80,41 @@ export class LoginComponent implements OnInit {
     }
     onCreateProfile(a:NgForm){
       var value = a.value;
-      console.log (a);
       console.log (value);
       value.email = this.email;
-      this.profileService.createProfile(value)
-          .subscribe(
-          data => {
-              switch (data.msg) {
-                  case 'success':
-                  location.reload();
-                  this.router.navigate(['/']);
-                  this.alertService.success('Create profile successful', true);
-                  break;
-                    default: this.loading = false;
-                    break;
-              }
-          },
-          error => {
-              // this.alertService.error(error);
-              // this.loading = false;
-          });
-    }
 
-    // openDialog(){
-    //   this.dialog.open(CreateProfileDialogComponent);
-    // }
+      // this.profileService.createProfile(value)
+      //     .subscribe(
+      //     data => {
+      //         switch (data.msg) {
+      //             case 'success':
+      //             location.reload();
+      //             this.router.navigate(['/']);
+      //             this.alertService.success('Create profile successful', true);
+      //             break;
+      //               default: this.loading = false;
+      //               break;
+      //         }
+      //     },
+      //     error => {
+      //         // this.alertService.error(error);
+      //         // this.loading = false;
+      //     });
+    }
+    ngOnDestroy(){
+    // this.sub.unsubscribe();
+    }
+    signIn(provider:any){
+    this.sub = this._auth.login(provider).subscribe(
+      (data) => {
+        console.log(data);this.user=data;}
+    )
+  }
+
+  logout(){
+    this._auth.logout().subscribe(
+      (data)=>{console.log(data);this.user=null;}
+    )
+  }
 
 }

@@ -1,4 +1,4 @@
-input[type=text], input[type=password] {
+input[type=text] {
     width: 100%;
     /*padding: 12px 20px;*/
     margin: 8px 0;
@@ -6,6 +6,14 @@ input[type=text], input[type=password] {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
+input[type=date]{
+  width: 100%;
+  border: 1px solid #ccc;
+  display: inline-block;
+  box-sizing: border-box;
+
+}
+
 .searchBar{
   position:absolute;
   top:65%;
@@ -16,6 +24,38 @@ input[type=text], input[type=password] {
 }
 .margin-layout{
   margin-bottom: 3%;
+}
+/*section.btn-social-facebook button{
+  display: inline-block;
+  margin: 0 10px 0 0;
+  padding: 5px 5px;
+  font-size: 20px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: 0;
+  color: #fff;
+  background-color: #6496c8;
+  text-shadow: -1px 1px #417cb8;
+  border: none;
+  width: 250px;
+}*/
+.btn-social-facebook{
+  background: url('../images/facebook-btn.png') no-repeat;
+  background-size: cover;
+  background-position: center center;
+  cursor:pointer;
+  border: none;
+  width: 220px;
+  height: 40px;
+}
+.btn-social-google{
+  background: url('../images/google-btn.png') no-repeat;
+  background-size: cover;
+  background-position: center center;
+  cursor:pointer;
+  border: none;
+  width: 220px;
+  height: 40px;
 }
 html, body {
 

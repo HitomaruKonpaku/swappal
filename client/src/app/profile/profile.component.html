@@ -17,12 +17,12 @@
               <p>description</p>
             </div>
           </div>
-          <div class="col-md-3 col-5">
+          <!-- <div class="col-md-3 col-5"> -->
             <!-- rating -->
-            <div class="circle-rating">
+            <!-- <div class="circle-rating">
               <p>point</p>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -32,7 +32,7 @@
       </div>
 
       <div class="col-md-4 md-dialog-container div-swapme-button" id="Mydialogcontaine" >
-        <button md-button type="submit" data-toggle="modal" data-target="#SwapModal" class="swapme-button">SWAP ME!</button>
+        <button md-button type="button" data-toggle="modal" data-target="#SwapModal" class="swapme-button">SWAP ME!</button>
       </div>
       <div class="modal fade" id="SwapModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -44,10 +44,18 @@
             <div class="modal-body">
               <div class="row">
                 <div class="col-6">
-                  <p><label>From: </label></p>
+                  <p><label>Từ: Bạn </label></p>
                 </div>
                 <div class="col-6">
-                  <p><label>To: </label></p>
+                  <p><label>Đến: {{ profile.name }}</label></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  
+                </div>
+                <div class="col-6">
+
                 </div>
               </div>
             <input type="text" class="form-control"style="height:120px;">
