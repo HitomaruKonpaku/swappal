@@ -50,9 +50,7 @@ export class SearchComponent implements OnInit{
     }else {
       str = '{"have":["'+this.idskillneed+'"],"want":["'+this.idskillhave+'"]}';
     }
-    // str = '{"have":["'+this.idskillneed+'"],"want":["'+this.idskillhave+'"]}';
     var json = JSON.parse(str);
-    console.log(str);
 
 
     this.apiService.searchSkill(json)

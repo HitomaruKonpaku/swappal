@@ -27,7 +27,7 @@ let providers = {
     //   "clientId": "GOOGLE_CLIENT_ID"
     // },
     "facebook": {
-      "clientId": "1694410110862800",
+      "clientId": "206599836481870",
       "apiVersion": "v2.9"
     }
   };

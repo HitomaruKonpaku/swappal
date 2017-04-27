@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     email :any ;
     user : any;
     sub : any;
+    // public user;
 
     constructor(
         private route: ActivatedRoute,
@@ -42,12 +43,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
-    ngAfterviewInit(){
-
-//save di doi xiu
-
-    }
-    //chay thu coi
     onSubmit(f: NgForm) {
         var v = f.value;
         this.loading = true;
@@ -101,20 +96,29 @@ export class LoginComponent implements OnInit, OnDestroy {
       //         // this.loading = false;
       //     });
     }
-    ngOnDestroy(){
-    // this.sub.unsubscribe();
-    }
-    signIn(provider:any){
+  //   public user;
+  // sub: any;
+  //
+  signIn(provider : any){
     this.sub = this._auth.login(provider).subscribe(
       (data) => {
-        console.log(data);this.user=data;}
+        console.log(data);this.user=data;
+
+      },
+      (error)=>{
+
+      }
     )
   }
-
-  logout(){
-    this._auth.logout().subscribe(
-      (data)=>{console.log(data);this.user=null;}
-    )
+  //
+  // logout(){
+  //   this._auth.logout().subscribe(
+  //     (data)=>{console.log(data);this.user=null;}
+  //   )
+  // }
+  //
+  ngOnDestroy(){
+    this.sub.unsubscribe();
   }
 
 }
