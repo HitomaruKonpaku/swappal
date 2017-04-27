@@ -4,25 +4,35 @@ var Schema = mongoose.Schema
 
 var jSchema = new Schema(
     {
-        _from: {
+        accFrom: {
             acc: { type: Schema.Types.ObjectId, ref: 'accounts' },
             skill: { type: Schema.Types.ObjectId, ref: 'skills' },
         },
-        _to: {
+        accTo: {
             acc: { type: Schema.Types.ObjectId, ref: 'accounts' },
             skill: { type: Schema.Types.ObjectId, ref: 'skills' },
         },
         createDate: Date,
-        status: {
-            code: Number,
-            date1: Date,
-            date2: Date,
-        },
+        updateDate: Date,
         messages: [{
             sender: { type: Schema.Types.ObjectId, ref: 'accounts' },
             message: String,
             date: Date,
         }],
+        status: {
+            accept: {
+                from: Date,
+                to: Date,
+            },
+            decline: {
+                by: { type: Schema.Types.ObjectId, ref: 'accounts' },
+                date: Date,
+            },
+            complete: {
+                by: { type: Schema.Types.ObjectId, ref: 'accounts' },
+                date: Date,
+            }
+        },
     },
     {
         versionKey: false,

@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const Promise = require('bluebird')
 const nodemailer = require('nodemailer')
 const util = require('util');
+const async = require('promise-async')
 
 var fs = require("fs");
 var tunnel = require('tunnel-ssh');
@@ -69,6 +70,7 @@ let Account = require('../models/Account')
 let AccountReg = require('../models/AccountReg')
 let News = require('../models/News')
 let Skill = require('../models/Skill')
+let Request = require('../models/Request')
 
 //====================================================================================================
 //====================================================================================================
@@ -576,6 +578,7 @@ router.route('/accounts/skills')
 
         Account
             .findOne({ 'email': email })
+            .select({ 'email': 1, 'skills': 1 })
             .exec()
             .then((result) => {
                 if (!result) { }
@@ -758,55 +761,122 @@ router.route('/request/new')
         let token = req.body.token
         let from = req.body.from
         let to = req.body.to
-        let sklFrom = req.body.skillFrom
-        let sklTo = req.body.skillTo
+        let sfrom = req.body.sfrom
+        let sto = req.body.sto
+        let message = req.body.message
 
-
-
-
-        async.parallel([
-            function (callback) {
-                callback(null, 'one', 'two')
-            },
-            function (arg1, arg2, callback) {
-                // arg1 now equals 'one' and arg2 now equals 'two'
-                callback(null, 'three')
-            },
-            function (arg1, callback) {
-                // arg1 now equals 'three'
-                callback(null, 'done')
-            }
-        ]).then(function (value) {
-            console.log(value === 'done') // => true
-        })
-
-        Account
-            .where('email').in([from, to])
-            .select({ 'email': 1 })
-            .exec()
-            .then((result) => {
-                let accF = result.find((item) => { return item.email === from })
-                let accT = result.find((item) => { return item.email === to })
-
-
-
-
-                responseSuccuess(res, result)
+        async
+            .parallel({
+                acc1: (callback) => {
+                    Account
+                        .findOne({ 'email': from })
+                        .select({ 'email': 1, 'skills': 1 })
+                        .populate('skills.have')
+                        .populate('skills.want')
+                        .exec(callback)
+                },
+                acc2: (callback) => {
+                    Account
+                        .findOne({ 'email': to })
+                        .select({ 'email': 1, 'skills': 1 })
+                        .populate('skills.have')
+                        .populate('skills.want')
+                        .exec(callback)
+                },
             })
+            .then((result) => {
+                // console.log(JSON.stringify(result, null, 3))
 
+                let acc1 = result.acc1
+                let acc2 = result.acc2
+                let date = new Date()
+
+                let request = new Request()
+                request.accFrom.acc = acc1._id
+                request.accFrom.skill = sfrom
+                request.accTo.acc = acc2._id
+                request.accTo.skill = sto
+                request.createDate = date
+                request.updateDate = date
+                request.messages = []
+                request.statusLog = []
+
+                let msg = {}
+                msg.sender = acc1._id
+                msg.message = message
+                msg.date = date
+                request.messages.push(msg)
+
+                // console.log(request)
+
+                request.save()
+                    .then((result) => {
+                        // console.log(result)
+                        responseSuccuess(res, result)
+                    })
+            })
     })
 
 router.route('/request/reply')
     .post((req, res) => {
+        let token = req.body.token
+        let requestid = req.body.requestid
+        let from = req.body.from
+        let message = req.body.message
 
+        Request.findOne({ '_id': requestid })
+            .populate({ path: 'accFrom.acc', select: 'email' })
+            .populate({ path: 'accTo.acc', select: 'email' })
+            .then((result) => {
+                // console.log(result)
+
+                let date = new Date()
+                let acc1 = result.accFrom.acc
+                let acc2 = result.accTo.acc
+                let id = from === acc1.email ? acc1._id : acc2._id
+
+                let msg = {}
+                msg.sender = id
+                msg.message = message
+                msg.date = new Date()
+
+                result.updateDate = date
+                result.messages.push(msg)
+                result.save()
+                    .then((result) => {
+                        responseSuccuess(res, result)
+                    })
+            })
     })
 
 router.route('/request/accept')
     .post((req, res) => {
+        let token = req.body.token
+        let requestid = req.body.requestid
+        let from = req.body.from
 
+        Request.findOne({ '_id': requestid })
+            .populate({ path: 'accFrom.acc', select: 'email' })
+            .populate({ path: 'accTo.acc', select: 'email' })
+            .then((result) => {
+                // console.log(result)
+
+                let date = new Date()
+                let acc1 = result.accFrom.acc
+                let acc2 = result.accTo.acc
+
+                if (from === acc1.email) {
+
+                } else if (from === acc2.email) {
+
+                } else {
+
+                }
+
+            })
     })
 
-router.route('/request/deny')
+router.route('/request/decline')
     .post((req, res) => {
 
     })
