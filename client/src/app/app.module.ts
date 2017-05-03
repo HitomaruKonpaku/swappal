@@ -23,9 +23,9 @@ import { SearchComponent} from './search/index';
 import { ContactUsComponent, AboutUsComponent, FAQsComponent} from './foundation/index';
 
 let providers = {
-    // "google": {
-    //   "clientId": "GOOGLE_CLIENT_ID"
-    // },
+    "google": {
+      "clientId": "864996270173-anbttqjuc2e7p08itjg77tfeb7eliifs.apps.googleusercontent.com"
+    },
     "facebook": {
       "clientId": "206599836481870",
       "apiVersion": "v2.9"

@@ -17,12 +17,6 @@
               <p>description</p>
             </div>
           </div>
-          <!-- <div class="col-md-3 col-5"> -->
-            <!-- rating -->
-            <!-- <div class="circle-rating">
-              <p>point</p>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
@@ -32,7 +26,7 @@
       </div>
 
       <div class="col-md-4 md-dialog-container div-swapme-button" id="Mydialogcontaine" >
-        <button md-button type="button" data-toggle="modal" data-target="#SwapModal" class="swapme-button">SWAP ME!</button>
+        <button md-button type="button" [hidden]=displayButton data-toggle="modal" data-target="#SwapModal" class="swapme-button">SWAP ME!</button>
       </div>
       <div class="modal fade" id="SwapModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -52,7 +46,7 @@
               </div>
               <div class="row">
                 <div class="col-6">
-                  
+
                 </div>
                 <div class="col-6">
 
@@ -69,7 +63,7 @@
       </div>
     </div>
       <!-- Nav tabs -->
-        <div style="margin-bottom:40px;">
+        <div style="margin-bottom:40px;margin-top:20px">
           <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" data-toggle="tab" href="#mypage" role="tab">My Page</a>
@@ -90,7 +84,7 @@
                   <h3>Skills I Have</h3>
                 </div>
                 <div class="col-md-3 col-sm-3 col-lg-3">
-                  <a role="link" (click)="switchForm()" style="color:#4eb1ba"><p class="glyphicon glyphicon-pencil"></p>Edit</a>
+                  <a role="link" [hidden]="displayButtonEdit" (click)="switchForm()" style="color:#4eb1ba"><i class="material-icons">border_color</i> Edit</a>
                 </div>
               </div>
               <hr>
@@ -146,7 +140,7 @@
                   <h3>Basic Information</h3>
                 </div>
                 <div class="col-md-3 col-3">
-                  <a role="button" (click)="switchForm()" style="color:#4eb1ba"><p class="glyphicon glyphicon-pencil"></p>Edit</a>
+                  <a role="button" [hidden]="displayButtonEdit" (click)="switchForm()" style="color:#4eb1ba"><i class="material-icons">border_color</i> Edit</a>
                 </div>
               </div>
               <hr>
@@ -177,7 +171,7 @@
                 </div>
                 <div class="col-md-9" [hidden]=displayInformation>
                   <div class="flex-item-detail-tab">
-                    {{profile.dob}}
+                    {{profile.dob | date: 'dd/MM/yyyy'}}
                   </div>
                 </div>
                 <div class="col-md-9">
@@ -324,10 +318,14 @@
                       </div>
                     </div>
                   </div>
+                  <div style="width:100%;text-align:center;" [hidden]="displayButton">
+                    <button type="submit" class="btn btn-info">Write Review</button>
+                  </div>
                 </div>
                 <div class="col-2" style="width:180px; height:180px;">
                 </div>
               </div>
+
             </div>
         </div>
       </div>

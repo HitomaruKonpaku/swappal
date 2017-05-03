@@ -21,6 +21,8 @@ export class ProfileComponent implements OnInit {
     loading = false;
     displayInformation: boolean = false;
     displayEdit: boolean = true;
+    displayButton: boolean = true;
+    displayButtonEdit: boolean = true;
     currentToken: string;
     otherEmail : string;
     constructor(
@@ -38,11 +40,15 @@ export class ProfileComponent implements OnInit {
             });
         if (!this.otherEmail){
           this.getProfile(this.currentEmail);
+          this.displayButtonEdit = false;
         }
         else{
           this.getProfile(this.otherEmail);
+          this.getCurrentUserSkill(this.currentEmail);
+          this.displayButton = false;
         }
     }
+
     onSubmit(f:NgForm){
       var value = f.value;
       console.log (f);
@@ -96,5 +102,15 @@ export class ProfileComponent implements OnInit {
           error => {
               console.log("error")
           })
+    }
+    getCurrentUserSkill(email:any){
+      this.profileService.getSkills(email)
+            .subscribe(
+              data=>{
+                console.log(data)
+              },
+              error=>{
+
+              })
     }
 }

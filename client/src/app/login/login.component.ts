@@ -1,4 +1,4 @@
-﻿import { Component, OnInit,OnDestroy } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AlertService, AuthenticationService, APIService } from '../_services/index';
@@ -14,7 +14,7 @@ declare var $: any;
 
 })
 
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit{
     model: any = {};
     profile: any = {};
     loading = false;
@@ -78,27 +78,24 @@ export class LoginComponent implements OnInit, OnDestroy {
       console.log (value);
       value.email = this.email;
 
-      // this.profileService.createProfile(value)
-      //     .subscribe(
-      //     data => {
-      //         switch (data.msg) {
-      //             case 'success':
-      //             location.reload();
-      //             this.router.navigate(['/']);
-      //             this.alertService.success('Create profile successful', true);
-      //             break;
-      //               default: this.loading = false;
-      //               break;
-      //         }
-      //     },
-      //     error => {
-      //         // this.alertService.error(error);
-      //         // this.loading = false;
-      //     });
+      this.profileService.createProfile(value)
+          .subscribe(
+          data => {
+              switch (data.msg) {
+                  case 'success':
+                  location.reload();
+                  this.router.navigate(['/']);
+                  this.alertService.success('Create profile successful', true);
+                  break;
+                    default: this.loading = false;
+                    break;
+              }
+          },
+          error => {
+              // this.alertService.error(error);
+              // this.loading = false;
+          });
     }
-  //   public user;
-  // sub: any;
-  //
   signIn(provider : any){
     this.sub = this._auth.login(provider).subscribe(
       (data) => {
@@ -109,16 +106,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       }
     )
-  }
-  //
-  // logout(){
-  //   this._auth.logout().subscribe(
-  //     (data)=>{console.log(data);this.user=null;}
-  //   )
-  // }
-  //
-  ngOnDestroy(){
-    this.sub.unsubscribe();
   }
 
 }
