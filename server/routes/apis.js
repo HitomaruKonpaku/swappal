@@ -865,18 +865,116 @@ router.route('/request/accept')
                 let acc1 = result.accFrom.acc
                 let acc2 = result.accTo.acc
 
+                result.updateDate = date
+
                 if (from === acc1.email) {
-
+                    if (!result.status.accept.from) {
+                        result.status.accept.from = date
+                    } else {
+                        return
+                    }
                 } else if (from === acc2.email) {
-
+                    if (!result.status.accept.to) {
+                        result.status.accept.to = date
+                    } else {
+                        return
+                    }
                 } else {
-
+                    return
                 }
+
+                result.save()
+                    .then((data) => {
+                        responseSuccuess(res, data)
+                    })
 
             })
     })
 
 router.route('/request/decline')
     .post((req, res) => {
+        let token = req.body.token
+        let requestid = req.body.requestid
+        let from = req.body.from
 
+        Request.findOne({ '_id': requestid })
+            .populate({ path: 'accFrom.acc', select: 'email' })
+            .populate({ path: 'accTo.acc', select: 'email' })
+            .then((result) => {
+                // console.log(result)
+
+                let date = new Date()
+                let acc1 = result.accFrom.acc
+                let acc2 = result.accTo.acc
+                let acc
+
+                result.updateDate = date
+
+                if (from === acc1.email) {
+                    acc = acc1
+                } else if (from === acc2.email) {
+                    acc = acc2
+                } else {
+                    return
+                }
+
+                if (result.status.decline) {
+                    return
+                }
+
+                result.status.decline.by = acc._id
+                result.status.decline.date = date
+
+                result.save()
+                    .then((data) => {
+                        responseSuccuess(res, data)
+                    })
+            })
+    })
+
+
+
+router.route('/request/complete')
+    .post((req, res) => {
+        let token = req.body.token
+        let requestid = req.body.requestid
+        let from = req.body.from
+
+        Request.findOne({ '_id': requestid })
+            .populate({ path: 'accFrom.acc', select: 'email' })
+            .populate({ path: 'accTo.acc', select: 'email' })
+            .then((result) => {
+                // console.log(result)
+
+                let date = new Date()
+                let acc1 = result.accFrom.acc
+                let acc2 = result.accTo.acc
+                let acc
+
+                result.updateDate = date
+
+                if (from === acc1.email) {
+                    acc = acc1
+                } else if (from === acc2.email) {
+                    acc = acc2
+                } else {
+                    return
+                }
+
+                if (!result.status.accept.from || !result.status.accept.to || result.status.decline) {
+                    return
+                }
+
+                if (result.status.complete) {
+                    return
+                }
+
+                result.status.complete.by = acc._id
+                result.status.complete.date = date
+
+                result.save()
+                    .then((data) => {
+                        responseSuccuess(res, data)
+                    })
+            })
     })
