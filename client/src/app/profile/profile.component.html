@@ -24,10 +24,10 @@
     <div class="row">
       <div class="col-md-8">
       </div>
-
       <div class="col-md-4 md-dialog-container div-swapme-button" id="Mydialogcontaine" >
         <button md-button type="button" [hidden]=displayButton data-toggle="modal" data-target="#SwapModal" class="swapme-button">SWAP ME!</button>
       </div>
+      <!-- swap request modal -->
       <div class="modal fade" id="SwapModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="padding:20px;">
@@ -35,29 +35,44 @@
                 <h1>REQUEST SWAP</h1>
               <img src="../images/request-handshake.png" alt="Swap icon" style="max-width:100px; max-height:100px;" >
             </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-6">
-                  <p><label>Từ: Bạn </label></p>
+            <form #r="ngForm" (ngSubmit)="sendRequest(r)">
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-6">
+                    <p >Từ: Bạn</p>
+                  </div>
+                  <div class="col-6">
+                    <p><label>Đến: {{ profile.name }}</label></p>
+                  </div>
                 </div>
-                <div class="col-6">
-                  <p><label>Đến: {{ profile.name }}</label></p>
+                <div class="row">
+                  <div class="col-6">
+                    <p><label>Have</label></p>
+                    <select [(ngModel)]="sfrom" name="sfrom" class="form-control">
+                      <!-- <option ngValue="">Choose Skill</option> -->
+                      <!-- <option ngValue= null>Chọn kĩ năng</option> -->
+                        <option *ngFor="let skill of currentHave" ngValue="{{skill._id}}">{{skill.name}}</option>
+                    </select>
+                    <input type="text" [hidden]=true name="from" ngModel="{{currentEmail}}">
+                    <input type="text" [hidden]=true name="token" ngModel="{{currentToken}}">
+                    <input type="text" [hidden]=true name="to" ngModel="{{otherEmail}}">
+                  </div>
+                  <div class="col-6">
+                    <p><label>Need</label></p>
+                    <select [(ngModel)]="sto" name="sto" class="form-control">
+                      <!-- <option ngValue="">Choose Skill</option> -->
+                      <!-- <option ngValue= null>Chọn kĩ năng</option> -->
+                        <option *ngFor="let skill of skillHave" ngValue="{{skill._id}}">{{skill.name}}</option>
+                    </select>
+                  </div>
                 </div>
+              <input type="text" class="form-control"style="height:120px;" name="message" ngModel>
               </div>
-              <div class="row">
-                <div class="col-6">
-
-                </div>
-                <div class="col-6">
-
-                </div>
+              <div style="text-align:center;">
+                <button type="submit" class="btn btn-success btn-lg"><i class="material-icons">done</i></button>
+                <button type="button" class="btn btn-danger btn-lg .cancelbtn" data-dismiss="modal"><i class="material-icons">close</i></button>
               </div>
-            <input type="text" class="form-control"style="height:120px;">
-            </div>
-            <div style="text-align:center;">
-              <button type="submit" class="btn btn-success btn-lg"><i class="material-icons">done</i></button>
-              <button type="button" class="btn btn-danger btn-lg .cancelbtn" data-dismiss="modal"><i class="material-icons">close</i></button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -73,6 +88,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="tab" href="#review" role="tab">Review</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#swap" role="tab">Swap</a>
             </li>
           </ul>
 
@@ -214,8 +232,11 @@
                   </div>
                 </div>
                 <div class="col-md-9">
-                  <div class="flex-item-detail-tab">
+                  <div class="flex-item-detail-tab" *ngIf="!otherEmail">
                     {{currentEmail}}
+                  </div>
+                  <div class="flex-item-detail-tab" *ngIf="otherEmail">
+                    {{otherEmail}}
                   </div>
                 </div>
               </div>
@@ -325,7 +346,14 @@
                 <div class="col-2" style="width:180px; height:180px;">
                 </div>
               </div>
+            </div>
+            <!-- swap log -->
+            <div class="tab-pane" id="swap" role="tabpanel">
+              <h3>Request to Other</h3>
 
+              <hr>
+              <h3>Other Request</h3>
+              <hr>
             </div>
         </div>
       </div>

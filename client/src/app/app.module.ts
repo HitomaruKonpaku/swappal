@@ -10,7 +10,7 @@ import { routing } from './app.routing';
 import { Angular2SocialLoginModule } from "angular2-social-login";
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, APIService } from './_services/index';
+import { AlertService, AuthenticationService, APIService, ValidationService } from './_services/index';
 import { Skill} from './_models/index';
 import { HeaderComponent, FooterComponent } from './_layouts/index';
 
@@ -64,6 +64,7 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     AuthGuard,
     AlertService,
     AuthenticationService,
+    ValidationService,
     APIService,
     Skill,
     SearchComponent,

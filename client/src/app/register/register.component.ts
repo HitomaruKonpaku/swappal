@@ -23,6 +23,7 @@ export class RegisterComponent {
 
     onSubmit(f: NgForm) {
         var value = f.value;
+        console.log(value)
         this.APIService.create(value)
             .subscribe(
             data => {
