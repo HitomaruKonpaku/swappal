@@ -339,11 +339,35 @@
                       </div>
                     </div>
                   </div>
-                  <div style="width:100%;text-align:center;" [hidden]="displayButton">
-                    <button type="submit" class="btn btn-info">Write Review</button>
+                  <!-- [hidden]="displayButton" -->
+                  <div style="width:100%;text-align:center;" >
+                    <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#WriteReviewModal">Write Review</button>
                   </div>
                 </div>
                 <div class="col-2" style="width:180px; height:180px;">
+                </div>
+              </div>
+            </div>
+            <!-- write review modal -->
+            <div class="modal fade" id="WriteReviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content" style="padding:20px;">
+                  <div style="text-align:center;" >
+                    <h1>REVIEW</h1>
+                  </div>
+                  <form>
+                    <label>Skill</label>
+                    <rating [max]="5" required></rating>
+                    <br>
+                    <label>Service</label>
+                    <rating [max]="5" required></rating>
+                    <input type="text" class="form-control"style="height:120px;" name="review" ngModel>
+                    <div style="text-align:center;">
+                      <button type="submit" class="btn-info btn">OK</button>
+                    </div>
+
+                  </form>
+
                 </div>
               </div>
             </div>

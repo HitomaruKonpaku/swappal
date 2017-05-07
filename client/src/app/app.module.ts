@@ -13,7 +13,7 @@ import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, APIService, ValidationService } from './_services/index';
 import { Skill} from './_models/index';
 import { HeaderComponent, FooterComponent } from './_layouts/index';
-
+import {RatingModule} from 'ngx-rating';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { LogoutComponent } from './logout/index';
@@ -43,6 +43,7 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     MdAutocompleteModule,
     ReactiveFormsModule,
     Angular2SocialLoginModule,
+    RatingModule,
   ],
   declarations: [
     AppComponent,
@@ -73,6 +74,7 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
   bootstrap: [
     AppComponent
   ]
+
 })
 
 export class AppModule { }
