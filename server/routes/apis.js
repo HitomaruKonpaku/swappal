@@ -980,3 +980,28 @@ router.route('/request/complete')
                     })
             })
     })
+
+router.route('/request/list')
+    .post((req, res) => {
+        let email = req.body.email
+
+        async
+            .parallel([
+                (callback) => {
+                    Request.find({})
+                        .populate({ path: 'accFrom.acc', select: 'email', match: { 'email': email } })
+                        .populate({ path: 'accTo.acc', select: 'email' })
+                        .exec(callback)
+                },
+                (callback) => {
+                    Request.find({})
+                        .populate({ path: 'accFrom.acc', select: 'email' })
+                        .populate({ path: 'accTo.acc', select: 'email', match: { 'email': email } })
+                        .exec(callback)
+                }
+            ])
+            .then((result) => {
+                let array = result[0].concat(result[1])
+                responseSuccuess(res, array)
+            })
+    })
