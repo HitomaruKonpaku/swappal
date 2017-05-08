@@ -27,8 +27,8 @@
 
                   <!--THE NOTIFICAIONS DROPDOWN BOX.-->
                   <div id="notifications">
-                      <div class="noti-item">
-                        <a href="#"><p>User have requested you</p></a>
+                      <div class="noti-item row" *ngFor="let request of requests">
+                        <a href="#"><p>{{request.accFrom.acc.email}} have requested you</p></a>
                       </div>
                     </div>
                   </div>

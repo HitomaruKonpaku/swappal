@@ -11,10 +11,11 @@ export class HeaderComponent implements OnInit {
     isLogin: boolean;
     currentEmail:string;
     profile: any ={};
+    requests: any =[];
 
     constructor(
         private authService: AuthenticationService,
-        private profileService: APIService,
+        private apiService: APIService,
     ) {
       $(document).ready(function () {
 
@@ -60,7 +61,7 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
         this.updateLoginStatus();
         this.currentEmail = localStorage.getItem('currentEmail');
-        this.profileService.getProfile(this.currentEmail)
+        this.apiService.getProfile(this.currentEmail)
             .subscribe(
             data => {
                 this.profile = data.data.profile
@@ -69,6 +70,19 @@ export class HeaderComponent implements OnInit {
             error => {
                 console.log("error")
             })
+        // var str = '{"email":"'+this.currentEmail+'"}'
+        // var json = JSON.parse(str);
+        // this.apiService.getRequest(json)
+        //     .subscribe(
+        //       data => {
+        //         this.requests = data.data;
+        //         console.log(this.requests)
+        //
+        //       },
+        //       error => {
+        //
+        //       }
+        //     )
     }
 
     updateLoginStatus() {

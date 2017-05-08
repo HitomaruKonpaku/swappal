@@ -8,9 +8,8 @@ import { APIService } from '../_services/index';
 export class HomeComponent implements OnInit {
   profile : any = {}
   constructor(
-    private profileService : APIService,
+    private APIService : APIService,
   ){}
   ngOnInit(){
-    
   }
 }

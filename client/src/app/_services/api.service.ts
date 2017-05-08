@@ -49,6 +49,9 @@ export class APIService {
     completeRequest(request:any){
       return this.http.post(this.address + '/request/complete', request,this.jwt()).map((response: Response) => response.json());
     }
+    getRequest(email: any){
+      return this.http.post(this.address + '/request/list', email,this.jwt()).map((response: Response) => response.json());
+    }
 
     // private helper methods
 
