@@ -985,23 +985,32 @@ router.route('/request/list')
     .post((req, res) => {
         let email = req.body.email
 
-        async
-            .parallel([
-                (callback) => {
-                    Request.find({})
-                        .populate({ path: 'accFrom.acc', select: 'email', match: { 'email': email } })
-                        .populate({ path: 'accTo.acc', select: 'email' })
-                        .exec(callback)
-                },
-                (callback) => {
-                    Request.find({})
-                        .populate({ path: 'accFrom.acc', select: 'email' })
-                        .populate({ path: 'accTo.acc', select: 'email', match: { 'email': email } })
-                        .exec(callback)
-                }
-            ])
+        Request.find({})
+            .populate({
+                path: 'accFrom.acc',
+                select: 'email',
+            })
+            .populate({
+                path: 'accTo.acc',
+                select: 'email',
+            })
+            .populate({ path: 'accFrom.skill' })
+            .populate({ path: 'accTo.skill' })
+            .select({
+                'accFrom': 1,
+                'accTo': 1,
+                'createDate': 1,
+                'updateDate': 1,
+            })
+            .exec()
             .then((result) => {
-                let array = result[0].concat(result[1])
-                responseSuccuess(res, array)
+                let arr = result
+                arr = arr.filter((item) => {
+                    return item.accFrom.acc.email === email || item.accTo.acc.email === email
+                })
+                arr = arr.sort((a, b) => {
+                    return b.updateDate - a.updateDate
+                })
+                responseSuccuess(res, arr)
             })
     })
