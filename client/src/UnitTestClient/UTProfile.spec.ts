@@ -45,7 +45,7 @@ describe("Test profile",function(){
         };
         expect(switchForm).toThrow();
     });
-    it('profile.component - getProfile',function(){
+    it('profile.component - getProfile 1',function(){
         var getProfile = function(email:any){
             return this.profileService.getProfile(email);
         }

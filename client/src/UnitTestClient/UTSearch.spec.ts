@@ -5,7 +5,7 @@ import {Skill} from '../app/_models/index';
 import { NgForm } from '@angular/forms';
 
 describe('Test Search',function(){
-    it('search.component - ngOnInit',function(){
+    it('search.component - ngOnInit 1',function(){
         var ngOnInit = function(){
             return this.apiService.getAllSkills()
         };
@@ -25,7 +25,7 @@ describe('Test Search',function(){
         };
         expect(ngOnInit).toThrow();
     })
-    it('search.component - onSubmit',function(){
+    it('search.component - onSubmit 1',function(){
         var onSubmit = function(str:any){
             if (this.idskillhave=="null" ){
                 return str = '{"have":["'+this.idskillneed+'"]}'
