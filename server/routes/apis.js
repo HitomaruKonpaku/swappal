@@ -996,12 +996,12 @@ router.route('/request/list')
             })
             .populate({ path: 'accFrom.skill' })
             .populate({ path: 'accTo.skill' })
-            .select({
-                'accFrom': 1,
-                'accTo': 1,
-                'createDate': 1,
-                'updateDate': 1,
-            })
+            // .select({
+            //     'accFrom': 1,
+            //     'accTo': 1,
+            //     'createDate': 1,
+            //     'updateDate': 1,
+            // })
             .exec()
             .then((result) => {
                 let arr = result

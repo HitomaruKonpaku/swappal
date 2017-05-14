@@ -12,7 +12,7 @@ import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, APIService, ValidationService } from './_services/index';
 import { Skill} from './_models/index';
-import { HeaderComponent, FooterComponent } from './_layouts/index';
+import { HeaderComponent, FooterComponent,ExchangeDialog } from './_layouts/index';
 import {RatingModule} from 'ngx-rating';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
@@ -60,6 +60,7 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     AboutUsComponent,
     FAQsComponent,
     VerificationComponent,
+    ExchangeDialog,
   ],
   providers: [
     AuthGuard,
@@ -69,7 +70,9 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     APIService,
     Skill,
     SearchComponent,
-
+  ],
+  entryComponents: [
+    ExchangeDialog
   ],
   bootstrap: [
     AppComponent

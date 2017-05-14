@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService, APIService } from '../_services/index';
+import { AuthenticationService, APIService,AlertService } from '../_services/index';
+import {MdListModule} from '@angular/material';
+import {MdDialog,MdDialogConfig, MdDialogRef} from '@angular/material';
+import { NgForm } from '@angular/forms';
+
 declare var $: any;
 @Component({
     moduleId: module.id,
@@ -9,53 +13,24 @@ declare var $: any;
 
 export class HeaderComponent implements OnInit {
     isLogin: boolean;
+    isRequest : boolean = false;
     currentEmail:string;
     profile: any ={};
     requests: any =[];
+    request:any={};
+    userSkill: any;
+    otherSkill: any;
+    noti:string;
+    isEmail :any=[];
+    isOdd : any = [];
+
+
 
     constructor(
         private authService: AuthenticationService,
         private apiService: APIService,
-    ) {
-      $(document).ready(function () {
-
-          // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
-          $('#noti_Counter')
-              .css({ opacity: 0 })
-              .text('7')              // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
-              .css({ top: '-10px' })
-              .animate({ top: '-2px', opacity: 1 }, 500);
-
-          $('#noti_Button').click(function () {
-
-              // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
-              $('#notifications').fadeToggle('fast', 'linear', function () {
-                  if ($('#notifications').is(':hidden')) {
-                      $('#noti_Button').css('background-color');
-                  }
-                  else $('#noti_Button').css('background-color');        // CHANGE BACKGROUND COLOR OF THE BUTTON.
-              });
-
-              $('#noti_Counter').fadeOut('slow');                 // HIDE THE COUNTER.
-
-              return false;
-          });
-
-          // HIDE NOTIFICATIONS WHEN CLICKED ANYWHERE ON THE PAGE.
-          $(document).click(function () {
-              $('#notifications').hide();
-
-              // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
-              if ($('#noti_Counter').is(':hidden')) {
-
-              }
-          });
-
-          $('#notifications').click(function () {
-              return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
-          });
-      });
-      }
+        private dialog : MdDialog,
+    ) {}
 
 
     ngOnInit() {
@@ -70,22 +45,127 @@ export class HeaderComponent implements OnInit {
             error => {
                 console.log("error")
             })
-        // var str = '{"email":"'+this.currentEmail+'"}'
-        // var json = JSON.parse(str);
-        // this.apiService.getRequest(json)
-        //     .subscribe(
-        //       data => {
-        //         this.requests = data.data;
-        //         console.log(this.requests)
-        //
-        //       },
-        //       error => {
-        //
-        //       }
-        //     )
+        var str = '{"email":"'+this.currentEmail+'"}'
+        var json = JSON.parse(str);
+        this.apiService.getRequest(json)
+            .subscribe(
+              data => {
+                this.requests = data.data;
+                console.log(this.requests)
+                for (let i =0;i<this.requests.length;i++){
+                  if (this.requests[i].accFrom.acc.email == this.currentEmail){
+                    this.isEmail[i] = false;
+                  } else if (this.requests[i].accTo.acc.email == this.currentEmail){
+                    this.isEmail[i]= true;
+                  }
+                }
+                console.log(this.isEmail)
+              },
+              error => {
+
+              }
+            )
     }
 
     updateLoginStatus() {
         this.isLogin = this.authService.status();
     }
+    openDialog(request: any){
+      let config = new MdDialogConfig();
+      let dialogRef:MdDialogRef<ExchangeDialog> = this.dialog.open(ExchangeDialog,config);
+      dialogRef.componentInstance.request = request;
+      dialogRef.componentInstance.isEmail = this.isEmail;
+    }
+}
+@Component({
+  moduleId: module.id,
+  selector: 'exchange-dialog',
+  templateUrl: 'exchange.component.html',
+})
+export class ExchangeDialog implements OnInit {
+  request: any;
+  currentEmail : string;
+  currentToken: string;
+  isEmail : any=[];
+  isAccept : boolean;
+  constructor(
+    public dialogRef: MdDialogRef<ExchangeDialog>,
+    private apiService :  APIService,
+    private alertService : AlertService,
+
+  ){}
+
+  ngOnInit(){
+    this.currentEmail = localStorage.getItem('currentEmail');
+    this.currentToken = localStorage.getItem('currentUser.token');
+    console.log(this.isEmail)
+  }
+
+  replyRequest(r:NgForm){
+    var value = r.value;
+    console.log(value)
+
+    this.apiService.replyRequest(value)
+    .subscribe(
+      data=>{
+        console.log(data)
+
+        switch (data.msg) {
+            case 'success':
+
+
+
+
+            break;
+            // default: this.alertService.error(data.msg);
+            //     this.loading = false;
+            //     break;
+        }
+      },
+      error=>{
+
+      }
+    )
+  }
+  acceptRequest(requestid: any, from : any){
+    var str = '{"requestid":"'+requestid+'"'+',"from":"'+from+'"}'
+    var json = JSON.parse(str)
+
+    this.apiService.acceptRequest(json).subscribe(
+      data=>{
+        console.log(data)
+
+        switch (data.msg) {
+            case 'success':
+            this.alertService.success('Bạn đã chấp nhận trao đổi', true);
+            this.isAccept = true;
+            break;
+        }
+      },
+      error=>{
+
+      }
+    )
+  }
+  declineRequest(requestid: any, from : any){
+    var str = '{"requestid":"'+requestid+'"'+',"from":"'+from+'"}'
+    var json = JSON.parse(str)
+
+    this.apiService.declineRequest(json).subscribe(
+      data=>{
+        switch (data.msg) {
+            case 'success':
+
+                break;
+
+        }
+      },
+      error=>{
+
+      }
+    )
+  }
+
+
+
 }

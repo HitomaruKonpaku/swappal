@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from '../_services/index';
-// import { RequestDialogComponent} from './request.component';
-import {MdDialog} from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import {SearchComponent} from '../search/index';
 declare var $: any;
 @Component({
     moduleId: module.id,
-    templateUrl: 'profile.component.html'
+    templateUrl: 'profile.component.html',
 })
 
 export class ProfileComponent implements OnInit {
@@ -31,11 +29,10 @@ export class ProfileComponent implements OnInit {
     sfrom : string;
     sto : string;
     emailfrom: string;
+    isAccept: boolean;
 
     constructor(
         private profileService: APIService,
-        private dialog: MdDialog,
-        // private router: Router,
         private activatedRoute: ActivatedRoute,
         private foundUser: SearchComponent,
     ) { }

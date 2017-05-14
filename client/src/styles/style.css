@@ -13,6 +13,9 @@ input[type=date]{
   box-sizing: border-box;
 
 }
+.noti-style{
+  overflow-y: auto;
+}
 
 .searchBar{
   position:absolute;
@@ -104,16 +107,8 @@ header{
 .contentaboutus{
   text-align: center;
 }
-.noti-item{
-  height: 60px;
-  width: 430px;
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-  background-color: red;
-  background-color: #ebf5f3;
-}
-#noti_Container {
+
+/*#noti_Container {
         position:relative;
     }
 #noti_Button {
@@ -208,7 +203,7 @@ header{
 #panel3 {
     padding: 20px;
     display: none;
-}
+}*/
 .faqstitle{
   color: #555555;
 }
