@@ -903,7 +903,7 @@ router.route('/request/decline')
             .populate({ path: 'accFrom.acc', select: 'email' })
             .populate({ path: 'accTo.acc', select: 'email' })
             .then((result) => {
-                // console.log(result)
+                console.log(result)
 
                 let date = new Date()
                 let acc1 = result.accFrom.acc
@@ -917,15 +917,19 @@ router.route('/request/decline')
                 } else if (from === acc2.email) {
                     acc = acc2
                 } else {
+                    responseError(res, 'error')
                     return
                 }
 
                 if (result.status.decline) {
+                    responseError(res, 'error')
                     return
                 }
 
-                result.status.decline.by = acc._id
-                result.status.decline.date = date
+                result.status.decline = {
+                    by: acc._id,
+                    date: date,
+                }
 
                 result.save()
                     .then((data) => {
@@ -933,8 +937,6 @@ router.route('/request/decline')
                     })
             })
     })
-
-
 
 router.route('/request/complete')
     .post((req, res) => {
@@ -1013,4 +1015,45 @@ router.route('/request/list')
                 })
                 responseSuccuess(res, arr)
             })
+    })
+
+router.route('/request/review')
+    .post((req, acc) => {
+        let token = req.body.token
+        let rid = req.body.requestid
+        let email = req.body.email
+        let review = req.body.review
+        let ratingSkill = req.body.ratesk
+        let ratingService = req.body.ratesv
+
+        Request.findById(rid)
+            .populate({
+                path: 'accFrom.acc',
+                select: 'email',
+            })
+            .populate({
+                path: 'accTo.acc',
+                select: 'email',
+            })
+            .select('accFrom accTo status updateDate')
+            .then((request) => {
+                if (!request ||
+                    !request.status ||
+                    !request.status.complete) {
+                    return
+                }
+
+                console.log(JSON.stringify(request, null, 2))
+
+                let reviewObj = {
+                    message: review,
+                    rateSkill: ratingSkill,
+                    rateService: ratingService,
+                }
+
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
     })
