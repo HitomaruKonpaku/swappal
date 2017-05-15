@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class AuthenticationService {
     private address: string = 'http://localhost:3001/apis/accounts/authenticate';
+    // private addressFacebook: string ='http://localhost:3001/apis/accounts/facebook';
     private localKey: string = 'currentUser';
     private localEmail : string = 'currentEmail';
 

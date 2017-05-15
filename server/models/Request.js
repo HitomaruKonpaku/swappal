@@ -33,6 +33,18 @@ var jSchema = new Schema(
                 date: Date,
             }
         },
+        reviews: {
+            from: {
+                message: String,
+                rateSkill: Number,
+                rateService: Number,
+            },
+            to: {
+                message: String,
+                rateSkill: Number,
+                rateService: Number,
+            },
+        },
     },
     {
         versionKey: false,

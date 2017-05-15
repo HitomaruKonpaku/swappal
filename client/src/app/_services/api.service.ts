@@ -17,21 +17,8 @@ export class APIService {
       return this.http.get(this.address + '/accounts/skills' + '?email=' + email, this.jwt()).map((response: Response) => response.json())
 
     }
-
-
-
-    //
-
-    getAll() {
-        return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
-    }
     getAllSkills(){
         return this.http.get(this.address + '/skills' + '?=limit100', this.jwt()).map((response: Response) => response.json())
-    }
-
-
-    getById(id: number) {
-        return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
     }
     searchSkill(search : any){
       return this.http.post(this.address+'/search', search, this.jwt()).map((response: Response) => response.json());
@@ -46,12 +33,24 @@ export class APIService {
     updateProfile(user : any){
       return this.http.post(this.address + '/accounts/profile', user, this.jwt()).map((response: Response) => response.json());
     }
-    update(user: User) {
-        return this.http.put('/api/users/' + user.id, user, this.jwt()).map((response: Response) => response.json());
-    }
 
-    delete(id: number) {
-        return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
+    newRequest(request: any){
+      return this.http.post(this.address + '/request/new',request,this.jwt()).map((response: Response) => response.json());
+    }
+    replyRequest(request: any){
+      return this.http.post(this.address + '/request/reply',request,this.jwt()).map((response: Response) => response.json());
+    }
+    acceptRequest(request:any){
+      return this.http.post(this.address + '/request/accept',request,this.jwt()).map((response: Response) => response.json());
+    }
+    declineRequest(request:any){
+      return this.http.post(this.address + '/request/decline',request,this.jwt()).map((response: Response) => response.json());
+    }
+    completeRequest(request:any){
+      return this.http.post(this.address + '/request/complete', request,this.jwt()).map((response: Response) => response.json());
+    }
+    getRequest(email: any){
+      return this.http.post(this.address + '/request/list', email,this.jwt()).map((response: Response) => response.json());
     }
 
     // private helper methods

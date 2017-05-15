@@ -505,6 +505,7 @@ router.route('/accounts/profile')
         let exp = req.body.exp
         let achievement = req.body.achievement
         let facebook = req.body.facebook
+        let nickname = req.body.nickname
 
         if (!email) {
             res.json({
@@ -528,6 +529,7 @@ router.route('/accounts/profile')
                             exp: exp,
                             achievement: achievement,
                             facebook: facebook,
+                            nickname: nickname,
                         }
                     })
                         .then(data => {
@@ -605,7 +607,7 @@ router.route('/skills')
 
         let s = q.search || ''
         let p = q.page || 1
-        let l = q.limit || 10
+        let l = q.limit || 100
 
         Skill.paginate(
             {
@@ -901,7 +903,7 @@ router.route('/request/decline')
             .populate({ path: 'accFrom.acc', select: 'email' })
             .populate({ path: 'accTo.acc', select: 'email' })
             .then((result) => {
-                // console.log(result)
+                console.log(result)
 
                 let date = new Date()
                 let acc1 = result.accFrom.acc
@@ -915,15 +917,19 @@ router.route('/request/decline')
                 } else if (from === acc2.email) {
                     acc = acc2
                 } else {
+                    responseError(res, 'error')
                     return
                 }
 
                 if (result.status.decline) {
+                    responseError(res, 'error')
                     return
                 }
 
-                result.status.decline.by = acc._id
-                result.status.decline.date = date
+                result.status.decline = {
+                    by: acc._id,
+                    date: date,
+                }
 
                 result.save()
                     .then((data) => {
@@ -931,8 +937,6 @@ router.route('/request/decline')
                     })
             })
     })
-
-
 
 router.route('/request/complete')
     .post((req, res) => {
@@ -994,12 +998,12 @@ router.route('/request/list')
             })
             .populate({ path: 'accFrom.skill' })
             .populate({ path: 'accTo.skill' })
-            .select({
-                'accFrom': 1,
-                'accTo': 1,
-                'createDate': 1,
-                'updateDate': 1,
-            })
+            // .select({
+            //     'accFrom': 1,
+            //     'accTo': 1,
+            //     'createDate': 1,
+            //     'updateDate': 1,
+            // })
             .exec()
             .then((result) => {
                 let arr = result
@@ -1011,4 +1015,45 @@ router.route('/request/list')
                 })
                 responseSuccuess(res, arr)
             })
+    })
+
+router.route('/request/review')
+    .post((req, acc) => {
+        let token = req.body.token
+        let rid = req.body.requestid
+        let email = req.body.email
+        let review = req.body.review
+        let ratingSkill = req.body.ratesk
+        let ratingService = req.body.ratesv
+
+        Request.findById(rid)
+            .populate({
+                path: 'accFrom.acc',
+                select: 'email',
+            })
+            .populate({
+                path: 'accTo.acc',
+                select: 'email',
+            })
+            .select('accFrom accTo status updateDate')
+            .then((request) => {
+                if (!request ||
+                    !request.status ||
+                    !request.status.complete) {
+                    return
+                }
+
+                console.log(JSON.stringify(request, null, 2))
+
+                let reviewObj = {
+                    message: review,
+                    rateSkill: ratingSkill,
+                    rateService: ratingService,
+                }
+
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
     })

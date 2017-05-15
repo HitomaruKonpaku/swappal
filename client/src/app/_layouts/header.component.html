@@ -5,39 +5,34 @@
           <span class="navbar-toggler-icon"></span>
           </button>
           <a class="navbar-brand" href="/">
-              <img src="../../images/VinaSwapProjectLogo.png" class="img-fluid" />
+              <img src="../../images/VinaSwapProjectLogo.png" class="img-fluid" style="margin-left:50px;"/>
           </a>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="nav navbar-nav ">
                 <li class="nav-item " *ngIf="!isLogin">
-                    <a class="nav-link " routerLink="/login" routerLinkActive="active">Login</a>
+                    <a class="nav-link " routerLink="/login" routerLinkActive="active">Đăng Nhập</a>
                 </li>
                 <li class="nav-item" *ngIf="!isLogin">
-                    <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+                    <a class="nav-link" routerLink="/register" routerLinkActive="active">Đăng Ký</a>
                 </li>
                 <li class="nav-item" *ngIf="isLogin">
-                       <div id="noti_Container">
-                        <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
-
-                  <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
-                  <div id="noti_Button"><i class="material-icons">supervisor_account</i></div>
-
-                  <!--THE NOTIFICAIONS DROPDOWN BOX.-->
-                  <div id="notifications">
-
-                      <h3>Notifications</h3>
-                      <div style="height:300px;" class="scroll">
-
-                      </div>
-
-                    </div>
-                  </div>
+                  <a class="nav-link" routerLink="/profile" routerLinkActive="active">Xin chào, {{profile.name}}!</a>
                 </li>
                 <li class="nav-item" *ngIf="isLogin">
-                    <a class="nav-link" routerLink="/logout" routerLinkActive="active">Logout</a>
+                  <button md-button class="btn-noti" [mdMenuTriggerFor]="menu"><i class="material-icons">supervisor_account</i></button>
+                    <md-menu #menu="mdMenu" class="noti-style">
+                      <md-nav-list *ngFor="let request of requests; let i = index">
+                         <button md-button *ngIf="isEmail[i]==true" (click)="openDialog(request)" type="button">{{request.accFrom.acc.email}} requested you</button>
+                         <button md-button *ngIf="isEmail[i]==false && request.messages.length>=2" (click)="openDialog(request)" type="button">{{request.accTo.acc.email}} reply you</button>
+                      </md-nav-list>
+                    </md-menu>
+                </li>
+                <li class="nav-item" *ngIf="isLogin">
+                    <a class="nav-link" routerLink="/logout" routerLinkActive="active">Đăng Xuất</a>
                   </li>
                 </ul>
         </div>
   </nav>
+
 
 </header>

@@ -4,66 +4,71 @@
 </head>
 <body>
   <div class="web-background-color">
-    <div class="container" style="background-color:#c4c9cd; height:50px; padding:7px;">
-        <form class="form-inline" >
-          <div class="form-group">
-            <select [(ngModel)]="searchOpt" name="searchOpt" class="form-control" style="width:100px;">
-              <option ngValue="want">I Have</option>
-              <option ngValue="have">I Need</option>
-            </select>
-          </div>
-          <div class="form-group" style="margin-left:10px">
-            <select [(ngModel)]="idskill" name="id" class="form-control" style="width:830px;">
-              <option *ngFor="let skill of skills" ngValue="{{skill.id}}">{{skill.name}}</option>
-            </select>
-          </div>
-
-          <button class="btn btn-default " style="width:170px;margin-left:10px;" type="submit" (click)="onSubmit()" name="button">search</button>
-
-        </form>
-
-    </div>
-    <div class="container" style="text-align:right; margin-top:10px;">
+    <div class="container" style="background-color:#c4c9cd; height:110px; padding:7px;">
       <div class="row">
-          <div class="col-md-9">
-          </div>
-          <div class="col-md-1">
-            <select class="form-control" style="width:100px;">
-              <option>Date</option>
+        <div class="col-md-1">
+          <label>I Need</label>
+        </div>
+        <div class="col-md-9">
+          <div class="form-group">
+            <select [(ngModel)]="idskillneed" name="id" class="form-control">
+              <!-- <option ngValue="">Choose Skill</option> -->
+              <option ngValue= null>Chọn kĩ năng</option>
+                <option *ngFor="let skill of skills" ngValue="{{skill.id}}">{{skill.name}}</option>
             </select>
           </div>
-          <div class="col-md-1">
-            <select class="form-control" style="width:100px; margin-left:10px;">
-              <option>Rating</option>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-secondary" style="width:100%;" type="submit" (click)="onSubmit()" name="button">search</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-1">
+          <label>I Have</label>
+        </div>
+        <div class="col-md-9">
+          <!-- <div class="form-group"> -->
+            <select [(ngModel)]="idskillhave" name="id" class="form-control" style="width:100%;">
+                <option ngValue= null >Chọn kĩ năng</option>
+                <option *ngFor="let skill of skills" ngValue="{{skill.id}}">{{skill.name}}</option>
             </select>
-          </div>
+          <!-- </div> -->
+        </div>
+        <div class="col-md-2">
+        </div>
       </div>
     </div>
       <div class="container" style="height:600px; margin-top:10px;">
         <div class="row" *ngIf="isShowData">
-          <div class="col-md-6 col-sm-6">
-            <div class="panel panel-default" style="height:200px; width:520px; margin:10px">
-              <div class="flex-container-row">
-                <div style="height:140px; width:140px; margin:10px;">
-                  <img class="img-circle img-fluid"src="../../images/user.jpg" alt="">
-                </div>
-                <div style="height:140px; width:300px; margin:10px; ">
-                  <div class="flex-container-column">
-                    <div style="height:100px;width:100%; ">
-                      <p *ngFor="let resultUserProfile of resultUserProfiles"><a *ngFor="let doc of resultUser" [routerLink]="['/profile']" [queryParams]="{email: doc.email}">{{resultUserProfile.name}}</a></p>
-                    </div>
-                    <div class="flex-container-row" style="height:40px;width:100%; ">
-                      <div style="height:100%;width:100%;">
-                          Skill have :<p *ngFor="let have of skillHave;">{{have.name}}</p>
+          <div *ngFor="let item of resultUser">
+            <div class="card">
+              <div class="col-md-6 col-sm-6 ">
+                  <div class="card-block" style="height:200px; width:520px;">
+                    <div class="flex-container-row">
+                      <div style="height:140px; width:140px; margin:10px;">
+                        <img class="img-circle img-fluid"src="../../images/user.jpg" alt="">
                       </div>
-                      <div style="height:100%;width:100%;">
-                        Skill Need: <p *ngFor="let want of skillWant">{{want.name}}</p>
+                      <div style="height:140px; width:300px; margin:10px; ">
+                        <div class="flex-container-column">
+                          <div style="height:100px;width:100%;">
+                            <p>
+                              <a [routerLink]="['/profile']" [queryParams]="{email: item.email}">{{item.profile.name}}</a>
+                            </p>
+                          </div>
+                          <div class="flex-container-row" style="height:40px;width:100%; ">
+                            <div style="height:100%;width:100%;">
+                                Skill have: <p *ngFor="let have of item.skills.have">{{have.name}}</p>
+                            </div>
+                            <div style="height:100%;width:100%;">
+                              Skill Need: <p *ngFor="let want of item.skills.want">{{want.name}}</p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
         <div style="text-align:center; font-size:50dp; color:grey;" *ngIf="!isShowData">

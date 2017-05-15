@@ -1,30 +1,37 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BaseRequestOptions } from '@angular/http';
 import { MaterialModule } from '@angular/material';
-
+import {MdAutocompleteModule} from '@angular/material';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
-
+import { Angular2SocialLoginModule } from "angular2-social-login";
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, APIService } from './_services/index';
+import { AlertService, AuthenticationService, APIService, ValidationService } from './_services/index';
 import { Skill} from './_models/index';
-import { HeaderComponent, FooterComponent } from './_layouts/index';
-
+import { HeaderComponent, FooterComponent,ExchangeDialog } from './_layouts/index';
+import {RatingModule} from 'ngx-rating';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { LogoutComponent } from './logout/index';
-import { RegisterComponent ,VerificationComponent} from './register/index';
+import { RegisterComponent,VerificationComponent } from './register/index';
 import { ProfileComponent } from './profile/index';
 import { SearchComponent} from './search/index';
 import { ContactUsComponent, AboutUsComponent, FAQsComponent} from './foundation/index';
 
-
-// import {RequestDialogComponent} from './profile/index';
-// import {CreateProfileDialogComponent} from './login/index';
+let providers = {
+    "google": {
+      "clientId": "864996270173-anbttqjuc2e7p08itjg77tfeb7eliifs.apps.googleusercontent.com"
+    },
+    "facebook": {
+      "clientId": "206599836481870",
+      "apiVersion": "v2.9"
+    }
+  };
+Angular2SocialLoginModule.loadProvidersScripts(providers);
 
 @NgModule({
   imports: [
@@ -33,6 +40,10 @@ import { ContactUsComponent, AboutUsComponent, FAQsComponent} from './foundation
     HttpModule,
     routing,
     MaterialModule,
+    MdAutocompleteModule,
+    ReactiveFormsModule,
+    Angular2SocialLoginModule,
+    RatingModule,
   ],
   declarations: [
     AppComponent,
@@ -49,22 +60,24 @@ import { ContactUsComponent, AboutUsComponent, FAQsComponent} from './foundation
     AboutUsComponent,
     FAQsComponent,
     VerificationComponent,
-    // RequestDialogComponent,
-    // CreateProfileDialogComponent,
-
+    ExchangeDialog,
   ],
   providers: [
     AuthGuard,
     AlertService,
     AuthenticationService,
+    ValidationService,
     APIService,
     Skill,
     SearchComponent,
   ],
-  // entryComponents:[CreateProfileDialogComponent],
+  entryComponents: [
+    ExchangeDialog
+  ],
   bootstrap: [
     AppComponent
   ]
+
 })
 
 export class AppModule { }

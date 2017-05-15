@@ -22,7 +22,8 @@
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       '@angular/material': 'npm:@angular/material/bundles/material.umd.js',
-
+      'angular2-social-login': 'node_modules/angular2-social-login/dist/bundles/angular2-social-login.min.js',
+      'ngx-rating': 'node_modules/ngx-rating',
       // other libraries
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
@@ -35,9 +36,7 @@
       rxjs: {
         defaultExtension: 'js'
       },
-      // ng2-sticky:{
-      //   main: 'ng2-sticky.umd.js', defaultExtension: 'js'
-      // }
+      "ngx-rating": { "main": "index.js", "defaultExtension": "js" }
     }
   });
 })(this);
