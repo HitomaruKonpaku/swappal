@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit {
     sto : string;
     emailfrom: string;
     isAccept: boolean;
+    isRequest: boolean;
 
     constructor(
         private profileService: APIService,
@@ -51,6 +52,7 @@ export class ProfileComponent implements OnInit {
           this.getCurrentUserSkill(this.currentEmail);
           this.displayButton = false;
         }
+
     }
 
     onSubmit(f:NgForm){
@@ -133,10 +135,9 @@ export class ProfileComponent implements OnInit {
           switch (data.msg) {
               case 'success':
 
-                  // this.alertService.success('Registration successful', true);
-                  this.requests = data.data
-                  console.log(this.requests)
-                  break;
+                this.isRequest = true;
+
+                break;
               // default: this.alertService.error(data.msg);
               //     this.loading = false;
               //     break;

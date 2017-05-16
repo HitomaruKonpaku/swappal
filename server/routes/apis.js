@@ -917,13 +917,13 @@ router.route('/request/decline')
                 } else if (from === acc2.email) {
                     acc = acc2
                 } else {
-                    responseError(res, 'error')
-                    return
+                    // responseError(res, 'error')
+                    // return
                 }
 
                 if (result.status.decline) {
-                    responseError(res, 'error')
-                    return
+                    // responseError(res, 'error')
+                    // return
                 }
 
                 result.status.decline = {

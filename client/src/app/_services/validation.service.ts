@@ -20,5 +20,9 @@ export class ValidationService{
     var fullnamevalidation = /^[^!@#$%^&*()\[\]]{1,}$/;
     return fullnamevalidation.test(fullname);
   }
+  MessageValidation(message: any ){
+    var messagevalidation = /^.{8,}$/;
+    return messagevalidation.test(message);
+  }
 
 }

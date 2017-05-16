@@ -1,7 +1,8 @@
         <div class="img-request" style="text-align:center;">
-          <h1>REQUEST SWAP</h1>
+          <h1>YÊU CẦU TRAO ĐỔI</h1>
         <img src="../images/request-handshake.png" alt="Swap icon" style="max-width:100px; max-height:100px;" >
       </div>
+      <alert></alert>
       <form #r="ngForm" (ngSubmit)="replyRequest(r)">
         <div class="modal-body">
           <div class="row">
@@ -25,19 +26,15 @@
           <div class="row">
             <div class="col-12">
               Với lời nhắn :
-              <div *ngFor="let item of isEmail; let i = index">
-                <div *ngIf="item==true">
-                  <div *ngFor="let message of request.messages;let odd = odd">
-                    <div *ngIf="odd==false">
-                      <input type="text" value="{{message.message }}" class="form-control" style="height:120px;"disabled="true">
-                    </div>
+              <div *ngFor="let message of request.messages; let odd = odd">
+                <div *ngIf="request.accFrom.acc.email == currentEmail">
+                  <div *ngIf="odd == true">
+                    <input type="text" value="{{message.message }}" class="form-control" style="height:120px;"disabled="true">
                   </div>
                 </div>
-                <div *ngIf="item==false">
-                  <div *ngFor="let message of request.messages;let odd = odd">
-                    <div *ngIf="odd==true">
-                      {{message.message }}
-                    </div>
+                <div *ngIf="request.accTo.acc.email == currentEmail">
+                  <div *ngIf="odd == false">
+                    <input type="text" value="{{message.message }}" class="form-control" style="height:120px;"disabled="true">
                   </div>
                 </div>
               </div>
@@ -48,6 +45,7 @@
           <input type="text" [hidden]=true name="requestid" ngModel="{{request._id}}">
 
         <input type="text" class="form-control"style="height:120px;" name="message" ngModel>
+
         </div>
         <div style="text-align:center;">
           <button type="button" (click)="acceptRequest(request._id,currentEmail)" class="btn btn-success btn-lg"><i class="material-icons">done</i></button>

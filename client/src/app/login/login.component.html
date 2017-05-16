@@ -31,37 +31,37 @@
   <div class="modal" id="CreateProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content" style="padding:20px;">
-        <h1 style="text-align: center;">Welcome to Swappal</h1>
+        <h1 style="text-align: center;">Chào mừng bạn đến với Swappal</h1>
           <!-- Tell us -->
           <form #a="ngForm" (ngSubmit)="onCreateProfile(a)">
-            <label for="InputTellUs"><p class="glyphicon glyphicon-user"></p> Tell us about you</label>
-            <input type="input" name="name" ngModel class="form-control" id="InputTellUs" placeholder="What's your name?" required>
+            <label for="InputTellUs"><p class="glyphicon glyphicon-user"></p> Hãy nói cho chúng tôi biết một chút về bạn</label>
+            <input type="input" name="name" ngModel class="form-control" id="InputTellUs" placeholder="Bạn tên gì ?" required>
             <br>
             <div class="row">
               <div class="col-md-5">
                 <input type="date" ngModel name="dob" class="form-control" required>
               </div>
               <div class="col-md-7">
-                  <label >Gender</label>
-                  <input type="radio" name="gender" value="Male" ngModel required> Male
-                  <input type="radio" name="gender" value="Female" ngModel required> Female<br>
+                  <label >Giới tính</label>
+                  <input type="radio" name="gender" value="Male" ngModel required> Nam
+                  <input type="radio" name="gender" value="Female" ngModel required> Nữ<br>
 
               </div>
             </div>
             <hr>
-            <label for="InputHelpOther1"><p class="glyphicon glyphicon-user"></p> Help others get in touch</label>
+            <label for="InputHelpOther1"><p class="glyphicon glyphicon-user"></p> Mọi người liên lạc với bạn </label>
             <!-- <input type="email" class="form-control" id="InputHelpOther1" placeholder="What's your email address?"> -->
             <p name="email">{{email}}</p>
-            <input type="input" name="location" ngModel class="form-control input-text-margin" id="InputHelpOther1" placeholder="Fill your location so we could find the swap friends around you">
+            <input type="input" name="location" ngModel class="form-control input-text-margin" id="InputHelpOther1" placeholder="Vị trí của bạn để có thể tìm người trao đổi">
             <hr>
-            <label for="InputHelpOther2"><p class="glyphicon glyphicon-user"></p> Help others know more about you</label>
+            <label for="InputHelpOther2"><p class="glyphicon glyphicon-user"></p> Hãy giúp mọi người biết thêm về bạn</label>
             <input type="input" name="skillhave" class="form-control input-text-margin" id="InputHelpOther2" placeholder="You're expert in">
             <input type="input" name="skillneed" class="form-control input-text-margin" id="InputHelpOther2" placeholder="You want to learn more">
-            <input type="input" name="mission" ngModel class="form-control input-text-margin" id="InputHelpOther2" placeholder="You are here because">
-            <input type="input" name="achievement" ngModel class="form-control input-text-margin" id="InputHelpOther2" placeholder="Your achievement in swapping are">
+            <input type="input" name="mission" ngModel class="form-control input-text-margin" id="InputHelpOther2" placeholder="Bạn đến đây vì">
+            <input type="input" name="achievement" ngModel class="form-control input-text-margin" id="InputHelpOther2" placeholder="Nhưng gì bạn có được khi trao đổi">
             <div style="text-align:center;margin-top:10px;">
               <div class="form-group">
-                <button type="submit" class="btn btn-info" name="done">Done</button>
+                <button type="submit" class="btn btn-info" name="done">Lưu</button>
               </div>
             </div>
 
