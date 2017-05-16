@@ -21,6 +21,7 @@ import { RegisterComponent,VerificationComponent } from './register/index';
 import { ProfileComponent } from './profile/index';
 import { SearchComponent} from './search/index';
 import { ContactUsComponent, AboutUsComponent, FAQsComponent} from './foundation/index';
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 let providers = {
     "google": {
@@ -44,6 +45,7 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     ReactiveFormsModule,
     Angular2SocialLoginModule,
     RatingModule,
+    Ng2AutoCompleteModule,
   ],
   declarations: [
     AppComponent,

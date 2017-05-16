@@ -6,37 +6,47 @@
   <div class="web-background-color">
     <div class="container" style="background-color:#c4c9cd; height:110px; padding:7px;">
       <div class="row">
-        <div class="col-md-1">
-          <label>I Need</label>
-        </div>
-        <div class="col-md-9">
+        <!-- <div class="col-md-2">
+          <label>Kỹ năng tôi cần</label>
+        </div> -->
+        <div class="col-md-10">
           <div class="form-group">
-            <select [(ngModel)]="idskillneed" name="id" class="form-control">
-              <!-- <option ngValue="">Choose Skill</option> -->
-              <option ngValue= null>Chọn kĩ năng</option>
-                <option *ngFor="let skill of skills" ngValue="{{skill.id}}">{{skill.name}}</option>
-            </select>
+            <input  ng2-auto-complete
+                   [source]="skills"
+                   [formControl]="idskillneed"
+                   [list-formatter]="autocompleListFormatter"
+                   value-property-name="id"
+                   display-property-name="name"
+                   placeholder="Chọn kĩ năng bạn có"
+                   class="form-control">
           </div>
         </div>
         <div class="col-md-2">
-          <button class="btn btn-secondary" style="width:100%;" type="submit" (click)="onSubmit()" name="button">search</button>
+          <button class="btn btn-secondary" style="width:100%;" type="submit" (click)="onSubmit()" name="button">Tìm kiếm</button>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-1">
-          <label>I Have</label>
-        </div>
-        <div class="col-md-9">
-          <!-- <div class="form-group"> -->
-            <select [(ngModel)]="idskillhave" name="id" class="form-control" style="width:100%;">
-                <option ngValue= null >Chọn kĩ năng</option>
-                <option *ngFor="let skill of skills" ngValue="{{skill.id}}">{{skill.name}}</option>
-            </select>
-          <!-- </div> -->
+        <!-- <div class="col-md-2">
+          <label>Kỹ năng tôi có</label>
+        </div> -->
+        <div class="col-md-10">
+            <input  ng2-auto-complete
+                   [source]="skills"
+                   [formControl]="idskillhave"
+                   [list-formatter]="autocompleListFormatter"
+                   value-property-name="id"
+                   display-property-name="name"
+                   placeholder="Chọn kỹ năng cần tìm"
+                   class="form-control">
         </div>
         <div class="col-md-2">
         </div>
       </div>
+    </div>
+    <div style="text-align:center;font-size:50dp;" *ngIf="isShowData">
+      <p *ngIf="idskillhave.value.name && idskillneed.value.name">Bạn đang tìm kỹ năng {{idskillhave.value.name}} và kỹ năng {{idskillneed.value.name}} </p>
+      <p *ngIf="!idskillhave.value.name">Bạn đang tìm kỹ năng {{idskillneed.value.name}}</p>
+      <p *ngIf="!idskillneed.value.name">Bạn đang tìm kỹ năng {{idskillhave.value.name}}</p>
     </div>
       <div class="container" style="height:600px; margin-top:10px;">
         <div class="row" *ngIf="isShowData">
@@ -71,8 +81,8 @@
               </div>
           </div>
         </div>
-        <div style="text-align:center; font-size:50dp; color:grey;" *ngIf="!isShowData">
-          <p>THERE IS NO PEOPLE IN THIS SKILL.</p>
+        <div style="text-align:center; font-size:30px; color:grey;" *ngIf="!isShowData">
+          <p>KHÔNG TÌM ĐƯỢC NGƯỜI NÀO Ở KỸ NĂNG NÀY.</p>
         </div>
       </div>
       <div class="container" style=" position: relative;left: 50%; margin-left: -150px;">
