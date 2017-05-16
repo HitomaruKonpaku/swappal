@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService, APIService } from '../app/_services/index';
 
 describe("Test Layouts",function(){
-    it("Header - ngOnInit", function(){
+    it("Header - ngOnInit: Get the user logged in by email.", function(){
         var ngOnInit = function(){
             this.updateLoginStatus();
             this.currentEmail = localStorage.getItem('currentEmail');
@@ -10,7 +10,7 @@ describe("Test Layouts",function(){
         };
         expect(ngOnInit).toThrow();
     });
-    it("Header - updateLoginStatus", function(){
+    it("Header - updateLoginStatus: Updated login status on the website.", function(){
         var updateLoginStatus = function(){
             return this.isLogin = this.authService.status();
         };

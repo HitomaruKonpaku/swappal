@@ -7,7 +7,7 @@ describe("Test Login", function() {
     beforeEach(() => [ 
        
     ]);
-  it("login.Component - ngOnInit", function() {
+  it("login.Component - ngOnInit: Check login status and redirects for login successful.", function() {
     var ngOnInit = function(){
       if (this.authenticationService.status() === true) {
             this.router.navigate(['/']);
@@ -24,7 +24,7 @@ describe("Test Login", function() {
   //   };
   //   expect(ngOnInit).toThrow();
   // })
-  it("login.component - onSubmit",function(){
+  it("login.component - onSubmit: Check user login and export notification.",function(){
     var onSubmit = function(f:any){
       var v = f.value
       this.loading = true;
@@ -38,7 +38,7 @@ describe("Test Login", function() {
     };
     expect(onSubmit).toThrow();
   });
-  it("login.component - SocialLogin", function(){
+  it("login.component - SocialLogin: Conversion string to json and create user.", function(){
     var SocialLogin = function(email:any,userid:any){
       var str = '{"email":"'+email+'","pwd":"'+userid+'"}'
       var json = JSON.parse(str);
@@ -48,7 +48,7 @@ describe("Test Login", function() {
     };
     expect(SocialLogin).toThrow();
   });
-  it("login.component - onCreateProfile", function(){
+  it("login.component - onCreateProfile: Check value email and create value profile.", function(){
     var onCreateProfile = function(a:any){
       var value = a.value;
       console.log (value);
@@ -57,7 +57,7 @@ describe("Test Login", function() {
     };
     expect(onCreateProfile).toThrow()
   });
-  it("login.component - signIn", function(){
+  it("login.component - signIn: Sign in website be done.", function(){
     var signIn = function(provider:any){
       return this.sub = this._auth.login(provider);
     };
