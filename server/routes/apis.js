@@ -597,6 +597,68 @@ router.route('/accounts/skills')
             })
 
     })
+
+router.route('/accounts/list')
+    .get((req, res) => {
+        Account.find()
+            .select('email createDate profile')
+            .then((result) => {
+                res.json({ result })
+            })
+    })
+
+router.route('/accounts/ban')
+    .post((req, res) => {
+        let token = req.body.token
+        let uid = req.body.uid
+        let reason = req.body.reason
+
+        Account.findOne({ '_id': uid })
+            .then((result) => {
+                if (!result) {
+                    return
+                }
+
+                if (result.lockout) {
+                    return
+                }
+
+                let date = new Date()
+                let obj = {
+                    date: date,
+                    reason: reason,
+                }
+
+                result.lockout = obj
+                result.save()
+                    .then((acc) => {
+                        responseSuccuess(res, '')
+                    })
+            })
+    })
+
+router.route('/accounts/unban')
+    .post((req, res) => {
+        let token = req.body.token
+        let uid = req.body.uid
+
+        Account.findOne({ '_id': uid })
+            .then((result) => {
+                if (!result) {
+                    return
+                }
+
+                if (!result.lockout) {
+                    return
+                }
+
+                result.lockout = undefined
+                result.save()
+                    .then((acc) => {
+                        responseSuccuess(res, '')
+                    })
+            })
+    })
 //====================================================================================================
 //====================================================================================================
 //====================================================================================================
@@ -1026,7 +1088,6 @@ router.route('/request/review')
         let ratingSkill = req.body.ratesk
         let ratingService = req.body.ratesv
 
-        Request.findById(rid)
             .populate({
                 path: 'accFrom.acc',
                 select: 'email',
