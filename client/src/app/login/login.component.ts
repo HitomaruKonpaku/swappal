@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AlertService, AuthenticationService, APIService, ValidationService } from '../_services/index';
 import {MdDialog} from '@angular/material';
-import { HeaderComponent } from '../_layouts/index';
 import { AuthService } from 'angular2-social-login';
 declare var $: any;
 

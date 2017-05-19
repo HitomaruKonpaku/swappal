@@ -505,7 +505,6 @@ router.route('/accounts/profile')
         let exp = req.body.exp
         let achievement = req.body.achievement
         let facebook = req.body.facebook
-        let nickname = req.body.nickname
 
         if (!email) {
             res.json({
@@ -529,7 +528,6 @@ router.route('/accounts/profile')
                             exp: exp,
                             achievement: achievement,
                             facebook: facebook,
-                            nickname: nickname,
                         }
                     })
                         .then(data => {
@@ -669,7 +667,7 @@ router.route('/skills')
 
         let s = q.search || ''
         let p = q.page || 1
-        let l = q.limit || 100
+        let l = q.limit || 10
 
         Skill.paginate(
             {
@@ -979,13 +977,13 @@ router.route('/request/decline')
                 } else if (from === acc2.email) {
                     acc = acc2
                 } else {
-                    responseError(res, 'error')
-                    return
+                    // responseError(res, 'error')
+                    // return
                 }
 
                 if (result.status.decline) {
-                    responseError(res, 'error')
-                    return
+                    // responseError(res, 'error')
+                    // return
                 }
 
                 result.status.decline = {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService, APIService,AlertService } from '../_services/index';
+import { AuthenticationService, APIService,AlertService, ValidationService } from '../_services/index';
 import {MdListModule} from '@angular/material';
 import {MdDialog,MdDialogConfig, MdDialogRef} from '@angular/material';
 import { NgForm } from '@angular/forms';
@@ -59,7 +59,6 @@ export class HeaderComponent implements OnInit {
                     this.isEmail[i]= true;
                   }
                 }
-                console.log(this.isEmail)
               },
               error => {
 
@@ -74,7 +73,6 @@ export class HeaderComponent implements OnInit {
       let config = new MdDialogConfig();
       let dialogRef:MdDialogRef<ExchangeDialog> = this.dialog.open(ExchangeDialog,config);
       dialogRef.componentInstance.request = request;
-      dialogRef.componentInstance.isEmail = this.isEmail;
     }
 }
 @Component({
@@ -88,57 +86,65 @@ export class ExchangeDialog implements OnInit {
   currentToken: string;
   isEmail : any=[];
   isAccept : boolean;
+  messCheck: boolean;
   constructor(
     public dialogRef: MdDialogRef<ExchangeDialog>,
     private apiService :  APIService,
     private alertService : AlertService,
+    private dialog: MdDialog,
+    private validation: ValidationService,
 
   ){}
 
   ngOnInit(){
     this.currentEmail = localStorage.getItem('currentEmail');
     this.currentToken = localStorage.getItem('currentUser.token');
-    console.log(this.isEmail)
+
   }
 
   replyRequest(r:NgForm){
     var value = r.value;
     console.log(value)
+    this.messCheck = this.validation.MessageValidation(value.message)
+    if (this.messCheck==true){
+      this.apiService.replyRequest(value)
+      .subscribe(
+        data=>{
 
-    this.apiService.replyRequest(value)
-    .subscribe(
-      data=>{
-        console.log(data)
+          console.log(data)
 
-        switch (data.msg) {
-            case 'success':
+          switch (data.msg) {
+              case 'success':
 
+              this.alertService.success('Tín nhắn đã được gửi đi', true);
 
+              this.dialogRef.close();
+              break;
+          }
+        },
+        error=>{
 
-
-            break;
-            // default: this.alertService.error(data.msg);
-            //     this.loading = false;
-            //     break;
         }
-      },
-      error=>{
+      )
+    } else {
+      this.alertService.error('Tin nhắn phải trên 8 kí tự');
+    }
 
-      }
-    )
   }
   acceptRequest(requestid: any, from : any){
-    var str = '{"requestid":"'+requestid+'"'+',"from":"'+from+'"}'
-    var json = JSON.parse(str)
+    var str  = {
+      requestid: requestid, from: from
+    }
 
-    this.apiService.acceptRequest(json).subscribe(
+    this.apiService.acceptRequest(str).subscribe(
       data=>{
         console.log(data)
 
         switch (data.msg) {
             case 'success':
             this.alertService.success('Bạn đã chấp nhận trao đổi', true);
-            this.isAccept = true;
+            // this.isAccept = true;
+            this.dialogRef.close();
             break;
         }
       },
@@ -148,24 +154,31 @@ export class ExchangeDialog implements OnInit {
     )
   }
   declineRequest(requestid: any, from : any){
-    var str = '{"requestid":"'+requestid+'"'+',"from":"'+from+'"}'
-    var json = JSON.parse(str)
 
-    this.apiService.declineRequest(json).subscribe(
+    var str  = {
+      requestid: requestid, from: from
+    }
+
+    this.apiService.declineRequest(str).subscribe(
       data=>{
+
+        console.log(data)
         switch (data.msg) {
             case 'success':
-
+            this.alertService.success('Bạn đã từ chối trao đổi', true);
+            this.dialogRef.close();
                 break;
 
         }
       },
       error=>{
-
+        console.log("error")
       }
     )
   }
+  getStatus(){
 
+  }
 
 
 }

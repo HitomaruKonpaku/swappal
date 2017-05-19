@@ -16,10 +16,15 @@ input[type=date]{
 .noti-style{
   overflow-y: auto;
 }
-
+.search-skill{
+  border-radius: 50px;
+  width: 250px!important;
+  margin-left: 5px;
+  height: 40px!important;
+}
 .searchBar{
   position:absolute;
-  top:65%;
+  top:60%;
   left:50%;
   transform:translate(-50%,-50%);
   -ms-transform:translate(-50%,-50%);
