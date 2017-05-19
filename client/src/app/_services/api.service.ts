@@ -34,6 +34,25 @@ export class APIService {
       return this.http.post(this.address + '/accounts/profile', user, this.jwt()).map((response: Response) => response.json());
     }
 
+    newRequest(request: any){
+      return this.http.post(this.address + '/request/new',request,this.jwt()).map((response: Response) => response.json());
+    }
+    replyRequest(request: any){
+      return this.http.post(this.address + '/request/reply',request,this.jwt()).map((response: Response) => response.json());
+    }
+    acceptRequest(request:any){
+      return this.http.post(this.address + '/request/accept',request,this.jwt()).map((response: Response) => response.json());
+    }
+    declineRequest(request:any){
+      return this.http.post(this.address + '/request/decline',request,this.jwt()).map((response: Response) => response.json());
+    }
+    completeRequest(request:any){
+      return this.http.post(this.address + '/request/complete', request,this.jwt()).map((response: Response) => response.json());
+    }
+    getRequest(email: any){
+      return this.http.post(this.address + '/request/list', email,this.jwt()).map((response: Response) => response.json());
+    }
+
     // private helper methods
 
     private jwt() {

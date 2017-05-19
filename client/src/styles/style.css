@@ -13,10 +13,18 @@ input[type=date]{
   box-sizing: border-box;
 
 }
-
+.noti-style{
+  overflow-y: auto;
+}
+.search-skill{
+  border-radius: 50px;
+  width: 250px!important;
+  margin-left: 5px;
+  height: 40px!important;
+}
 .searchBar{
   position:absolute;
-  top:65%;
+  top:60%;
   left:50%;
   transform:translate(-50%,-50%);
   -ms-transform:translate(-50%,-50%);
@@ -104,16 +112,8 @@ header{
 .contentaboutus{
   text-align: center;
 }
-.noti-item{
-  height: 60px;
-  width: 430px;
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-  background-color: red;
-  background-color: #ebf5f3;
-}
-#noti_Container {
+
+/*#noti_Container {
         position:relative;
     }
 #noti_Button {
@@ -208,7 +208,7 @@ header{
 #panel3 {
     padding: 20px;
     display: none;
-}
+}*/
 .faqstitle{
   color: #555555;
 }

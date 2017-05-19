@@ -4,10 +4,27 @@
       <div class="searchBar">
         <form class="form-inline">
           <div class="row">
-              <input type="search" class="form-control" placeholder="What are you looking for?" style="width:550px; height:50px;border-radius:50px;">
+              <!-- <input type="search" class="form-control" placeholder="Bạn cần tìm kiếm kỹ năng gì ?" style="width:550px; height:50px;border-radius:50px;"> -->
+              <input  ng2-auto-complete
+                     [source]="skills"
+                     [formControl]="idskillneed"
+                     [list-formatter]="autocompleListFormatter"
+                     value-property-name="id"
+                     display-property-name="name"
+                     placeholder="Chọn kĩ năng bạn có"
+                     class="form-control search-skill">
+              <input  ng2-auto-complete
+                      [source]="skills"
+                      [formControl]="idskillhave"
+                      [list-formatter]="autocompleListFormatter"
+                      value-property-name="id"
+                      display-property-name="name"
+                      placeholder="Chọn kỹ năng cần tìm"
+                      class="form-control search-skill"ß>
+                      <!-- <p>{{idskillneed.value.id}}</p> -->
               <button type="submit" class="btn btn-default"
-              style="margin-left:5px; width:60px; height:50px;color:#222930;background-color:white;border-radius:50px;"
-              routerLink="/search" routerLinkActive="active">
+              style="margin-left:5px; width:60px; height:40px;color:#222930;background-color:white;border-radius:50px;"
+              routerLink="/search" [queryParams]="{have: idskillhave.value.id,need:idskillneed.value.id}" routerLinkActive="active">
                 <i class="material-icons">search</i>
               </button>
           </div>
@@ -17,7 +34,7 @@
   <div style="margin-top:10px;">
     <div class="row">
       <div class="col-md-10 offset-md-1 offset-xs-1" style=" background-color:#f7fade;padding:10px;">
-        <p style="margin-top:10px;" >
+        <p style="margin-top:10px; z-index:0;" >
           <b>Người dùng đánh giá</b><br><var>Đây là một website rất tốt</var>
         </p>
       </div>
@@ -74,7 +91,7 @@
         <div class="col-md-2" style="background-color:white;" >
           <div class="flex-container-column">
             <div class="flex-highestrating-title">
-              <h3>THÀNH VIÊN ƯU TÚ</h3>
+              <h3>Người dùng nổi bật</h3>
             </div>
             <div class="flex-highestrating-content">
               <!-- <ul>

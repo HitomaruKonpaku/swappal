@@ -1,0 +1,55 @@
+        <div class="img-request" style="text-align:center;">
+          <h1>YÊU CẦU TRAO ĐỔI</h1>
+        <img src="../images/request-handshake.png" alt="Swap icon" style="max-width:100px; max-height:100px;" >
+      </div>
+      <alert></alert>
+      <form #r="ngForm" (ngSubmit)="replyRequest(r)">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12">
+              {{request.accFrom.acc.email}} gửi yêu cầu đến bạn
+            </div>
+            <!-- <div class="col-12" *ngIf="">
+
+            </div> -->
+          </div>
+          <div class="row">
+            <div class="col-12">
+              Muốn trao đổi <b>{{request.accFrom.skill.name}}</b> với kĩ năng <b>{{request.accTo.skill.name}}</b> của bạn
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              Ngày gửi yêu cầu : {{request.createDate | date: 'dd/MM/yyyy'}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              Với lời nhắn :
+              <div *ngFor="let message of request.messages; let odd = odd">
+                <div *ngIf="request.accFrom.acc.email == currentEmail">
+                  <div *ngIf="odd == true">
+                    <input type="text" value="{{message.message }}" class="form-control" style="height:120px;"disabled="true">
+                  </div>
+                </div>
+                <div *ngIf="request.accTo.acc.email == currentEmail">
+                  <div *ngIf="odd == false">
+                    <input type="text" value="{{message.message }}" class="form-control" style="height:120px;"disabled="true">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <input type="text" [hidden]=true name="from" ngModel="{{currentEmail}}">
+          <!-- <input type="text" [hidden]=true name="token" ngModel="{{currentToken}}"> -->
+          <input type="text" [hidden]=true name="requestid" ngModel="{{request._id}}">
+
+        <input type="text" class="form-control"style="height:120px;" name="message" ngModel>
+
+        </div>
+        <div style="text-align:center;">
+          <button type="button" (click)="acceptRequest(request._id,currentEmail)" class="btn btn-success btn-lg"><i class="material-icons">done</i></button>
+          <button type="button" (click)="declineRequest(request._id,currentEmail)" class="btn btn-danger btn-lg .cancelbtn"><i class="material-icons">close</i></button>
+          <button type="submit" class="btn btn-info">Reply</button>
+        </div>
+      </form>

@@ -17,12 +17,6 @@
               <p>description</p>
             </div>
           </div>
-          <!-- <div class="col-md-3 col-5"> -->
-            <!-- rating -->
-            <!-- <div class="circle-rating">
-              <p>point</p>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
@@ -30,55 +24,70 @@
     <div class="row">
       <div class="col-md-8">
       </div>
-
-      <div class="col-md-4 md-dialog-container div-swapme-button" id="Mydialogcontaine" >
-        <button md-button type="button" data-toggle="modal" data-target="#SwapModal" class="swapme-button">SWAP ME!</button>
+      <div  class="col-md-4 md-dialog-container div-swapme-button" id="Mydialogcontaine" >
+        <button md-button type="button" [hidden]=displayButton data-toggle="modal" data-target="#SwapModal" class="swapme-button">TRAO ĐỔI!</button>
       </div>
+      <!-- swap request modal -->
       <div class="modal fade" id="SwapModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="padding:20px;">
               <div class="img-request" style="text-align:center;">
-                <h1>REQUEST SWAP</h1>
+                <h1>YÊU CẦU TRAO ĐỔI</h1>
               <img src="../images/request-handshake.png" alt="Swap icon" style="max-width:100px; max-height:100px;" >
             </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-6">
-                  <p><label>Từ: Bạn </label></p>
+            <form #r="ngForm" (ngSubmit)="sendRequest(r)">
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-6">
+                    <p >Từ: Bạn</p>
+                  </div>
+                  <div class="col-6">
+                    <p><label>Đến: {{ profile.name }}</label></p>
+                  </div>
                 </div>
-                <div class="col-6">
-                  <p><label>Đến: {{ profile.name }}</label></p>
+                <div class="row">
+                  <div class="col-6">
+                    <p><label>Kỹ năng có</label></p>
+                    <select [(ngModel)]="sfrom" name="sfrom" class="form-control">
+                      <!-- <option ngValue="">Choose Skill</option> -->
+                      <!-- <option ngValue= null>Chọn kĩ năng</option> -->
+                        <option *ngFor="let skill of currentHave" ngValue="{{skill._id}}">{{skill.name}}</option>
+                    </select>
+                    <input type="text" [hidden]=true name="from" ngModel="{{currentEmail}}">
+                    <input type="text" [hidden]=true name="token" ngModel="{{currentToken}}">
+                    <input type="text" [hidden]=true name="to" ngModel="{{otherEmail}}">
+                  </div>
+                  <div class="col-6">
+                    <p><label>Kỹ năng cần</label></p>
+                    <select [(ngModel)]="sto" name="sto" class="form-control">
+                      <!-- <option ngValue="">Choose Skill</option> -->
+                      <!-- <option ngValue= null>Chọn kĩ năng</option> -->
+                        <option *ngFor="let skill of skillHave" ngValue="{{skill._id}}">{{skill.name}}</option>
+                    </select>
+                  </div>
                 </div>
+              <input type="text" class="form-control"style="height:120px;" name="message" ngModel>
               </div>
-              <div class="row">
-                <div class="col-6">
-                  
-                </div>
-                <div class="col-6">
-
-                </div>
+              <div style="text-align:center;">
+                <button type="submit" class="btn btn-success btn-lg"><i class="material-icons">done</i></button>
+                <button type="button" class="btn btn-danger btn-lg .cancelbtn" data-dismiss="modal"><i class="material-icons">close</i></button>
               </div>
-            <input type="text" class="form-control"style="height:120px;">
-            </div>
-            <div style="text-align:center;">
-              <button type="submit" class="btn btn-success btn-lg"><i class="material-icons">done</i></button>
-              <button type="button" class="btn btn-danger btn-lg .cancelbtn" data-dismiss="modal"><i class="material-icons">close</i></button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
       <!-- Nav tabs -->
-        <div style="margin-bottom:40px;">
+        <div style="margin-bottom:40px;margin-top:20px">
           <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" data-toggle="tab" href="#mypage" role="tab">My Page</a>
+              <a class="nav-link active" data-toggle="tab" href="#mypage" role="tab">Kĩ Năng</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#aboutme" role="tab">About Me</a>
+              <a class="nav-link" data-toggle="tab" href="#aboutme" role="tab">Về Tôi</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#review" role="tab">Review</a>
+              <a class="nav-link" data-toggle="tab" href="#review" role="tab">Đánh Giá</a>
             </li>
           </ul>
 
@@ -87,10 +96,10 @@
             <div class="tab-pane active" id="mypage" role="tabpanel">
               <div class="row">
                 <div class="col-md-9 col-sm-9 col-lg-9">
-                  <h3>Skills I Have</h3>
+                  <h3>Kỹ năng tôi đang có</h3>
                 </div>
                 <div class="col-md-3 col-sm-3 col-lg-3">
-                  <a role="link" (click)="switchForm()" style="color:#4eb1ba"><p class="glyphicon glyphicon-pencil"></p>Edit</a>
+                  <a role="link" [hidden]="displayButtonEdit" (click)="switchForm()" style="color:#4eb1ba"><i class="material-icons">border_color</i> Chỉnh sửa</a>
                 </div>
               </div>
               <hr>
@@ -102,13 +111,13 @@
                 </div>
                 <!-- edit skill have  -->
                 <div class="form-group" [hidden]="displayEdit">
-                  <label for="inputEmail3"  class="col-md-2 control-label">Professional Skills: </label>
+                  <label for="inputEmail3"  class="col-md-2 control-label">Kỹ năng: </label>
                   <div class="col-md-10">
                     <input type="email" class="form-control" id="inputEmail3" style="height:100px;">
                   </div>
                 </div>
               <br>
-              <h3>Skills I Need</h3>
+              <h3>Kỹ năng tôi đang cần</h3>
               <hr>
               <!-- display skill need -->
               <div [hidden]="displayInformation">
@@ -118,13 +127,13 @@
               </div>
               <!-- edit skill need-->
               <div class="form-group" [hidden]="displayEdit">
-                <label for="inputEmail3"  class="col-md-2 control-label">Professional Skills: </label>
+                <label for="inputEmail3"  class="col-md-2 control-label">Kỹ năng: </label>
                 <div class="col-md-10">
                   <input type="email" class="form-control" id="inputEmail3" style="height:100px;">
                 </div>
               </div>
               <br>
-                <h3>Detail Info</h3>
+                <h3>Chi tiết về kỹ năng của tôi</h3>
                 <hr>
                 <!-- display detail -->
                 <div class="containerform" [hidden]="displayInformation">
@@ -134,8 +143,8 @@
                 <div [hidden]=displayEdit>
                   <textarea class="form-control" rows="3"></textarea>
                   <div class="form-group" style="text-align:center;margin-top:10px;">
-                    <button type="submit" class="btn btn-info" name="Save">Save</button>
-                    <button type="submit" class="btn btn-warning" name="Cancel" (click)="switchForm()">Cancel</button>
+                    <button type="submit" class="btn btn-info" name="Save">Lưu</button>
+                    <button type="submit" class="btn btn-warning" name="Cancel" (click)="switchForm()">Huỷ</button>
                   </div>
                 </div>
             </div>
@@ -143,10 +152,10 @@
               <form #f="ngForm" (ngSubmit)="onSubmit(f)">
               <div class="row">
                 <div class="col-md-9">
-                  <h3>Basic Information</h3>
+                  <h3>Thông tin chung</h3>
                 </div>
                 <div class="col-md-3 col-3">
-                  <a role="button" (click)="switchForm()" style="color:#4eb1ba"><p class="glyphicon glyphicon-pencil"></p>Edit</a>
+                  <a role="button" [hidden]="displayButtonEdit" (click)="switchForm()" style="color:#4eb1ba"><i class="material-icons">border_color</i> Chỉnh sửa</a>
                 </div>
               </div>
               <hr>
@@ -155,7 +164,7 @@
               <div class="row">
                 <div class="col-md-3 flex-container-column">
                   <div class="flex-item-tab">
-                    Full name
+                    Họ Tên
                   </div>
                 </div>
                 <div class="col-md-9" [hidden]=displayInformation>
@@ -172,24 +181,25 @@
               <div class="row">
                 <div class="col-md-3 flex-container-column">
                   <div class="flex-item-tab">
-                    Date Of Birth
+                    Ngày Sinh
                   </div>
                 </div>
                 <div class="col-md-9" [hidden]=displayInformation>
                   <div class="flex-item-detail-tab">
-                    {{profile.dob}}
+                    {{profile.dob | date: 'dd/MM/yyyy'}}
                   </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-3">
                   <div class="flex-item-detail-tab" [hidden]=displayEdit>
-                    <input required type="text" name="dob" value="{{profile.dob}}" ngModel={{profile.dob}} class="form-control" id="inputDOB">
+                    <input type="date" name="dob" value="{{profile.dob}}" ngModel={{profile.dob}} class="form-control" required id="inputDOB">
+                    <!-- <input required type="text" name="dob" value="{{profile.dob}}" ngModel={{profile.dob}} class="form-control" id="inputDOB"> -->
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-3 flex-container-column">
                   <div class="flex-item-tab">
-                    Gender
+                    Giới tính
                   </div>
                 </div>
                 <div class="col-md-9" [hidden]=displayInformation>
@@ -198,20 +208,26 @@
                   </div>
                 </div>
                 <div class="col-md-9" [hidden]=displayEdit>
-                  <div class="flex-item-detail-tab">
-                    <input required type="text" name="gender" ngModel={{profile.gender}} value="{{profile.gender}}" class="form-control" id="inputGender">
+                  <div class="flex-item-detail-tab" >
+                    <!-- <input required type="text" name="gender" ngModel={{profile.gender}} value="{{profile.gender}}" class="form-control" id="inputGender"> -->
+                    <input type="radio" name="gender" value="Male" ngModel required> Nam
+                    <input type="radio" name="gender" value="Female" ngModel required> Nữ<br>
+                    <!-- <md-radio-group>
+                      <md-radio-button name="gender" value="Male" ngModel required>Nam</md-radio-button>
+                      <md-radio-button  value="Female" ngModel required>Nữ</md-radio-button>
+                    </md-radio-group> -->
                   </div>
                 </div>
               </div>
               <br>
-              <h3>My Mission</h3>
+              <h3>Mục tiêu</h3>
               <hr>
               <p [hidden]=displayInformation>{{ profile. mission}}</p>
               <div [hidden]=displayEdit>
                 <input type="text" class="form-control" name="mission" ngModel={{profile.mission}} value="{{profile.mission}}" style="height:150px;">
               </div>
               <br>
-              <h3>Contact Information</h3>
+              <h3>Thông tin liên lạc</h3>
               <hr>
               <div class="row">
                 <div class="col-md-3 flex-container-column">
@@ -220,15 +236,18 @@
                   </div>
                 </div>
                 <div class="col-md-9">
-                  <div class="flex-item-detail-tab">
+                  <div class="flex-item-detail-tab" *ngIf="!otherEmail">
                     {{currentEmail}}
+                  </div>
+                  <div class="flex-item-detail-tab" *ngIf="otherEmail">
+                    {{otherEmail}}
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-3 flex-container-column">
                   <div class="flex-item-tab">
-                    Address
+                    Địa chỉ
                   </div>
                 </div>
                 <div class="col-md-9" [hidden]=displayInformation>
@@ -245,7 +264,7 @@
               <div class="row">
                 <div class="col-md-3 flex-container-column">
                   <div class="flex-item-tab">
-                    Phone
+                    Số Điện Thoại
                   </div>
                 </div>
                 <div class="col-md-9" [hidden]=displayInformation>
@@ -277,21 +296,21 @@
                 </div>
               </div>
               <br>
-              <h3>Achievement</h3>
+              <h3>Thành tích</h3>
               <hr>
               <p [hidden]=displayInformation>{{ profile.achievement}}</p>
               <div [hidden]=displayEdit>
                 <input type="text" class="form-control" name="achievement" ngModel={{profile.achievement}} value="{{profile.achievement}}" style="height:150px;">
               </div>
               <br>
-              <h3>Your Recommended Friend</h3>
+              <h3>Bạn đến Swappal thông qua</h3>
               <hr>
               <p [hidden]=displayInformation>....</p>
               <div [hidden]=displayEdit>
                 <input type="text" class="form-control" name="achievement" style="height:150px;">
                 <div class="form-group" style="text-align:center;margin-top:10px;">
-                  <button type="submit" class="btn btn-info" name="Save">Save</button>
-                  <button type="button" class="btn btn-warning" name="Cancel" (click)="switchForm()">Cancel</button>
+                  <button type="submit" class="btn btn-info" name="Save">Lưu</button>
+                  <button type="button" class="btn btn-warning" name="Cancel" (click)="switchForm()">Huỷ</button>
                 </div>
               </div>
               </form>
@@ -299,7 +318,7 @@
             <div class="tab-pane" id="review" role="tabpanel">
               <div class="row">
                 <div class="col-10">
-                  <h3>User's Review</h3>
+                  <h3>Đánh giá của người dùng</h3>
                   <hr>
                   <div class="user-review">
                     <div class="flex-review-item">
@@ -312,7 +331,7 @@
                             <a href="#" role="button">NAME</a>
                           </div>
                           <div class="col-6" style="text-align:center;">
-                            rate
+                            đánh giá
                           </div>
                           <div class="col-3"style="text-align:right;">
                             point
@@ -324,8 +343,35 @@
                       </div>
                     </div>
                   </div>
+                  <!-- [hidden]="displayButton" -->
+                  <div style="width:100%;text-align:center;" >
+                    <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#WriteReviewModal">Viết Đánh Giá</button>
+                  </div>
                 </div>
                 <div class="col-2" style="width:180px; height:180px;">
+                </div>
+              </div>
+            </div>
+            <!-- write review modal -->
+            <div class="modal fade" id="WriteReviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content" style="padding:20px;">
+                  <div style="text-align:center;" >
+                    <h1>ĐÁNH GIÁ</h1>
+                  </div>
+                  <form>
+                    <label>Kỹ năng</label>
+                    <rating [max]="5" required></rating>
+                    <br>
+                    <label>Dịch vụ</label>
+                    <rating [max]="5" required></rating>
+                    <input type="text" class="form-control"style="height:120px;" name="review" ngModel>
+                    <div style="text-align:center;">
+                      <button type="submit" class="btn-info btn">Xác nhận</button>
+                    </div>
+
+                  </form>
+
                 </div>
               </div>
             </div>

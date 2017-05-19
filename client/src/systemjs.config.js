@@ -23,10 +23,11 @@
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       '@angular/material': 'npm:@angular/material/bundles/material.umd.js',
       'angular2-social-login': 'node_modules/angular2-social-login/dist/bundles/angular2-social-login.min.js',
-
+      'ngx-rating': 'node_modules/ngx-rating',
       // other libraries
       'rxjs':                      'npm:rxjs',
-      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
+      'ng2-auto-complete':'node_modules/ng2-auto-complete/dist',
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -36,9 +37,9 @@
       rxjs: {
         defaultExtension: 'js'
       },
-      // ng2-sticky:{
-      //   main: 'ng2-sticky.umd.js', defaultExtension: 'js'
-      // }
+      "ngx-rating": { "main": "index.js", "defaultExtension": "js" },
+      'ng2-auto-complete': { main: 'ng2-auto-complete.umd.js', defaultExtension: 'js' },
+
     }
   });
 })(this);
