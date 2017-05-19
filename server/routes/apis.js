@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const Promise = require('bluebird')
 const nodemailer = require('nodemailer')
 const util = require('util');
+const async = require('promise-async')
 
 var fs = require("fs");
 var tunnel = require('tunnel-ssh');
@@ -69,6 +70,7 @@ let Account = require('../models/Account')
 let AccountReg = require('../models/AccountReg')
 let News = require('../models/News')
 let Skill = require('../models/Skill')
+let Request = require('../models/Request')
 
 //====================================================================================================
 //====================================================================================================
@@ -576,6 +578,7 @@ router.route('/accounts/skills')
 
         Account
             .findOne({ 'email': email })
+            .select({ 'email': 1, 'skills': 1 })
             .exec()
             .then((result) => {
                 if (!result) { }
@@ -591,6 +594,68 @@ router.route('/accounts/skills')
                     })
             })
 
+    })
+
+router.route('/accounts/list')
+    .get((req, res) => {
+        Account.find()
+            .select('email createDate profile')
+            .then((result) => {
+                res.json({ result })
+            })
+    })
+
+router.route('/accounts/ban')
+    .post((req, res) => {
+        let token = req.body.token
+        let uid = req.body.uid
+        let reason = req.body.reason
+
+        Account.findOne({ '_id': uid })
+            .then((result) => {
+                if (!result) {
+                    return
+                }
+
+                if (result.lockout) {
+                    return
+                }
+
+                let date = new Date()
+                let obj = {
+                    date: date,
+                    reason: reason,
+                }
+
+                result.lockout = obj
+                result.save()
+                    .then((acc) => {
+                        responseSuccuess(res, '')
+                    })
+            })
+    })
+
+router.route('/accounts/unban')
+    .post((req, res) => {
+        let token = req.body.token
+        let uid = req.body.uid
+
+        Account.findOne({ '_id': uid })
+            .then((result) => {
+                if (!result) {
+                    return
+                }
+
+                if (!result.lockout) {
+                    return
+                }
+
+                result.lockout = undefined
+                result.save()
+                    .then((acc) => {
+                        responseSuccuess(res, '')
+                    })
+            })
     })
 //====================================================================================================
 //====================================================================================================
@@ -758,55 +823,296 @@ router.route('/request/new')
         let token = req.body.token
         let from = req.body.from
         let to = req.body.to
-        let sklFrom = req.body.skillFrom
-        let sklTo = req.body.skillTo
+        let sfrom = req.body.sfrom
+        let sto = req.body.sto
+        let message = req.body.message
 
-
-
-
-        async.parallel([
-            function (callback) {
-                callback(null, 'one', 'two')
-            },
-            function (arg1, arg2, callback) {
-                // arg1 now equals 'one' and arg2 now equals 'two'
-                callback(null, 'three')
-            },
-            function (arg1, callback) {
-                // arg1 now equals 'three'
-                callback(null, 'done')
-            }
-        ]).then(function (value) {
-            console.log(value === 'done') // => true
-        })
-
-        Account
-            .where('email').in([from, to])
-            .select({ 'email': 1 })
-            .exec()
-            .then((result) => {
-                let accF = result.find((item) => { return item.email === from })
-                let accT = result.find((item) => { return item.email === to })
-
-
-
-
-                responseSuccuess(res, result)
+        async
+            .parallel({
+                acc1: (callback) => {
+                    Account
+                        .findOne({ 'email': from })
+                        .select({ 'email': 1, 'skills': 1 })
+                        .populate('skills.have')
+                        .populate('skills.want')
+                        .exec(callback)
+                },
+                acc2: (callback) => {
+                    Account
+                        .findOne({ 'email': to })
+                        .select({ 'email': 1, 'skills': 1 })
+                        .populate('skills.have')
+                        .populate('skills.want')
+                        .exec(callback)
+                },
             })
+            .then((result) => {
+                // console.log(JSON.stringify(result, null, 3))
 
+                let acc1 = result.acc1
+                let acc2 = result.acc2
+                let date = new Date()
+
+                let request = new Request()
+                request.accFrom.acc = acc1._id
+                request.accFrom.skill = sfrom
+                request.accTo.acc = acc2._id
+                request.accTo.skill = sto
+                request.createDate = date
+                request.updateDate = date
+                request.messages = []
+                request.statusLog = []
+
+                let msg = {}
+                msg.sender = acc1._id
+                msg.message = message
+                msg.date = date
+                request.messages.push(msg)
+
+                // console.log(request)
+
+                request.save()
+                    .then((result) => {
+                        // console.log(result)
+                        responseSuccuess(res, result)
+                    })
+            })
     })
 
 router.route('/request/reply')
     .post((req, res) => {
+        let token = req.body.token
+        let requestid = req.body.requestid
+        let from = req.body.from
+        let message = req.body.message
 
+        Request.findOne({ '_id': requestid })
+            .populate({ path: 'accFrom.acc', select: 'email' })
+            .populate({ path: 'accTo.acc', select: 'email' })
+            .then((result) => {
+                // console.log(result)
+
+                let date = new Date()
+                let acc1 = result.accFrom.acc
+                let acc2 = result.accTo.acc
+                let id = from === acc1.email ? acc1._id : acc2._id
+
+                let msg = {}
+                msg.sender = id
+                msg.message = message
+                msg.date = new Date()
+
+                result.updateDate = date
+                result.messages.push(msg)
+                result.save()
+                    .then((result) => {
+                        responseSuccuess(res, result)
+                    })
+            })
     })
 
 router.route('/request/accept')
     .post((req, res) => {
+        let token = req.body.token
+        let requestid = req.body.requestid
+        let from = req.body.from
 
+        Request.findOne({ '_id': requestid })
+            .populate({ path: 'accFrom.acc', select: 'email' })
+            .populate({ path: 'accTo.acc', select: 'email' })
+            .then((result) => {
+                // console.log(result)
+
+                let date = new Date()
+                let acc1 = result.accFrom.acc
+                let acc2 = result.accTo.acc
+
+                result.updateDate = date
+
+                if (from === acc1.email) {
+                    if (!result.status.accept.from) {
+                        result.status.accept.from = date
+                    } else {
+                        return
+                    }
+                } else if (from === acc2.email) {
+                    if (!result.status.accept.to) {
+                        result.status.accept.to = date
+                    } else {
+                        return
+                    }
+                } else {
+                    return
+                }
+
+                result.save()
+                    .then((data) => {
+                        responseSuccuess(res, data)
+                    })
+
+            })
     })
 
-router.route('/request/deny')
+router.route('/request/decline')
     .post((req, res) => {
+        let token = req.body.token
+        let requestid = req.body.requestid
+        let from = req.body.from
+
+        Request.findOne({ '_id': requestid })
+            .populate({ path: 'accFrom.acc', select: 'email' })
+            .populate({ path: 'accTo.acc', select: 'email' })
+            .then((result) => {
+                console.log(result)
+
+                let date = new Date()
+                let acc1 = result.accFrom.acc
+                let acc2 = result.accTo.acc
+                let acc
+
+                result.updateDate = date
+
+                if (from === acc1.email) {
+                    acc = acc1
+                } else if (from === acc2.email) {
+                    acc = acc2
+                } else {
+                    // responseError(res, 'error')
+                    // return
+                }
+
+                if (result.status.decline) {
+                    // responseError(res, 'error')
+                    // return
+                }
+
+                result.status.decline = {
+                    by: acc._id,
+                    date: date,
+                }
+
+                result.save()
+                    .then((data) => {
+                        responseSuccuess(res, data)
+                    })
+            })
+    })
+
+router.route('/request/complete')
+    .post((req, res) => {
+        let token = req.body.token
+        let requestid = req.body.requestid
+        let from = req.body.from
+
+        Request.findOne({ '_id': requestid })
+            .populate({ path: 'accFrom.acc', select: 'email' })
+            .populate({ path: 'accTo.acc', select: 'email' })
+            .then((result) => {
+                // console.log(result)
+
+                let date = new Date()
+                let acc1 = result.accFrom.acc
+                let acc2 = result.accTo.acc
+                let acc
+
+                result.updateDate = date
+
+                if (from === acc1.email) {
+                    acc = acc1
+                } else if (from === acc2.email) {
+                    acc = acc2
+                } else {
+                    return
+                }
+
+                if (!result.status.accept.from || !result.status.accept.to || result.status.decline) {
+                    return
+                }
+
+                if (result.status.complete) {
+                    return
+                }
+
+                result.status.complete.by = acc._id
+                result.status.complete.date = date
+
+                result.save()
+                    .then((data) => {
+                        responseSuccuess(res, data)
+                    })
+            })
+    })
+
+router.route('/request/list')
+    .post((req, res) => {
+        let email = req.body.email
+
+        Request.find({})
+            .populate({
+                path: 'accFrom.acc',
+                select: 'email',
+            })
+            .populate({
+                path: 'accTo.acc',
+                select: 'email',
+            })
+            .populate({ path: 'accFrom.skill' })
+            .populate({ path: 'accTo.skill' })
+            // .select({
+            //     'accFrom': 1,
+            //     'accTo': 1,
+            //     'createDate': 1,
+            //     'updateDate': 1,
+            // })
+            .exec()
+            .then((result) => {
+                let arr = result
+                arr = arr.filter((item) => {
+                    return item.accFrom.acc.email === email || item.accTo.acc.email === email
+                })
+                arr = arr.sort((a, b) => {
+                    return b.updateDate - a.updateDate
+                })
+                responseSuccuess(res, arr)
+            })
+    })
+
+router.route('/request/review')
+    .post((req, acc) => {
+        let token = req.body.token
+        let rid = req.body.requestid
+        let email = req.body.email
+        let review = req.body.review
+        let ratingSkill = req.body.ratesk
+        let ratingService = req.body.ratesv
+
+            .populate({
+                path: 'accFrom.acc',
+                select: 'email',
+            })
+            .populate({
+                path: 'accTo.acc',
+                select: 'email',
+            })
+            .select('accFrom accTo status updateDate')
+            .then((request) => {
+                if (!request ||
+                    !request.status ||
+                    !request.status.complete) {
+                    return
+                }
+
+                console.log(JSON.stringify(request, null, 2))
+
+                let reviewObj = {
+                    message: review,
+                    rateSkill: ratingSkill,
+                    rateService: ratingService,
+                }
+
+            })
+            .catch((err) => {
+                console.log(err)
+            })
 
     })
