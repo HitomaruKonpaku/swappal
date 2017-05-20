@@ -22,6 +22,7 @@ import { ProfileComponent } from './profile/index';
 import { SearchComponent} from './search/index';
 import { ContactUsComponent, AboutUsComponent, FAQsComponent} from './foundation/index';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+import { News1Component,News2Component,News3Component,News4Component } from './news/index';
 
 let providers = {
     "google": {
@@ -63,6 +64,10 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     FAQsComponent,
     VerificationComponent,
     ExchangeDialog,
+    News1Component,
+    News2Component,
+    News3Component,
+    News4Component,
   ],
   providers: [
     AuthGuard,

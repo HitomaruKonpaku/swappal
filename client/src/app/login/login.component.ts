@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit{
                         this.profile = data.acc.profile;
                         if (!this.profile){
                           $('#CreateProfileModal').modal('show');
+                          $('#CreateProfileModal').modal({backdrop: 'static', keyboard: false});
                           this.email = localStorage.getItem('currentEmail');
                         }
                         else{
@@ -124,23 +125,23 @@ export class LoginComponent implements OnInit{
       console.log (value);
       value.email = this.email;
 
-      this.apiService.createProfile(value)
-          .subscribe(
-          data => {
-              switch (data.msg) {
-                  case 'success':
-                  location.reload();
-                  this.router.navigate(['/']);
-                  this.alertService.success('Create profile successful', true);
-                  break;
-                    default: this.loading = false;
-                    break;
-              }
-          },
-          error => {
-              // this.alertService.error(error);
-              // this.loading = false;
-          });
+      // this.apiService.createProfile(value)
+      //     .subscribe(
+      //     data => {
+      //         switch (data.msg) {
+      //             case 'success':
+      //             location.reload();
+      //             this.router.navigate(['/']);
+      //             this.alertService.success('Create profile successful', true);
+      //             break;
+      //               default: this.loading = false;
+      //               break;
+      //         }
+      //     },
+      //     error => {
+      //         // this.alertService.error(error);
+      //         // this.loading = false;
+      //     });
     }
   signIn(provider : any){
     this.sub = this._auth.login(provider).subscribe(
