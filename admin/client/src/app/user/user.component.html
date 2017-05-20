@@ -1,0 +1,93 @@
+<div class="page">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-block">
+          <nav md-tab-nav-bar>
+            <a md-tab-link
+               [routerLink]="['/user']"
+               routerLinkActive #rla="routerLinkActive"
+               [active]="rla.isActive">
+              áds
+            </a>
+            <a md-tab-link
+               [routerLink]="['/user']"
+               routerLinkActive #rla="routerLinkActive"
+               [active]="rla.isActive">
+              asd
+            </a>
+          </nav>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+    <div class="card">
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-6" style="margin-top:10px;">
+              <md-input-container>
+                <input mdInput placeholder="Search User by Email"style="width:400px;">
+              </md-input-container>
+              <button md-mini-fab class="btn-search"><i class="material-icons">search</i></button>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-6">
+                  <button md-button class="btn-add">Add User</button>
+                </div>
+                <div class="col-md-6">
+                  <button md-button class="btn-edit">Edit User</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card card-margin">
+    <div class="card-block">
+      <table class="table">
+       <thead>
+         <tr>
+           <th></th>
+           <th>No.</th>
+           <th>Email</th>
+           <th>ID</th>
+           <th>Status</th>
+           <th></th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <th scope="row">1</th>
+           <td>Mark</td>
+           <td>Otto</td>
+           <td>@mdo</td>
+           <td>@mdo</td>
+           <td><button class="btn btn-danger" type="button" name="button"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
+         </tr>
+         <tr>
+           <th scope="row">2</th>
+           <td>Jacob</td>
+           <td>Thornton</td>
+           <td>@fat</td>
+           <td>@mdo</td>
+           <td><button class="btn btn-danger" type="button" name="button"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
+         </tr>
+         <tr>
+           <th scope="row">3</th>
+           <td>Larry</td>
+           <td>the Bird</td>
+           <td>@twitter</td>
+           <td>@twitter</td>
+           <td><button class="btn btn-danger" type="button" name="button"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
+         </tr>
+       </tbody>
+       </table>
+    </div>
+  </div>
+</div>
