@@ -4,6 +4,16 @@ body {
 button{
   border-radius: 0px!important;
 }
+.modal-title{
+  text-align: center;
+  /*color: grey;*/
+}
+.modal-padding{
+  padding: 20px;
+}
+.input-width{
+  width: 100%!important;
+}
 .item-flex0{
   flex:0.8;
 }
@@ -79,6 +89,11 @@ button{
   color:white!important;
   border-radius: 50%!important;
   margin-left: 20px;
+}
+.btn-cancel{
+  background-color: #EE5744!important;
+  color: white!important;
+  width: 100%;
 }
 .row{
   margin-top: 15px;

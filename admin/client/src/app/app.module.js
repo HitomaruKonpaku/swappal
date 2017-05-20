@@ -10,17 +10,18 @@ var platform_browser_1 = require("@angular/platform-browser");
 var app_routing_1 = require("./app.routing");
 var index_1 = require("./_layouts/index");
 var index_2 = require("./home/index");
-var index_3 = require("./user/index");
-var index_4 = require("./skill/index");
-var index_5 = require("./report/index");
-var index_6 = require("./login/index");
-var index_7 = require("./feedback/index");
-var index_8 = require("./news/index");
+var index_3 = require("./_directives/index");
+var index_4 = require("./user/index");
+var index_5 = require("./skill/index");
+var index_6 = require("./report/index");
+var index_7 = require("./login/index");
+var index_8 = require("./feedback/index");
+var index_9 = require("./news/index");
 var angular2_chartjs_1 = require("angular2-chartjs");
 var material_1 = require("@angular/material");
+var index_10 = require("./_services/index");
 var animations_1 = require("@angular/platform-browser/animations");
 var material_2 = require("@angular/material");
-// import 'hammerjs';
 var app_component_1 = require("./app.component");
 var AppModule = (function () {
     function AppModule() {
@@ -42,12 +43,23 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             index_1.HeaderComponent,
             index_2.HomeComponent,
-            index_3.UserComponent,
-            index_5.ReportComponent,
-            index_6.LoginComponent,
-            index_4.SkillComponent,
-            index_7.FeedbackComponent,
-            index_8.NewsComponent,
+            index_4.UserComponent,
+            index_6.ReportComponent,
+            index_7.LoginComponent,
+            index_5.SkillComponent,
+            index_8.FeedbackComponent,
+            index_9.NewsComponent,
+            index_5.SkillDialog,
+            index_4.UserDialog,
+            index_3.AlertComponent,
+        ],
+        providers: [
+            index_10.AlertService,
+            index_10.APIService,
+        ],
+        entryComponents: [
+            index_5.SkillDialog,
+            index_4.UserDialog
         ],
         bootstrap: [app_component_1.AppComponent]
     })
