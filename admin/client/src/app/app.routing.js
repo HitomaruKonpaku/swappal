@@ -16,6 +16,7 @@ var appRoutes = [
     { path: 'skill', component: index_3.SkillComponent },
     { path: 'user', component: index_2.UserComponent },
     { path: 'news', component: index_7.NewsComponent },
+    { path: 'category', component: index_3.CategoryComponent },
     // { path: 'logout', component: LogoutComponent },
     // { path: 'register', component: RegisterComponent },
     // otherwise redirect to home

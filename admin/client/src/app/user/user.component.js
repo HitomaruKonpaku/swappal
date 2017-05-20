@@ -16,6 +16,8 @@ var UserComponent = (function () {
         this.dialog = dialog;
         this.apiService = apiService;
         this.userList = [];
+        this.isEdit = false;
+        this.isDelete = false;
     }
     UserComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -26,11 +28,35 @@ var UserComponent = (function () {
             console.log("error");
         });
     };
-    UserComponent.prototype.openDialog = function () {
-        this.dialog.open(UserDialog, {
+    UserComponent.prototype.openAddDialog = function () {
+        var config = new material_1.MdDialogConfig();
+        var dialogRef = this.dialog.open(UserDialog, {
             height: '400px',
             width: '400px',
         });
+        dialogRef.componentInstance.isEdit = this.isEdit;
+    };
+    UserComponent.prototype.deleteUserDialog = function (email) {
+        this.isDelete = true;
+        var config = new material_1.MdDialogConfig();
+        var dialogRef = this.dialog.open(UserDialog, {
+            height: '250px',
+            width: '400px',
+        });
+        dialogRef.componentInstance.isDelete = this.isDelete;
+        dialogRef.componentInstance.email = email;
+    };
+    UserComponent.prototype.openEditDialog = function (email, id, profile) {
+        this.isEdit = true;
+        var config = new material_1.MdDialogConfig();
+        var dialogRef = this.dialog.open(UserDialog, {
+            height: '600px',
+            width: '400px',
+        });
+        dialogRef.componentInstance.isEdit = this.isEdit;
+        dialogRef.componentInstance.email = email;
+        dialogRef.componentInstance.id = id;
+        dialogRef.componentInstance.profile = profile;
     };
     return UserComponent;
 }());
@@ -46,12 +72,13 @@ exports.UserComponent = UserComponent;
 var UserDialog = (function () {
     function UserDialog(dialogRef) {
         this.dialogRef = dialogRef;
+        this.profile = {};
     }
     return UserDialog;
 }());
 UserDialog = __decorate([
     core_1.Component({
-        selector: 'skill-dialog',
+        selector: 'user-dialog',
         templateUrl: 'app/user/userDialog.component.html',
     }),
     __metadata("design:paramtypes", [material_1.MdDialogRef])

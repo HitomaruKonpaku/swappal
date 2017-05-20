@@ -7,7 +7,7 @@ import { HeaderComponent } from './_layouts/index';
 import { HomeComponent } from './home/index';
 import { AlertComponent } from './_directives/index';
 import { UserComponent, UserDialog } from './user/index';
-import { SkillComponent, SkillDialog } from './skill/index';
+import { SkillComponent, SkillDialog,CategoryComponent,CategoryDialog } from './skill/index';
 import { ReportComponent } from './report/index';
 import { LoginComponent } from './login/index';
 import { FeedbackComponent } from './feedback/index';
@@ -46,6 +46,8 @@ import { AppComponent }  from './app.component';
     SkillDialog,
     UserDialog,
     AlertComponent,
+    CategoryComponent,
+    CategoryDialog,
    ],
    providers:[
      AlertService,
@@ -53,7 +55,8 @@ import { AppComponent }  from './app.component';
    ],
    entryComponents: [
     SkillDialog,
-    UserDialog
+    UserDialog,
+    CategoryDialog,
   ],
   bootstrap:    [ AppComponent ]
 })

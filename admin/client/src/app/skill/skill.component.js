@@ -16,22 +16,46 @@ var SkillComponent = (function () {
         this.dialog = dialog;
         this.apiService = apiService;
         this.skillList = [];
+        this.isEdit = false;
+        this.isDelete = false;
     }
     SkillComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.apiService.getAllSkill().subscribe(function (data) {
-            // this.userList = data.result;
             _this.skillList = data.data.docs;
             console.log(_this.skillList);
         }, function (error) {
             console.log("error");
         });
     };
-    SkillComponent.prototype.openDialog = function () {
-        this.dialog.open(SkillDialog, {
+    SkillComponent.prototype.openAddDialog = function () {
+        var config = new material_1.MdDialogConfig();
+        var dialogRef = this.dialog.open(SkillDialog, {
             height: '300px',
             width: '400px',
         });
+        dialogRef.componentInstance.isEdit = this.isEdit;
+    };
+    SkillComponent.prototype.deleteSkillDialog = function (skill) {
+        this.isDelete = true;
+        var config = new material_1.MdDialogConfig();
+        var dialogRef = this.dialog.open(SkillDialog, {
+            height: '220px',
+            width: '400px',
+        });
+        dialogRef.componentInstance.isDelete = this.isDelete;
+        dialogRef.componentInstance.skill = skill;
+    };
+    SkillComponent.prototype.openEditDialog = function (skill, category) {
+        this.isEdit = true;
+        var config = new material_1.MdDialogConfig();
+        var dialogRef = this.dialog.open(SkillDialog, {
+            height: '300px',
+            width: '400px',
+        });
+        dialogRef.componentInstance.isEdit = this.isEdit;
+        dialogRef.componentInstance.skill = skill;
+        dialogRef.componentInstance.category = category;
     };
     return SkillComponent;
 }());

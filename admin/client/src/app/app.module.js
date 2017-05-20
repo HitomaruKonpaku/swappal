@@ -52,6 +52,8 @@ AppModule = __decorate([
             index_5.SkillDialog,
             index_4.UserDialog,
             index_3.AlertComponent,
+            index_5.CategoryComponent,
+            index_5.CategoryDialog,
         ],
         providers: [
             index_10.AlertService,
@@ -59,7 +61,8 @@ AppModule = __decorate([
         ],
         entryComponents: [
             index_5.SkillDialog,
-            index_4.UserDialog
+            index_4.UserDialog,
+            index_5.CategoryDialog,
         ],
         bootstrap: [app_component_1.AppComponent]
     })

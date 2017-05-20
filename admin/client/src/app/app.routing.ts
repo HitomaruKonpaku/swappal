@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent }from './home/index';
 import { UserComponent } from './user/index';
-import { SkillComponent } from './skill/index';
+import { SkillComponent,CategoryComponent } from './skill/index';
 import { ReportComponent } from './report/index';
 import { LoginComponent } from './login/index';
 import { FeedbackComponent } from './feedback/index';
@@ -16,6 +16,7 @@ const appRoutes: Routes = [
     { path: 'skill', component: SkillComponent },
     { path: 'user', component: UserComponent },
     { path: 'news', component: NewsComponent },
+    { path: 'category',component:CategoryComponent},
     // { path: 'logout', component: LogoutComponent },
     // { path: 'register', component: RegisterComponent },
     // otherwise redirect to home

@@ -1,17 +1,12 @@
 <div class="modal-padding" *ngIf="isEdit==false">
   <div class="modal-title">
-    <h2>THÊM KỸ NĂNG</h2>
+    <h2>THÊM DANH MỤC</h2>
   </div>
   <form>
     <div class="row">
       <md-input-container class="input-width">
-        <input mdInput placeholder="Tên kỹ năng" >
+        <input mdInput placeholder="Tên danh mục" >
       </md-input-container>
-    </div>
-    <div class="row">
-      <md-select placeholder="Danh mục" class="input-width">
-         <md-option>hello</md-option>
-      </md-select>
     </div>
     <div class="row">
       <div class="col-md-6">
@@ -25,18 +20,13 @@
 </div>
 <div class="modal-padding" *ngIf="isEdit==true">
   <div class="modal-title">
-    <h2>SỬA KỸ NĂNG</h2>
+    <h2>SỬA DANH MỤC</h2>
   </div>
   <form>
     <div class="row">
       <md-input-container class="input-width">
-        <input mdInput placeholder="{{skill}}">
+        <input mdInput placeholder="{{category}}">
       </md-input-container>
-    </div>
-    <div class="row">
-      <md-select placeholder="{{category}}" class="input-width">
-         <md-option>hello</md-option>
-      </md-select>
     </div>
     <div class="row">
       <div class="col-md-6">
@@ -50,7 +40,7 @@
 </div>
 <div class="modal-padding" *ngIf="isDelete==true">
   <div class="modal-title">
-    <h3>Bạn có chắc xoá kỹ năng {{skill}}</h3>
+    <h3>Bạn có chắc xoá danh mục {{category}}</h3>
   </div>
   <form>
     <div class="row">
