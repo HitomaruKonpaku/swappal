@@ -35,6 +35,9 @@ var jSchema = new Schema(
             have: [{ type: Schema.Types.ObjectId, ref: 'skills' }],
             want: [{ type: Schema.Types.ObjectId, ref: 'skills' }],
         },
+        lockout: {
+
+        },
     },
     {
         versionKey: false
