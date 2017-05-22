@@ -710,6 +710,7 @@ router.route('/skills')
             .then((asyncResult) => {
                 if (!asyncResult.cat || asyncResult.skill) {
                     responseError(res)
+                    return
                 }
 
                 let skill = new Skill({ name: name })
