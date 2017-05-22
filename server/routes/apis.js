@@ -71,6 +71,7 @@ let AccountReg = require('../models/AccountReg')
 let News = require('../models/News')
 let Skill = require('../models/Skill')
 let Request = require('../models/Request')
+let SkillCat = require('../models/SkillCate')
 
 //====================================================================================================
 //====================================================================================================
@@ -687,37 +688,40 @@ router.route('/skills')
     })
     .post((req, res) => {
         let name = req.body.name
+        let catid = req.body.catid
 
-        if (!name) {
+        if (!name || !catid) {
             res.json({
                 msg: msgMissingData
             })
             return
         }
 
-        Skill.findOne({ 'name': name }).exec()
-            .then((data) => {
-                if (!data) {
-                    let s = new Skill({
-                        name: name
-                    })
-
-                    s.save()
-                        .then((data) => {
-                            responseSuccuess(res, data)
-                        })
-                        .catch((err) => {
-                            responseError(res, err)
-                        })
-                } else {
-                    responseInvalid(res, { msg: 'duplicate' })
+        async.parallel({
+            cat: (callback) => {
+                SkillCat.findById(catid)
+                    .exec(callback)
+            },
+            skill: (callback) => {
+                Skill.findOne({ 'name': name })
+                    .exec(callback)
+            },
+        })
+            .then((asyncResult) => {
+                if (!asyncResult.cat || asyncResult.skill) {
+                    responseError(res)
                 }
-            })
-            .catch((err) => {
-                responseError(res, err)
-            })
 
-
+                let skill = new Skill({ name: name })
+                skill.save()
+                    .then((newSkill) => {
+                        asyncResult.cat.skills.push(newSkill._id)
+                        asyncResult.cat.save()
+                            .then(() => {
+                                responseSuccuess(res)
+                            })
+                    })
+            })
     })
 
 //====================================================================================================
@@ -1086,6 +1090,7 @@ router.route('/request/review')
         let ratingSkill = req.body.ratesk
         let ratingService = req.body.ratesv
 
+        Request.findById(rid)
             .populate({
                 path: 'accFrom.acc',
                 select: 'email',
@@ -1102,7 +1107,7 @@ router.route('/request/review')
                     return
                 }
 
-                console.log(JSON.stringify(request, null, 2))
+                // console.log(JSON.stringify(request, null, 2))
 
                 let reviewObj = {
                     message: review,
@@ -1110,9 +1115,49 @@ router.route('/request/review')
                     rateService: ratingService,
                 }
 
+                let isFrom = email === accFrom.acc.email
+
+                if (isFrom) {
+                    request.reviews.from = reviewObj
+                } else {
+                    request.reviews.to = reviewObj
+                }
+
+                request.save()
+                    .then((result) => {
+                        responseSuccuess(res)
+                    })
             })
             .catch((err) => {
                 console.log(err)
             })
 
     })
+
+//====================================================================================================
+//====================================================================================================
+//====================================================================================================
+
+router.route('/skillcat/add')
+    .post((req, res) => {
+        let name = req.body.name
+
+        if (!name) {
+            return
+        }
+
+        SkillCat.findOne({ 'name': name })
+            .then((result) => {
+                if (result) {
+                    responseError(res)
+                    return
+                }
+
+                let cat = new SkillCat({ name: name })
+                cat.save()
+                    .then((result) => {
+                        responseSuccuess(res, cat)
+                    })
+            })
+    })
+
