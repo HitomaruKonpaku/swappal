@@ -99,7 +99,7 @@ describe("Test _service", function() {
     };
     expect(error).toThrow();
   });
-  it("authentication.service - login: Get funtion login from api server.",function(){
+  it("authentication.service - login: Login successful if there's a jwt token in the response.",function(){
         var login = function(data:any){
             return this.http.post(this.address, data, this.authHeader())
             .map((response: Response) => {
@@ -115,7 +115,7 @@ describe("Test _service", function() {
         }
         expect(login).toThrow();
     });
-    it("authentication.service - logout: Get funtion logout from api server.",function(){
+    it("authentication.service - logout: Exit the account from the site and remove key items.",function(){
         var logout = function(){
             return  localStorage.removeItem(this.localKey);
         };
