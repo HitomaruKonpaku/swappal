@@ -11,20 +11,30 @@ export class SkillComponent implements OnInit{
   skillList: Skill[] =[];
   isEdit : boolean = false;
   isDelete: boolean = false;
+  cateList:any=[];
   constructor(
     public dialog: MdDialog,
     private apiService: APIService,
   ){}
   ngOnInit(){
+    this.getAllSkill();
+    this.getAllCate();
+  }
+  getAllCate(){
+    this.apiService.getAllCate().subscribe(
+      data=>{
+          this.cateList = data.data;
+      }
+    )
+  }
+  getAllSkill(){
     this.apiService.getAllSkill().subscribe(
     data => {
       this.skillList = data.data.docs;
-      console.log(this.skillList);
     },
     error => {
         console.log("error")
     })
-
   }
   openAddDialog(){
     let config = new MdDialogConfig();
@@ -33,6 +43,7 @@ export class SkillComponent implements OnInit{
       width:'400px',
     });
     dialogRef.componentInstance.isEdit = this.isEdit;
+    dialogRef.componentInstance.cateList = this.cateList;
   }
   deleteSkillDialog(skill:any){
     this.isDelete = true;
@@ -61,10 +72,17 @@ export class SkillComponent implements OnInit{
   selector: 'skill-dialog',
   templateUrl:'app/skill/skillDialog.component.html',
 })
-export class SkillDialog {
+export class SkillDialog implements OnInit{
   isEdit :boolean;
   isDelete : boolean;
   skill: any;
   category: any;
-  constructor(public dialogRef: MdDialogRef<SkillDialog>) {}
+  cateList:any=[];
+  constructor(
+    public dialogRef: MdDialogRef<SkillDialog>,
+    private apiService: APIService,
+  ) {}
+  ngOnInit(){
+  }
+
 }

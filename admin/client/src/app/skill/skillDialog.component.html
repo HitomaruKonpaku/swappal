@@ -9,8 +9,8 @@
       </md-input-container>
     </div>
     <div class="row">
-      <md-select placeholder="Danh mục" class="input-width">
-         <md-option>hello</md-option>
+      <md-select placeholder="Danh mục" class="input-width" >
+         <md-option *ngFor="let cate of cateList">{{cate.name}}</md-option>
       </md-select>
     </div>
     <div class="row">

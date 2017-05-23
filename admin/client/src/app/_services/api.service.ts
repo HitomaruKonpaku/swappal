@@ -9,7 +9,10 @@ export class APIService {
     constructor(private http: Http) { }
 
     getAllSkill(){
-      return this.http.get(this.address+ '/skills', this.jwt()).map((response: Response) => response.json());
+      return this.http.get(this.address+ '/skill/get', this.jwt()).map((response: Response) => response.json());
+    }
+    getAllCate(){
+      return this.http.get(this.address+ '/skillcat/all', this.jwt()).map((response: Response) => response.json());
     }
 
     getUserList(){
@@ -20,6 +23,12 @@ export class APIService {
     }
     unbanUser(uid :any){
       return this.http.post(this.address+'/accounts/unban', uid, this.jwt()).map((response: Response) => response.json());
+    }
+    addCate(name: any){
+      return this.http.post(this.address+'/skillcat/add', name, this.jwt()).map((response: Response) => response.json());
+    }
+    addSkill(skill: any){
+      return this.http.post(this.address+'/skill/add', name, this.jwt()).map((response: Response) => response.json());
     }
 
     private jwt() {

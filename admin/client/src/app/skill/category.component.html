@@ -26,18 +26,16 @@
        <thead>
          <tr>
            <th>No.</th>
-           <th>Tên</th>
+           <th>Tên Danh mục</th>
            <th>ID</th>
-           <th>Ngày đăng ký</th>
            <th></th>
          </tr>
        </thead>
        <tbody>
-         <tr >
-           <th scope="row">1</th>
-           <td></td>
-           <td></td>
-           <td></td>
+         <tr *ngFor="let cate of categoryList;let i = index;">
+           <th scope="row">{{i+1}}</th>
+           <td>{{cate.name}}</td>
+           <td>{{cate._id}}</td>
            <td>
              <button  class="btn btn-info" type="button" (click)="openEditDialog()" name="button"><i class="fa fa-pencil" aria-hidden="true"></i></button>
              <button class="btn btn-danger" type="button" (click)="deleteCategoryDialog()" name="button"><i class="fa fa-trash-o" aria-hidden="true"></i></button>

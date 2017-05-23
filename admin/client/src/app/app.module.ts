@@ -2,6 +2,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { routing } from './app.routing';
 import { HttpModule } from '@angular/http';
+import {FormsModule} from '@angular/forms';
 import { BaseRequestOptions } from '@angular/http';
 import { HeaderComponent } from './_layouts/index';
 import { HomeComponent } from './home/index';
@@ -24,9 +25,10 @@ import {MdButtonModule, MdCheckboxModule} from '@angular/material';
 import { AppComponent }  from './app.component';
 
 @NgModule({
-  imports:      [
+  imports:[
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     ChartModule,
     routing,
     MdButtonModule,

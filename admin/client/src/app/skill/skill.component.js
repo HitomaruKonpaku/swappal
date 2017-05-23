@@ -18,12 +18,22 @@ var SkillComponent = (function () {
         this.skillList = [];
         this.isEdit = false;
         this.isDelete = false;
+        this.cateList = [];
     }
     SkillComponent.prototype.ngOnInit = function () {
+        this.getAllSkill();
+        this.getAllCate();
+    };
+    SkillComponent.prototype.getAllCate = function () {
+        var _this = this;
+        this.apiService.getAllCate().subscribe(function (data) {
+            _this.cateList = data.data;
+        });
+    };
+    SkillComponent.prototype.getAllSkill = function () {
         var _this = this;
         this.apiService.getAllSkill().subscribe(function (data) {
             _this.skillList = data.data.docs;
-            console.log(_this.skillList);
         }, function (error) {
             console.log("error");
         });
@@ -35,6 +45,7 @@ var SkillComponent = (function () {
             width: '400px',
         });
         dialogRef.componentInstance.isEdit = this.isEdit;
+        dialogRef.componentInstance.cateList = this.cateList;
     };
     SkillComponent.prototype.deleteSkillDialog = function (skill) {
         this.isDelete = true;
@@ -69,9 +80,13 @@ SkillComponent = __decorate([
 ], SkillComponent);
 exports.SkillComponent = SkillComponent;
 var SkillDialog = (function () {
-    function SkillDialog(dialogRef) {
+    function SkillDialog(dialogRef, apiService) {
         this.dialogRef = dialogRef;
+        this.apiService = apiService;
+        this.cateList = [];
     }
+    SkillDialog.prototype.ngOnInit = function () {
+    };
     return SkillDialog;
 }());
 SkillDialog = __decorate([
@@ -79,7 +94,8 @@ SkillDialog = __decorate([
         selector: 'skill-dialog',
         templateUrl: 'app/skill/skillDialog.component.html',
     }),
-    __metadata("design:paramtypes", [material_1.MdDialogRef])
+    __metadata("design:paramtypes", [material_1.MdDialogRef,
+        index_1.APIService])
 ], SkillDialog);
 exports.SkillDialog = SkillDialog;
 //# sourceMappingURL=skill.component.js.map

@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var app_routing_1 = require("./app.routing");
+var forms_1 = require("@angular/forms");
 var index_1 = require("./_layouts/index");
 var index_2 = require("./home/index");
 var index_3 = require("./_directives/index");
@@ -33,6 +34,7 @@ AppModule = __decorate([
         imports: [
             platform_browser_1.BrowserModule,
             animations_1.BrowserAnimationsModule,
+            forms_1.FormsModule,
             angular2_chartjs_1.ChartModule,
             app_routing_1.routing,
             material_2.MdButtonModule,

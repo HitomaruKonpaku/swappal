@@ -2,15 +2,15 @@
   <div class="modal-title">
     <h2>THÊM DANH MỤC</h2>
   </div>
-  <form>
+  <form #f="ngForm" (ngSubmit)="addCate(f)">
     <div class="row">
       <md-input-container class="input-width">
-        <input mdInput placeholder="Tên danh mục" >
+        <input mdInput ngModel name="name" placeholder="Tên danh mục" >
       </md-input-container>
     </div>
     <div class="row">
       <div class="col-md-6">
-        <button type="button" class="btn btn-add" name="button">Thêm</button>
+        <button type="submit" class="btn btn-add" name="button">Thêm</button>
       </div>
       <div class="col-md-6">
         <button md-dialog-close type="button" class="btn btn-cancel" name="button">Huỷ</button>

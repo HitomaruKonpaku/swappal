@@ -1,18 +1,37 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MdDialog, MdDialogRef,MdDialogConfig } from '@angular/material';
+import {APIService} from '../_services/index';
+import {NgForm} from '@angular/forms';
+
 
 @Component({
   moduleId: module.id,
   templateUrl:'category.component.html'
 })
 
-export class CategoryComponent {
+export class CategoryComponent implements OnInit {
   categoryList : any = [];
   isEdit : boolean = false;
   isDelete: boolean = false;
   constructor(
     public dialog: MdDialog,
+    private apiService : APIService,
   ){}
+  ngOnInit(){
+    this.getAllCate();
+  }
+  getAllCate(){
+    this.apiService.getAllCate().subscribe(
+      data=>{
+        this.categoryList = data.data;
+        console.log(this.categoryList)
+      },
+      error=>{
+
+      }
+    )
+
+  }
   openAddDialog(){
     let config = new MdDialogConfig();
     let dialogRef:MdDialogRef<CategoryDialog> =  this.dialog.open(CategoryDialog,{
@@ -21,6 +40,7 @@ export class CategoryComponent {
     });
     dialogRef.componentInstance.isEdit = this.isEdit;
   }
+
   deleteCategoryDialog(category:any){
     this.isDelete = true;
     let config = new MdDialogConfig();
@@ -51,5 +71,21 @@ export class CategoryComponent {
     isEdit :boolean;
     isDelete : boolean;
     category: any;
-    constructor(public dialogRef: MdDialogRef<CategoryDialog>) {}
+    constructor(
+      public dialogRef: MdDialogRef<CategoryDialog>,
+      private apiService : APIService,
+    ) {}
+
+    addCate(f: NgForm){
+      var value = f.value
+      this.apiService.addCate(value).subscribe(
+        data=>{
+          console.log(data)
+        },
+        error=>{
+          console.log(error)
+        }
+      )
+
+    }
   }

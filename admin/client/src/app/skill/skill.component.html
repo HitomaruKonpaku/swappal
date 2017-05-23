@@ -9,7 +9,7 @@
                 <input mdInput placeholder="Search Skill"style="width:200px;">
               </md-input-container>
               <md-select placeholder="Skill Category" style="width:200px;">
-                 <md-option>hello</md-option>
+                 <md-option *ngFor="let cate of cateList">{{cate.name}}</md-option>
               </md-select>
               <button md-mini-fab class="btn-search"><i class="material-icons">search</i></button>
             </div>
