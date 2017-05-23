@@ -11,9 +11,10 @@ declare var $: any;
     templateUrl: 'header.component.html'
 })
 
+
 export class HeaderComponent implements OnInit {
     isLogin: boolean;
-    isRequest : boolean = false;
+    isRequest : boolean;
     currentEmail:string;
     profile: any ={};
     requests: any =[];
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit {
     noti:string;
     isEmail :any=[];
     isOdd : any = [];
+    testEmail: any ;
 
 
 
@@ -45,27 +47,35 @@ export class HeaderComponent implements OnInit {
             error => {
                 console.log("error")
             })
-        var str = '{"email":"'+this.currentEmail+'"}'
-        var json = JSON.parse(str);
-        this.apiService.getRequest(json)
-            .subscribe(
-              data => {
-                this.requests = data.data;
-                console.log(this.requests)
-                for (let i =0;i<this.requests.length;i++){
-                  if (this.requests[i].accFrom.acc.email == this.currentEmail){
-                    this.isEmail[i] = false;
-                  } else if (this.requests[i].accTo.acc.email == this.currentEmail){
-                    this.isEmail[i]= true;
-                  }
-                }
-              },
-              error => {
+        this.getRequest();
 
-              }
-            )
+
     }
 
+
+    getRequest(){
+      var str = '{"email":"'+this.currentEmail+'"}'
+      var json = JSON.parse(str);
+      this.apiService.getRequest(json)
+          .subscribe(
+            data => {
+              this.requests = data.data;
+              sessionStorage.setItem('dataRequests', JSON.stringify(this.requests));
+              console.log(this.requests)
+              for (let i =0;i<this.requests.length;i++){
+                if (this.requests[i].accFrom.acc.email == this.currentEmail){
+                  this.isEmail[i] = false;
+
+                } else if (this.requests[i].accTo.acc.email == this.currentEmail){
+                  this.isEmail[i]= true;
+                }
+              }
+            },
+            error => {
+
+            }
+          )
+    }
     updateLoginStatus() {
         this.isLogin = this.authService.status();
     }

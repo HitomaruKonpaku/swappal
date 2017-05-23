@@ -1116,7 +1116,7 @@ router.route('/request/review')
                     rateService: ratingService,
                 }
 
-                let isFrom = email === accFrom.acc.email
+                let isFrom = email === request.accFrom.acc.email
 
                 if (isFrom) {
                     request.reviews.from = reviewObj
@@ -1161,4 +1161,3 @@ router.route('/skillcat/add')
                     })
             })
     })
-

@@ -52,6 +52,9 @@ export class APIService {
     getRequest(email: any){
       return this.http.post(this.address + '/request/list', email,this.jwt()).map((response: Response) => response.json());
     }
+    writeReview(request:any){
+      return this.http.post(this.address + '/request/review', request,this.jwt()).map((response: Response) => response.json());
+    }
 
     // private helper methods
 

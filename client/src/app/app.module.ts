@@ -77,6 +77,8 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     APIService,
     Skill,
     SearchComponent,
+    HeaderComponent,
+    
   ],
   entryComponents: [
     ExchangeDialog
