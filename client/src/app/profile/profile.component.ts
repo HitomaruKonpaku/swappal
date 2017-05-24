@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
     isAccept: boolean;
     isEmail: boolean;
     isRequest: boolean = false;
-    isProgress : boolean = false;
+    isProgress : boolean ;
     isOtherRequest: boolean = false;
     requestList: any=[];
     SkillCount: any;
@@ -74,7 +74,6 @@ export class ProfileComponent implements OnInit {
           data => {
               switch (data.msg) {
                   case 'success':
-                  console.log("success");
                   break;
                     default: this.loading = false;
                     break;
@@ -98,9 +97,6 @@ export class ProfileComponent implements OnInit {
           .subscribe(
           data => {
               this.profile = data.data.profile
-          },
-          error => {
-              console.log("error")
           })
       this.apiService.getSkills(email)
           .subscribe(
@@ -112,9 +108,6 @@ export class ProfileComponent implements OnInit {
               for (let i = 0; i <this.skills.want.length;i++){
                 this.skillWant[i] = this.skills.want[i];
               }
-          },
-          error => {
-              console.log("error")
           })
     }
     getCurrentUserSkill(email:any){
@@ -126,9 +119,6 @@ export class ProfileComponent implements OnInit {
                 for (let i = 0; i < this.userSkills.have.length;i++){
                   this.currentHave[i] = this.userSkills.have[i];
                 }
-              },
-              error=>{
-                console.log("error")
               })
     }
     sendRequest(r:NgForm){
@@ -155,10 +145,11 @@ export class ProfileComponent implements OnInit {
 
     }
     writeReview(rating: NgForm){
+      // console.log(rating)
       var value = rating.value;
       value.token = this.currentToken;
       value.email = this.currentEmail;
-      value.requestid = this.requestID;
+      value.requestid = "59255dedc125b80c6e0e8400";
       console.log(value)
       this.apiService.writeReview(value).subscribe(
         data=>{
@@ -182,14 +173,15 @@ export class ProfileComponent implements OnInit {
               this.isProgress = true;
               this.requestID = this.requestList[i]._id
             }
+
           }else
           {
             return
           }
         } else if(this.requestList[i].accFrom.acc.email == other && this.requestList[i].accTo.acc.email == current )
         {
+          console.log("hello")
           this.isOtherRequest = true;
-          this.isRequest = false;
           if (this.requestList[i].status)
           {
             if (this.requestList[i].status.accept.from && this.requestList[i].status.accept.to)

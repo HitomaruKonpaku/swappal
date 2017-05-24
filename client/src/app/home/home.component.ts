@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
   idskillneed : FormControl;
   idskillhave : FormControl;
   skills : Skill[] = [];
+  // animals = ["mouse", "dog", "cat", "bird"];
+  // demo:any=[];
   constructor(
     private apiService : APIService,
     private _sanitizer: DomSanitizer,
@@ -28,10 +30,6 @@ export class HomeComponent implements OnInit {
       for (let i = 0; i < this.objectskills.length; i++){
         this.skills[i] = this.objectskills[i];
       }
-      console.log(this.skills)
-    },
-    error => {
-        console.log("error")
     })
   }
   autocompleListFormatter = (data: any) : SafeHtml => {

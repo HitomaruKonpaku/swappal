@@ -13,12 +13,15 @@ export class APIService {
       return this.http.get(this.address + '/accounts/profile' + '?email=' + email, this.jwt()).map((response: Response) => response.json())
 
     }
+    getcate2(){
+      return this.http.get(this.address + '/skillcat/all2', this.jwt()).map((response: Response) => response.json())
+    }
     getSkills(email: any){
       return this.http.get(this.address + '/accounts/skills' + '?email=' + email, this.jwt()).map((response: Response) => response.json())
 
     }
     getAllSkills(){
-        return this.http.get(this.address + '/skills' + '?=limit100', this.jwt()).map((response: Response) => response.json())
+        return this.http.get(this.address + '/skill/get', this.jwt()).map((response: Response) => response.json());
     }
     searchSkill(search : any){
       return this.http.post(this.address+'/search', search, this.jwt()).map((response: Response) => response.json());

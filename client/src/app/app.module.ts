@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BaseRequestOptions } from '@angular/http';
-import { MaterialModule } from '@angular/material';
+import { MaterialModule, MdSelectModule } from '@angular/material';
 import {MdAutocompleteModule} from '@angular/material';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -47,6 +47,7 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     Angular2SocialLoginModule,
     RatingModule,
     Ng2AutoCompleteModule,
+    MdSelectModule,
   ],
   declarations: [
     AppComponent,
@@ -78,7 +79,7 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     Skill,
     SearchComponent,
     HeaderComponent,
-    
+
   ],
   entryComponents: [
     ExchangeDialog

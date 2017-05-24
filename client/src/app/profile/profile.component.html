@@ -17,11 +17,14 @@
               <p>description</p>
             </div>
           </div>
+          <div class="col-md-3">
+            <a role="link" [hidden]="displayButtonEdit" (click)="switchForm()" style="color:#4eb1ba"><i class="material-icons">border_color</i> Chỉnh sửa</a>
+          </div>
         </div>
       </div>
     </div>
     <!-- swap me button -->
-    <div class="row" *ngIf="!isRequest && !isProgress">
+    <div class="row" *ngIf="!isRequest && !isProgress && !isOtherRequest">
         <div class="col-md-8">
         </div>
         <div  class="col-md-4 md-dialog-container div-swapme-button" id="Mydialogcontaine">
@@ -29,11 +32,18 @@
         </div>
     </div>
     <!-- notice button -->
-    <div class="row" *ngIf="isProgress==false && isRequest">
+    <div class="row" *ngIf="!isProgress && isRequest==true && isOtherRequest == false">
       <div class="col-md-6">
       </div>
       <div class="col-md-6 div-swapme-button">
-        <button md-button type="button" [hidden]=displayButton class="swapme-button" disabled="true">BẠN ĐANG GỬI YÊU CẦU</button>
+        <button md-button type="button" [hidden]=displayButton class="notice-swap" disabled="true">BẠN ĐANG GỬI YÊU CẦU</button>
+      </div>
+    </div>
+    <div class="row" *ngIf="!isProgress && isOtherRequest==true ">
+      <div class="col-md-6">
+      </div>
+      <div class="col-md-6 div-swapme-button">
+        <button md-button type="button" [hidden]=displayButton class="notice-swap" disabled="true">BẠN ĐÃ ĐƯỢC GỬI YÊU CẦU</button>
       </div>
     </div>
     <!-- finish button -->
@@ -375,18 +385,16 @@
                   <div style="text-align:center;" >
                     <h1>ĐÁNH GIÁ</h1>
                   </div>
-                  <form #rating="ngForm" (ngSubmit)="writeReview(rating)">
-
-
-                    <label>Kỹ năng</label>
-                    <rating ngModel name="ratesk" [max]="5" required></rating>
-                    <br>
-                    <label>Dịch vụ</label>
-                    <rating ngModel name="ratesv" [max]="5" required></rating>
-                    <input type="text" class="form-control"style="height:120px;" name="review" ngModel>
-                    <div style="text-align:center;">
-                      <button type="submit" (click)="writeReview(rating)" class="btn-info btn">Xác nhận</button>
-                    </div>
+                    <form #rating="ngForm" (ngSubmit)="writeReview(rating)">
+                      <label>Kỹ năng</label>
+                      <rating ngModel name="ratesk" [max]="5" required></rating>
+                      <br>
+                      <label>Dịch vụ</label>
+                      <rating ngModel name="ratesv" [max]="5" required></rating>
+                      <input type="text" class="form-control"style="height:120px;" name="review" ngModel>
+                      <div style="text-align:center;">
+                        <button type="submit" class="btn-info btn">Xác nhận</button>
+                      </div>
                     </form>
                 </div>
               </div>
