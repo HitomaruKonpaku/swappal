@@ -1016,7 +1016,7 @@ router.route('/request/list')
     })
 
 router.route('/request/review')
-    .post((req, acc) => {
+    .post((req, res) => {
         let token = req.body.token
         let rid = req.body.requestid
         let email = req.body.email
