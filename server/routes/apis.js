@@ -662,73 +662,6 @@ router.route('/accounts/unban')
 //====================================================================================================
 //====================================================================================================
 
-router.route('/skills')
-    .get((req, res) => {
-        let q = req.query
-
-        let s = q.search || ''
-        let p = q.page || 1
-        let l = q.limit || 10
-
-        Skill.paginate(
-            {
-                name: { $regex: "^" + s, $options: 'i' }
-            },
-            {
-                lean: true,
-                page: p,
-                limit: l
-            })
-            .then((data) => {
-                responseSuccuess(res, data)
-            })
-            .catch((err) => {
-                responseError(res, err)
-            })
-    })
-    .post((req, res) => {
-        let name = req.body.name
-        let catid = req.body.catid
-
-        if (!name || !catid) {
-            res.json({
-                msg: msgMissingData
-            })
-            return
-        }
-
-        async.parallel({
-            cat: (callback) => {
-                SkillCat.findById(catid)
-                    .exec(callback)
-            },
-            skill: (callback) => {
-                Skill.findOne({ 'name': name })
-                    .exec(callback)
-            },
-        })
-            .then((asyncResult) => {
-                if (!asyncResult.cat || asyncResult.skill) {
-                    responseError(res)
-                    return
-                }
-
-                let skill = new Skill({ name: name })
-                skill.save()
-                    .then((newSkill) => {
-                        asyncResult.cat.skills.push(newSkill._id)
-                        asyncResult.cat.save()
-                            .then(() => {
-                                responseSuccuess(res)
-                            })
-                    })
-            })
-    })
-
-//====================================================================================================
-//====================================================================================================
-//====================================================================================================
-
 router.route('/news')
     .post((req, res) => {
         let title = req.body.title
@@ -1132,12 +1065,39 @@ router.route('/request/review')
             .catch((err) => {
                 console.log(err)
             })
-
     })
 
 //====================================================================================================
 //====================================================================================================
 //====================================================================================================
+
+router.route('/skillcat/all')
+    .get((req, res) => {
+        SkillCat.find()
+            .select('name')
+            .then((cates) => {
+                cates = cates.sort((a, b) => {
+                    // if (a.name < b.name) return -1
+                    // if (a.name > b.name) return 1
+                    // return 0
+                    return a.name.localeCompare(b.name)
+                })
+                responseSuccuess(res, cates)
+            })
+    })
+
+router.route('/skillcat/all2')
+    .get((req, res) => {
+        SkillCat.find()
+            // .select('name')
+            .populate({ path: 'skills', select: 'name' })
+            .then((cates) => {
+                cates = cates.sort((a, b) => {
+                    return a.name.localeCompare(b.name)
+                })
+                responseSuccuess(res, cates)
+            })
+    })
 
 router.route('/skillcat/add')
     .post((req, res) => {
@@ -1161,3 +1121,159 @@ router.route('/skillcat/add')
                     })
             })
     })
+
+//====================================================================================================
+//====================================================================================================
+//====================================================================================================
+
+router.route('/skill/all')
+    .get((req, res) => {
+        Skill.find()
+            .then((result) => {
+                responseSuccuess(res, result)
+            })
+    })
+
+router.route('/skill/get')
+    .get((req, res) => {
+        let q = req.query
+        let s = q.search || ''
+        let p = q.page || 1
+        let l = q.limit || 10
+
+        Skill.paginate(
+            {
+                name: { $regex: "^" + s, $options: 'i' }
+            },
+            {
+                lean: true,
+                page: p,
+                limit: l
+            })
+            .then((data) => {
+                responseSuccuess(res, data)
+            })
+            .catch((err) => {
+                responseError(res, err)
+            })
+    })
+
+router.route('/skill/add')
+    .post((req, res) => {
+        let name = req.body.name
+        let catid = req.body.catid
+
+        if (!name || !catid) {
+            res.json({
+                msg: msgMissingData
+            })
+            return
+        }
+
+        async.parallel({
+            cat: (callback) => {
+                SkillCat.findById(catid)
+                    .exec(callback)
+            },
+            skill: (callback) => {
+                Skill.findOne({ 'name': name })
+                    .exec(callback)
+            },
+        })
+            .then((asyncResult) => {
+                if (!asyncResult.cat || asyncResult.skill) {
+                    responseError(res)
+                    return
+                }
+
+                let skill = new Skill({ name: name })
+                skill.save()
+                    .then((newSkill) => {
+                        asyncResult.cat.skills.push(newSkill._id)
+                        asyncResult.cat.save()
+                            .then(() => {
+                                responseSuccuess(res)
+                            })
+                    })
+            })
+    })
+
+router.route('/skill/edit')
+    .post((req, res) => {
+        let skillid = req.body.skillid
+        let name = req.body.name
+        let oldcatid = req.body.oldcatid
+        let newcatid = req.body.newcatid
+
+        if (!skillid || !name || !oldcatid || !newcatid) {
+            responseError(res)
+            return
+        }
+
+        async.parallel({
+            oldCat: (callback) => {
+                SkillCat.findById(oldcatid)
+                    .exec(callback)
+            },
+            newCat: (callback) => {
+                SkillCat.findById(newcatid)
+                    .exec(callback)
+            },
+            skill: (callback) => {
+                Skill.findById(skillid)
+                    .exec(callback)
+            },
+            skillCheck: (callback) => {
+                Skill.findOne({ 'name': name })
+                    .exec(callback)
+            },
+        })
+            .then((asyncResult) => {
+                // console.log(asyncResult)
+
+                if (!asyncResult.skill || !asyncResult.oldCat || !asyncResult.newCat) {
+                    responseError(res)
+                    return
+                }
+
+                if (asyncResult.skillCheck && asyncResult.skillCheck.name === name ||
+                    asyncResult.oldCat.skills.indexOf(skillid) === -1) {
+                    responseInvalid(res)
+                    return
+                }
+
+                asyncResult.skill.name = name
+
+                if (asyncResult.oldCat._id !== asyncResult.newCat._id) {
+                    let s = asyncResult.skill
+                    let s1 = asyncResult.oldCat.skills
+                    let s2 = asyncResult.newCat.skills
+
+                    s1.splice(s1.indexOf(s._id), 1)
+                    s2.push(s._id)
+
+                    asyncResult.oldCat.skills = s1
+                    asyncResult.newCat.skills = s2
+
+                    async.parallel([
+                        (callback) => { asyncResult.oldCat.save(callback) },
+                        (callback) => { asyncResult.newCat.save(callback) },
+                        (callback) => { asyncResult.skill.save(callback) },
+                    ])
+                        .then((asyncSave) => {
+                            console.log(asyncSave)
+                            responseSuccuess(res)
+                        })
+                } else {
+                    asyncResult.skill.save()
+                        .then(() => {
+                            responseSuccuess(res)
+                        })
+                }
+            })
+            .catch((err) => { console.log(err) })
+    })
+
+//====================================================================================================
+//====================================================================================================
+//====================================================================================================
