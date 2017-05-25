@@ -24,7 +24,7 @@
       </div>
     </div>
     <!-- swap me button -->
-    <div class="row" *ngIf="!isRequest && !isProgress && !isOtherRequest">
+    <div class="row" *ngIf="isRequest==false && isProgress==false && isOtherRequest==false">
         <div class="col-md-8">
         </div>
         <div  class="col-md-4 md-dialog-container div-swapme-button" id="Mydialogcontaine">
@@ -32,14 +32,14 @@
         </div>
     </div>
     <!-- notice button -->
-    <div class="row" *ngIf="!isProgress && isRequest==true && isOtherRequest == false">
+    <div class="row" *ngIf="isProgress==false && isRequest==true && isOtherRequest == false">
       <div class="col-md-6">
       </div>
       <div class="col-md-6 div-swapme-button">
         <button md-button type="button" [hidden]=displayButton class="notice-swap" disabled="true">BẠN ĐANG GỬI YÊU CẦU</button>
       </div>
     </div>
-    <div class="row" *ngIf="!isProgress && isOtherRequest==true ">
+    <div class="row" *ngIf="isProgress==false && isOtherRequest==true ">
       <div class="col-md-6">
       </div>
       <div class="col-md-6 div-swapme-button">

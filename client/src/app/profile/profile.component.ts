@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
     isAccept: boolean;
     isEmail: boolean;
     isRequest: boolean = false;
-    isProgress : boolean ;
+    isProgress : boolean =false;
     isOtherRequest: boolean = false;
     requestList: any=[];
     SkillCount: any;

@@ -17,7 +17,7 @@ import {RatingModule} from 'ngx-rating';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { LogoutComponent } from './logout/index';
-import { RegisterComponent,VerificationComponent } from './register/index';
+import { RegisterComponent } from './register/index';
 import { ProfileComponent } from './profile/index';
 import { SearchComponent} from './search/index';
 import { ContactUsComponent, AboutUsComponent, FAQsComponent} from './foundation/index';
@@ -63,7 +63,6 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     ContactUsComponent,
     AboutUsComponent,
     FAQsComponent,
-    VerificationComponent,
     ExchangeDialog,
     News1Component,
     News2Component,

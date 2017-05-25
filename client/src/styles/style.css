@@ -22,7 +22,21 @@ input[type=date]{
   margin-left: 5px;
   height: 40px!important;
 }
-
+my-app:empty + .loading {
+    opacity: 1;
+    z-index: 100;
+}
+.loading {
+    opacity: 0;
+    transition: opacity .8s ease-in-out;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #000;
+    z-index: -1;
+}
 /*#sidebar{
   position: fixed;
   right: 0;

@@ -37,12 +37,12 @@ export class LoginComponent implements OnInit{
     ) { }
 
     ngOnInit() {
-        // check login status
+
         if (this.authenticationService.status() === true) {
             this.router.navigate(['/']);
         }
 
-        // get return url from route parameters or default to '/'
+
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
     onSubmit(f: NgForm) {

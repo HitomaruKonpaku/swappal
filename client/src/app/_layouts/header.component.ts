@@ -23,6 +23,8 @@ export class HeaderComponent implements OnInit {
     otherSkill: any;
     noti:string;
     isEmail :any=[];
+    isAccept:any =[];
+    isDecline: any =[];
     isOdd : any = [];
     testEmail: any ;
 
@@ -65,11 +67,24 @@ export class HeaderComponent implements OnInit {
               for (let i =0;i<this.requests.length;i++){
                 if (this.requests[i].accFrom.acc.email == this.currentEmail){
                   this.isEmail[i] = false;
+                  if (this.requests[i].status){
+                    if (this.requests[i].status.accept){
+                      if (this.requests[i].status.accept.to){
+                        this.isAccept[i] = true;
+                      }
+                    }else if (this.requests[i].status.decline){
+                      this.isDecline[i] = true;
+                    }
+
+                  }
+
 
                 } else if (this.requests[i].accTo.acc.email == this.currentEmail){
                   this.isEmail[i]= true;
                 }
               }
+              console.log(this.isAccept)
+              console.log(this.isDecline)
             },
             error => {
 
