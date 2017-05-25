@@ -80,10 +80,7 @@ export class CategoryComponent implements OnInit {
       var value = f.value
       this.apiService.addCate(value).subscribe(
         data=>{
-          console.log(data)
-        },
-        error=>{
-          console.log(error)
+          location.reload();
         }
       )
 

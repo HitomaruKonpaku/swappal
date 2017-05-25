@@ -2,11 +2,13 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { routing } from './app.routing';
 import { HttpModule } from '@angular/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MdAutocompleteModule} from '@angular/material';
 import { BaseRequestOptions } from '@angular/http';
 import { HeaderComponent } from './_layouts/index';
 import { HomeComponent } from './home/index';
 import { AlertComponent } from './_directives/index';
+ import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { UserComponent, UserDialog } from './user/index';
 import { SkillComponent, SkillDialog,CategoryComponent,CategoryDialog } from './skill/index';
 import { ReportComponent } from './report/index';
@@ -28,8 +30,12 @@ import { AppComponent }  from './app.component';
   imports:[
     BrowserModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     FormsModule,
+    Ng2AutoCompleteModule,
+    HttpModule,
     ChartModule,
+    MdAutocompleteModule,
     routing,
     MdButtonModule,
     MdCheckboxModule,

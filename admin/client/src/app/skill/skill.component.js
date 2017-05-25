@@ -11,23 +11,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var material_1 = require("@angular/material");
 var index_1 = require("../_services/index");
+var forms_1 = require("@angular/forms");
 var SkillComponent = (function () {
     function SkillComponent(dialog, apiService) {
         this.dialog = dialog;
         this.apiService = apiService;
         this.skillList = [];
+        this.skillListbyCate = [];
         this.isEdit = false;
         this.isDelete = false;
         this.cateList = [];
     }
     SkillComponent.prototype.ngOnInit = function () {
+        this.skillCtrl = new forms_1.FormControl('');
         this.getAllSkill();
         this.getAllCate();
     };
     SkillComponent.prototype.getAllCate = function () {
         var _this = this;
-        this.apiService.getAllCate().subscribe(function (data) {
+        this.apiService.getAllCate2().subscribe(function (data) {
             _this.cateList = data.data;
+            console.log(_this.cateList);
+            for (var i = 0; i < _this.cateList.length; i++) {
+                _this.skillListbyCate[i] = _this.cateList[i].skills;
+            }
+            console.log(_this.skillListbyCate);
         });
     };
     SkillComponent.prototype.getAllSkill = function () {
@@ -55,9 +63,9 @@ var SkillComponent = (function () {
             width: '400px',
         });
         dialogRef.componentInstance.isDelete = this.isDelete;
-        dialogRef.componentInstance.skill = skill;
+        dialogRef.componentInstance.skillName = skill;
     };
-    SkillComponent.prototype.openEditDialog = function (skill, category) {
+    SkillComponent.prototype.openEditDialog = function (skill, skillid) {
         this.isEdit = true;
         var config = new material_1.MdDialogConfig();
         var dialogRef = this.dialog.open(SkillDialog, {
@@ -65,8 +73,10 @@ var SkillComponent = (function () {
             width: '400px',
         });
         dialogRef.componentInstance.isEdit = this.isEdit;
-        dialogRef.componentInstance.skill = skill;
-        dialogRef.componentInstance.category = category;
+        dialogRef.componentInstance.skillName = skill;
+        dialogRef.componentInstance.skillId = skillid;
+        // dialogRef.componentInstance.category = category;
+        dialogRef.componentInstance.cateList = this.cateList;
     };
     return SkillComponent;
 }());
@@ -86,6 +96,19 @@ var SkillDialog = (function () {
         this.cateList = [];
     }
     SkillDialog.prototype.ngOnInit = function () {
+        console.log(this.skillName);
+    };
+    SkillDialog.prototype.addSkill = function () {
+    };
+    SkillDialog.prototype.editSkill = function (skill) {
+        var value = skill.value;
+        value.skillid = this.skillId;
+        console.log(value);
+        this.apiService.editSkill(value).subscribe(function (data) {
+            console.log(data);
+        }, function (error) {
+            console.log("error");
+        });
     };
     return SkillDialog;
 }());

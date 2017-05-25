@@ -8,10 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var app_routing_1 = require("./app.routing");
+var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
+var material_1 = require("@angular/material");
 var index_1 = require("./_layouts/index");
 var index_2 = require("./home/index");
 var index_3 = require("./_directives/index");
+var ng2_auto_complete_1 = require("ng2-auto-complete");
 var index_4 = require("./user/index");
 var index_5 = require("./skill/index");
 var index_6 = require("./report/index");
@@ -19,10 +22,10 @@ var index_7 = require("./login/index");
 var index_8 = require("./feedback/index");
 var index_9 = require("./news/index");
 var angular2_chartjs_1 = require("angular2-chartjs");
-var material_1 = require("@angular/material");
+var material_2 = require("@angular/material");
 var index_10 = require("./_services/index");
 var animations_1 = require("@angular/platform-browser/animations");
-var material_2 = require("@angular/material");
+var material_3 = require("@angular/material");
 var app_component_1 = require("./app.component");
 var AppModule = (function () {
     function AppModule() {
@@ -34,12 +37,16 @@ AppModule = __decorate([
         imports: [
             platform_browser_1.BrowserModule,
             animations_1.BrowserAnimationsModule,
+            forms_1.ReactiveFormsModule,
             forms_1.FormsModule,
+            ng2_auto_complete_1.Ng2AutoCompleteModule,
+            http_1.HttpModule,
             angular2_chartjs_1.ChartModule,
+            material_1.MdAutocompleteModule,
             app_routing_1.routing,
-            material_2.MdButtonModule,
-            material_2.MdCheckboxModule,
-            material_1.MaterialModule,
+            material_3.MdButtonModule,
+            material_3.MdCheckboxModule,
+            material_2.MaterialModule,
         ],
         declarations: [
             app_component_1.AppComponent,

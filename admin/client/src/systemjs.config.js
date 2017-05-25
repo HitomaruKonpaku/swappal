@@ -32,6 +32,7 @@
       '@angular/platform-browser/animations': 'npm:@angular/platform-browser/bundles/platform-browser-animations.umd.js',
       // 'hammerjs':'npm:hammerjs',
       // other libraries
+      'ng2-auto-complete':'node_modules/ng2-auto-complete/dist',
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
     },
@@ -48,6 +49,7 @@
       rxjs: {
         defaultExtension: 'js'
       },
+      'ng2-auto-complete':{ main: 'ng2-auto-complete.umd.js', defaultExtension: 'js' },
       'angular2-chartjs': {
       main: './dist/index.js',
       defaultExtension: 'js'

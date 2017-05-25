@@ -14,7 +14,9 @@ export class APIService {
     getAllCate(){
       return this.http.get(this.address+ '/skillcat/all', this.jwt()).map((response: Response) => response.json());
     }
-
+    getAllCate2(){
+      return this.http.get(this.address+ '/skillcat/all2', this.jwt()).map((response: Response) => response.json());
+    }
     getUserList(){
       return this.http.get(this.address+ '/accounts/list', this.jwt()).map((response: Response) => response.json());
     }
@@ -29,6 +31,9 @@ export class APIService {
     }
     addSkill(skill: any){
       return this.http.post(this.address+'/skill/add', name, this.jwt()).map((response: Response) => response.json());
+    }
+    editSkill(skill:any){
+      return this.http.post(this.address+'/skill/edit', name, this.jwt()).map((response: Response) => response.json());
     }
 
     private jwt() {
