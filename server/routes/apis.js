@@ -1231,7 +1231,7 @@ router.route('/skill/edit')
             .then((asyncResult) => {
                 // console.log(asyncResult)
 
-                if (!asyncResult.skill || !asyncResult.oldCat || !asyncResult.newCat) {
+                if (!asyncResult.skill || !asyncResult.newCat) {
                     responseError(res)
                     return
                 }
@@ -1244,7 +1244,7 @@ router.route('/skill/edit')
 
                 asyncResult.skill.name = name
 
-                if (asyncResult.oldCat._id !== asyncResult.newCat._id) {
+                if (asyncResult.oldCat && asyncResult.oldCat._id !== asyncResult.newCat._id) {
                     let s = asyncResult.skill
                     let s1 = asyncResult.oldCat.skills
                     let s2 = asyncResult.newCat.skills
@@ -1264,7 +1264,19 @@ router.route('/skill/edit')
                             console.log(asyncSave)
                             responseSuccuess(res)
                         })
-                } else {
+                } else if (!asyncResult.oldCat) {
+                    asyncResult.newCat.skills.push(asyncResult.skill._id)
+
+                    async.parallel([
+                        (callback) => { asyncResult.newCat.save(callback) },
+                        (callback) => { asyncResult.skill.save(callback) },
+                    ])
+                        .then((asyncSave) => {
+                            console.log(asyncSave)
+                            responseSuccuess(res)
+                        })
+                }
+                else {
                     asyncResult.skill.save()
                         .then(() => {
                             responseSuccuess(res)
