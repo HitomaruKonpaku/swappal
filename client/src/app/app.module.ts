@@ -13,9 +13,10 @@ import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, APIService, ValidationService } from './_services/index';
 import { Skill} from './_models/index';
 import { HeaderComponent, FooterComponent,ExchangeDialog } from './_layouts/index';
+import {MdDialogModule} from '@angular/material';
 import {RatingModule} from 'ngx-rating';
 import { HomeComponent } from './home/index';
-import { LoginComponent } from './login/index';
+import { LoginComponent,CreateProfileDialog } from './login/index';
 import { LogoutComponent } from './logout/index';
 import { RegisterComponent } from './register/index';
 import { ProfileComponent } from './profile/index';
@@ -47,6 +48,7 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     Angular2SocialLoginModule,
     RatingModule,
     Ng2AutoCompleteModule,
+    MdDialogModule,
     MdSelectModule,
   ],
   declarations: [
@@ -68,6 +70,7 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     News2Component,
     News3Component,
     News4Component,
+    CreateProfileDialog,
   ],
   providers: [
     AuthGuard,
@@ -78,10 +81,11 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     Skill,
     SearchComponent,
     HeaderComponent,
+    LoginComponent,
 
   ],
   entryComponents: [
-    ExchangeDialog
+    ExchangeDialog,CreateProfileDialog
   ],
   bootstrap: [
     AppComponent

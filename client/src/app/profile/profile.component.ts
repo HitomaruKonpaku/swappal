@@ -180,7 +180,6 @@ export class ProfileComponent implements OnInit {
           }
         } else if(this.requestList[i].accFrom.acc.email == other && this.requestList[i].accTo.acc.email == current )
         {
-          console.log("hello")
           this.isOtherRequest = true;
           if (this.requestList[i].status)
           {

@@ -3,6 +3,7 @@ import { AuthenticationService, APIService,AlertService, ValidationService } fro
 import {MdListModule} from '@angular/material';
 import {MdDialog,MdDialogConfig, MdDialogRef} from '@angular/material';
 import { NgForm } from '@angular/forms';
+import {LoginComponent} from '../login/index';
 
 declare var $: any;
 @Component({
@@ -34,6 +35,7 @@ export class HeaderComponent implements OnInit {
         private authService: AuthenticationService,
         private apiService: APIService,
         private dialog : MdDialog,
+        private login: LoginComponent,
     ) {}
 
 
@@ -44,7 +46,6 @@ export class HeaderComponent implements OnInit {
             .subscribe(
             data => {
                 this.profile = data.data.profile
-                console.log(this.profile)
             },
             error => {
                 console.log("error")

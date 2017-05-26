@@ -33,6 +33,9 @@ export class APIService {
     createProfile(user: any){
       return this.http.post(this.address + '/accounts/profile', user, this.jwt()).map((response: Response) => response.json());
     }
+    createSkillProfile(email: any,skillhave:any, skillneed:any){
+      return this.http.post(this.address +'/accounts/skills',{email:email, have:skillhave, want:skillneed},this.jwt()).map((response: Response) => response.json());
+    }
     updateProfile(user : any){
       return this.http.post(this.address + '/accounts/profile', user, this.jwt()).map((response: Response) => response.json());
     }
