@@ -30,7 +30,7 @@ export class APIService {
       return this.http.post(this.address+'/skillcat/add', name, this.jwt()).map((response: Response) => response.json());
     }
     addSkill(skill: any){
-      return this.http.post(this.address+'/skill/add', name, this.jwt()).map((response: Response) => response.json());
+      return this.http.post(this.address+'/skill/add', skill, this.jwt()).map((response: Response) => response.json());
     }
     editSkill(skill:any){
       return this.http.post(this.address+'/skill/edit', skill, this.jwt()).map((response: Response) => response.json());

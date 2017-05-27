@@ -52,6 +52,7 @@ export class SkillComponent implements OnInit{
     })
   }
   openAddDialog(){
+    this.isEdit = false;
     let config = new MdDialogConfig();
     let dialogRef:MdDialogRef<SkillDialog> =  this.dialog.open(SkillDialog,{
       height:'300px',
@@ -80,7 +81,6 @@ export class SkillComponent implements OnInit{
     dialogRef.componentInstance.isEdit = this.isEdit;
     dialogRef.componentInstance.skillName = skill;
     dialogRef.componentInstance.skillId = skillid;
-    // dialogRef.componentInstance.category = category;
     dialogRef.componentInstance.cateList = this.cateList;
   }
 }
@@ -103,7 +103,17 @@ export class SkillDialog implements OnInit{
   ngOnInit(){
     console.log(this.skillName)
   }
-  addSkill(){
+  addSkill(add: NgForm){
+
+    var value = add.value;
+    console.log(value)
+    this.apiService.addSkill(value).subscribe(
+      data=>{
+        location.reload();
+      },error=>{
+        console.log(error)
+      }
+    )
 
   }
   editSkill(skill: NgForm ){

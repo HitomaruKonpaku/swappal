@@ -47,6 +47,7 @@ var SkillComponent = (function () {
         });
     };
     SkillComponent.prototype.openAddDialog = function () {
+        this.isEdit = false;
         var config = new material_1.MdDialogConfig();
         var dialogRef = this.dialog.open(SkillDialog, {
             height: '300px',
@@ -75,7 +76,6 @@ var SkillComponent = (function () {
         dialogRef.componentInstance.isEdit = this.isEdit;
         dialogRef.componentInstance.skillName = skill;
         dialogRef.componentInstance.skillId = skillid;
-        // dialogRef.componentInstance.category = category;
         dialogRef.componentInstance.cateList = this.cateList;
     };
     return SkillComponent;
@@ -98,7 +98,14 @@ var SkillDialog = (function () {
     SkillDialog.prototype.ngOnInit = function () {
         console.log(this.skillName);
     };
-    SkillDialog.prototype.addSkill = function () {
+    SkillDialog.prototype.addSkill = function (add) {
+        var value = add.value;
+        console.log(value);
+        this.apiService.addSkill(value).subscribe(function (data) {
+            location.reload();
+        }, function (error) {
+            console.log(error);
+        });
     };
     SkillDialog.prototype.editSkill = function (skill) {
         var value = skill.value;
