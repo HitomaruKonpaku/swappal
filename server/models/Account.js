@@ -30,6 +30,7 @@ var jSchema = new Schema(
             exp: String,
             achievement: String,
             facebook: String,
+            description: String,
         },
         skills: {
             have: [{ type: Schema.Types.ObjectId, ref: 'skills' }],

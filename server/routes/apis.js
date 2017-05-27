@@ -506,6 +506,7 @@ router.route('/accounts/profile')
         let exp = req.body.exp
         let achievement = req.body.achievement
         let facebook = req.body.facebook
+        let description = req.body.description
 
         if (!email) {
             res.json({
@@ -529,6 +530,7 @@ router.route('/accounts/profile')
                             exp: exp,
                             achievement: achievement,
                             facebook: facebook,
+                            description: description,
                         }
                     })
                         .then(data => {
@@ -986,14 +988,8 @@ router.route('/request/list')
         let email = req.body.email
 
         Request.find({})
-            .populate({
-                path: 'accFrom.acc',
-                select: 'email',
-            })
-            .populate({
-                path: 'accTo.acc',
-                select: 'email',
-            })
+            .populate({ path: 'accFrom.acc', select: 'email profile.name' })
+            .populate({ path: 'accTo.acc', select: 'email profile.name' })
             .populate({ path: 'accFrom.skill' })
             .populate({ path: 'accTo.skill' })
             // .select({
