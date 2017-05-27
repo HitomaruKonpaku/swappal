@@ -41,6 +41,7 @@ export class SkillComponent implements OnInit{
       }
     )
   }
+
   getAllSkill(){
     this.apiService.getAllSkill().subscribe(
     data => {

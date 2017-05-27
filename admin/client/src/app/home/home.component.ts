@@ -1,12 +1,35 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { APIService } from '../_services/index';
 
 @Component({
   moduleId: module.id,
   templateUrl: 'home.component.html',
 })
-export class HomeComponent {
-  constructor(){}
+export class HomeComponent implements OnInit {
+  skillList: any =[];
+  userList: any =[];
+  constructor(
+    private apiService : APIService
+  ){}
+  ngOnInit(){
+    this.getAllSkill()
+    this.getAllUser()
+
+  }
+  getAllSkill(){
+    this.apiService.getAllSkill().subscribe(
+      data=>{
+        this.skillList = data.data.docs
+      }
+    )
+  }
+  getAllUser(){
+    this.apiService.getUserList().subscribe(
+      data=>{
+        this.userList = data.result
+      }
+    )
+  }
   type = 'line';
   UserData = {
     labels: ["January", "February", "March", "April", "May", "June", "July","August","Sep"],

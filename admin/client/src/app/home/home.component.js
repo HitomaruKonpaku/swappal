@@ -9,8 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var index_1 = require("../_services/index");
 var HomeComponent = (function () {
-    function HomeComponent() {
+    function HomeComponent(apiService) {
+        this.apiService = apiService;
+        this.skillList = [];
+        this.userList = [];
         this.type = 'line';
         this.UserData = {
             labels: ["January", "February", "March", "April", "May", "June", "July", "August", "Sep"],
@@ -65,6 +69,22 @@ var HomeComponent = (function () {
             maintainAspectRatio: false
         };
     }
+    HomeComponent.prototype.ngOnInit = function () {
+        this.getAllSkill();
+        this.getAllUser();
+    };
+    HomeComponent.prototype.getAllSkill = function () {
+        var _this = this;
+        this.apiService.getAllSkill().subscribe(function (data) {
+            _this.skillList = data.data.docs;
+        });
+    };
+    HomeComponent.prototype.getAllUser = function () {
+        var _this = this;
+        this.apiService.getUserList().subscribe(function (data) {
+            _this.userList = data.result;
+        });
+    };
     return HomeComponent;
 }());
 HomeComponent = __decorate([
@@ -72,7 +92,7 @@ HomeComponent = __decorate([
         moduleId: module.id,
         templateUrl: 'home.component.html',
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [index_1.APIService])
 ], HomeComponent);
 exports.HomeComponent = HomeComponent;
 //# sourceMappingURL=home.component.js.map
