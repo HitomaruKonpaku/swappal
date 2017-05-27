@@ -1,0 +1,111 @@
+<div class="modal-padding" *ngIf="isEdit==false">
+  <div class="modal-title">
+    <h2>THÊM NGƯỜI DÙNG</h2>
+  </div>
+  <form>
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput placeholder="Email" >
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput placeholder="Mật khẩu">
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput placeholder="Xác nhận mật khẩu">
+      </md-input-container>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <button type="button" class="btn btn-add" name="button">Thêm</button>
+      </div>
+      <div class="col-md-6">
+        <button md-dialog-close type="button" class="btn btn-cancel" name="button">Huỷ</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-padding" *ngIf="isEdit==true">
+  <div class="modal-title">
+    <h2>SỬA NGƯỜI DÙNG</h2>
+  </div>
+  <form>
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput value="{{email}}" disabled="true">
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput value="{{id}}" disabled="true">
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput value="{{profile.name}}">
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput value="{{profile.dob | date:'dd/MM/yyyy'}}">
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput value="{{profile.gender}}">
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput value="{{profile.location}}">
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput value="{{profile.phone}}">
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput value="{{profile.facebook}}">
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput value="{{profile.exp}}">
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput value="{{profile.mission}}">
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput value="{{profile.achievement}}">
+      </md-input-container>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <button type="button" class="btn btn-add" name="button">Thêm</button>
+      </div>
+      <div class="col-md-6">
+        <button md-dialog-close type="button" class="btn btn-cancel" name="button">Huỷ</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-padding" *ngIf="isDelete==true">
+  <h3>Bạn có muốn xoá tài khoản {{email}}</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <button type="button" class="btn btn-add" name="button">Xoá</button>
+      </div>
+      <div class="col-md-6">
+        <button md-dialog-close type="button" class="btn btn-cancel" name="button">Huỷ</button>
+      </div>
+    </div>
+</div>

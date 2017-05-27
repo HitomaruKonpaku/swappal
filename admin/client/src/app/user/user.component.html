@@ -1,0 +1,50 @@
+<div class="page">
+  <div class="row">
+    <div class="col-md-12">
+    <div class="card">
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-6" style="margin-top:10px;">
+              <md-input-container>
+                <input mdInput placeholder="Search User by Email"style="width:400px;">
+              </md-input-container>
+              <button md-mini-fab class="btn-search"><i class="material-icons">search</i></button>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <button md-button class="btn-add" (click)="openAddDialog()">Thêm người dùng</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card card-margin">
+    <div class="card-block">
+      <table class="table">
+       <thead>
+         <tr>
+           <th>No.</th>
+           <th>Email</th>
+           <th>ID</th>
+           <th>Ngày đăng ký</th>
+           <th></th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr *ngFor="let user of userList; let i = index">
+           <th scope="row">{{i+1}}</th>
+           <td>{{user.email}}</td>
+           <td>{{user._id}}</td>
+           <td>{{user.createDate | date: 'dd/MM/yyyy'}}</td>
+           <td>
+             <button  class="btn btn-info" type="button" (click)="openEditDialog(user.email, user._id,user.profile )" name="button"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+             <button class="btn btn-danger" type="button" (click)="deleteUserDialog(user.email)" name="button"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+           </td>
+         </tr>
+       </tbody>
+       </table>
+    </div>
+  </div>
+</div>
