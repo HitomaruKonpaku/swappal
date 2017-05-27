@@ -1122,6 +1122,26 @@ router.route('/skillcat/add')
             })
     })
 
+router.route('/skillcat/edit')
+    .post((req, res) => {
+        let id = req.body.id
+        let name = req.body.name
+
+        SkillCat.findById(id)
+            .then((cate) => {
+                if (!cate) {
+                    responseInvalid(res)
+                    return
+                }
+
+                cate.name = name
+                cate.save()
+                    .then(() => {
+                        responseSuccuess(res)
+                    })
+            })
+    })
+
 //====================================================================================================
 //====================================================================================================
 //====================================================================================================
