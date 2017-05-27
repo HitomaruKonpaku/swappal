@@ -1221,13 +1221,14 @@ router.route('/skill/edit')
         let oldcatid = req.body.oldcatid
         let newcatid = req.body.newcatid
 
-        if (!skillid || !name || !oldcatid || !newcatid) {
+        if (!skillid || !name || !newcatid) {
             responseError(res)
             return
         }
 
         async.parallel({
             oldCat: (callback) => {
+                if (!oldcatid) return
                 SkillCat.findById(oldcatid)
                     .exec(callback)
             },
