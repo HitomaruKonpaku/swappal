@@ -175,6 +175,16 @@ function responseInvalid(res, data) {
 }
 
 //====================================================================================================
+//====================================================================================================
+//====================================================================================================
+
+function getTomorrow() {
+    var d = new Date()
+    d.setDate(d.getDate() + 1)
+    return d
+}
+
+//====================================================================================================
 //========== API - ACCOUNTS ==========================================================================
 //====================================================================================================
 // register
@@ -210,7 +220,7 @@ router.route('/accounts/reg')
                 if (doc) {
                     res.json({
                         // msg: 'You have already signed up and verified your account.'
-                        msg: 'You have already signed up.'
+                        msg: 'Email đã tồn tại, xin chọn email khác'
                     })
                 } else {
                     acc = new Account({
@@ -339,9 +349,9 @@ router.route('/accounts/authenticate')
                         })
                 } else {
                     res.json({
-                        msg: 'error',
+                        msg: 'Email hoặc mật khẩu không đúng',
                         data: {
-                            msg: 'Invalid Email or Password'
+                            msg: 'Email hoặc mật khẩu không đúng'
                         }
                     })
                 }
@@ -506,6 +516,7 @@ router.route('/accounts/profile')
         let exp = req.body.exp
         let achievement = req.body.achievement
         let facebook = req.body.facebook
+        let description = req.body.description
 
         if (!email) {
             res.json({
@@ -529,6 +540,7 @@ router.route('/accounts/profile')
                             exp: exp,
                             achievement: achievement,
                             facebook: facebook,
+                            description: description,
                         }
                     })
                         .then(data => {
@@ -707,16 +719,6 @@ router.route('/news')
                 })
             })
     })
-
-//====================================================================================================
-//====================================================================================================
-//====================================================================================================
-
-function getTomorrow() {
-    var d = new Date()
-    d.setDate(d.getDate() + 1)
-    return d
-}
 
 //====================================================================================================
 //====================================================================================================
@@ -986,14 +988,8 @@ router.route('/request/list')
         let email = req.body.email
 
         Request.find({})
-            .populate({
-                path: 'accFrom.acc',
-                select: 'email',
-            })
-            .populate({
-                path: 'accTo.acc',
-                select: 'email',
-            })
+            .populate({ path: 'accFrom.acc', select: 'email profile.name' })
+            .populate({ path: 'accTo.acc', select: 'email profile.name' })
             .populate({ path: 'accFrom.skill' })
             .populate({ path: 'accTo.skill' })
             // .select({
@@ -1118,6 +1114,26 @@ router.route('/skillcat/add')
                 cat.save()
                     .then((result) => {
                         responseSuccuess(res, cat)
+                    })
+            })
+    })
+
+router.route('/skillcat/edit')
+    .post((req, res) => {
+        let id = req.body.id
+        let name = req.body.name
+
+        SkillCat.findById(id)
+            .then((cate) => {
+                if (!cate) {
+                    responseInvalid(res)
+                    return
+                }
+
+                cate.name = name
+                cate.save()
+                    .then(() => {
+                        responseSuccuess(res)
                     })
             })
     })
