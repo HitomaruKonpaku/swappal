@@ -3,6 +3,7 @@ import { AuthenticationService, APIService,AlertService, ValidationService } fro
 import {MdListModule} from '@angular/material';
 import {MdDialog,MdDialogConfig, MdDialogRef} from '@angular/material';
 import { NgForm } from '@angular/forms';
+import {LoginComponent} from '../login/index';
 
 declare var $: any;
 @Component({
@@ -11,9 +12,10 @@ declare var $: any;
     templateUrl: 'header.component.html'
 })
 
+
 export class HeaderComponent implements OnInit {
     isLogin: boolean;
-    isRequest : boolean = false;
+    isRequest : boolean;
     currentEmail:string;
     profile: any ={};
     requests: any =[];
@@ -22,7 +24,10 @@ export class HeaderComponent implements OnInit {
     otherSkill: any;
     noti:string;
     isEmail :any=[];
+    isAccept:any =[];
+    isDecline: any =[];
     isOdd : any = [];
+    testEmail: any ;
 
 
 
@@ -30,6 +35,7 @@ export class HeaderComponent implements OnInit {
         private authService: AuthenticationService,
         private apiService: APIService,
         private dialog : MdDialog,
+        private login: LoginComponent,
     ) {}
 
 
@@ -40,32 +46,52 @@ export class HeaderComponent implements OnInit {
             .subscribe(
             data => {
                 this.profile = data.data.profile
-                console.log(this.profile)
             },
             error => {
                 console.log("error")
             })
-        var str = '{"email":"'+this.currentEmail+'"}'
-        var json = JSON.parse(str);
-        this.apiService.getRequest(json)
-            .subscribe(
-              data => {
-                this.requests = data.data;
-                console.log(this.requests)
-                for (let i =0;i<this.requests.length;i++){
-                  if (this.requests[i].accFrom.acc.email == this.currentEmail){
-                    this.isEmail[i] = false;
-                  } else if (this.requests[i].accTo.acc.email == this.currentEmail){
-                    this.isEmail[i]= true;
-                  }
-                }
-              },
-              error => {
+        this.getRequest();
 
-              }
-            )
+
     }
 
+
+    getRequest(){
+      var str = '{"email":"'+this.currentEmail+'"}'
+      var json = JSON.parse(str);
+      this.apiService.getRequest(json)
+          .subscribe(
+            data => {
+              this.requests = data.data;
+              sessionStorage.setItem('dataRequests', JSON.stringify(this.requests));
+              console.log(this.requests)
+              for (let i =0;i<this.requests.length;i++){
+                if (this.requests[i].accFrom.acc.email == this.currentEmail){
+                  this.isEmail[i] = false;
+                  if (this.requests[i].status){
+                    if (this.requests[i].status.accept){
+                      if (this.requests[i].status.accept.to){
+                        this.isAccept[i] = true;
+                      }
+                    }else if (this.requests[i].status.decline){
+                      this.isDecline[i] = true;
+                    }
+
+                  }
+
+
+                } else if (this.requests[i].accTo.acc.email == this.currentEmail){
+                  this.isEmail[i]= true;
+                }
+              }
+              console.log(this.isAccept)
+              console.log(this.isDecline)
+            },
+            error => {
+
+            }
+          )
+    }
     updateLoginStatus() {
         this.isLogin = this.authService.status();
     }

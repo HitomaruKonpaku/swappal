@@ -1,4 +1,4 @@
-<div class="web-background-color">
+
   <div class="container">
     <div class="card">
       <div class="card-block">
@@ -17,17 +17,43 @@
               <p>description</p>
             </div>
           </div>
+          <div class="col-md-3">
+            <a role="link" [hidden]="displayButtonEdit" (click)="switchForm()" style="color:#4eb1ba"><i class="material-icons">border_color</i> Chỉnh sửa</a>
+          </div>
         </div>
       </div>
     </div>
     <!-- swap me button -->
-    <div class="row">
-      <div class="col-md-8">
+    <div class="row" *ngIf="isRequest==false && isProgress==false && isOtherRequest==false">
+        <div class="col-md-8">
+        </div>
+        <div  class="col-md-4 md-dialog-container div-swapme-button" id="Mydialogcontaine">
+          <button md-button type="button" [hidden]=displayButton data-toggle="modal" data-target="#SwapModal" class="swapme-button">TRAO ĐỔI!</button>
+        </div>
+    </div>
+    <!-- notice button -->
+    <div class="row" *ngIf="isProgress==false && isRequest==true && isOtherRequest == false">
+      <div class="col-md-6">
       </div>
-      <div  class="col-md-4 md-dialog-container div-swapme-button" id="Mydialogcontaine" >
-        <button md-button type="button" [hidden]=displayButton data-toggle="modal" data-target="#SwapModal" class="swapme-button">TRAO ĐỔI!</button>
+      <div class="col-md-6 div-swapme-button">
+        <button md-button type="button" [hidden]=displayButton class="notice-swap" disabled="true">BẠN ĐANG GỬI YÊU CẦU</button>
       </div>
-      <!-- swap request modal -->
+    </div>
+    <div class="row" *ngIf="isProgress==false && isOtherRequest==true ">
+      <div class="col-md-6">
+      </div>
+      <div class="col-md-6 div-swapme-button">
+        <button md-button type="button" [hidden]=displayButton class="notice-swap" disabled="true">BẠN ĐÃ ĐƯỢC GỬI YÊU CẦU</button>
+      </div>
+    </div>
+    <!-- finish button -->
+    <div class="row" *ngIf="isProgress == true">
+      <div class="col-md-7">
+      </div>
+      <div class="col-md-5 div-swapme-button">
+        <button md-button type="button" [hidden]=displayButton class="swapme-button" data-toggle="modal" data-target="#WriteReviewModal">HOÀN TẤT TRAO ĐỔI</button>
+      </div>
+    </div>
       <div class="modal fade" id="SwapModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="padding:20px;">
@@ -76,7 +102,7 @@
           </div>
         </div>
       </div>
-    </div>
+
       <!-- Nav tabs -->
         <div style="margin-bottom:40px;margin-top:20px">
           <ul class="nav nav-tabs" role="tablist">
@@ -334,18 +360,14 @@
                             đánh giá
                           </div>
                           <div class="col-3"style="text-align:right;">
-                            point
+                            điểm
                           </div>
                         </div>
                         <div class="review-description">
-                          "description"
+                          bình luận
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <!-- [hidden]="displayButton" -->
-                  <div style="width:100%;text-align:center;" >
-                    <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#WriteReviewModal">Viết Đánh Giá</button>
                   </div>
                 </div>
                 <div class="col-2" style="width:180px; height:180px;">
@@ -359,23 +381,20 @@
                   <div style="text-align:center;" >
                     <h1>ĐÁNH GIÁ</h1>
                   </div>
-                  <form>
-                    <label>Kỹ năng</label>
-                    <rating [max]="5" required></rating>
-                    <br>
-                    <label>Dịch vụ</label>
-                    <rating [max]="5" required></rating>
-                    <input type="text" class="form-control"style="height:120px;" name="review" ngModel>
-                    <div style="text-align:center;">
-                      <button type="submit" class="btn-info btn">Xác nhận</button>
-                    </div>
-
-                  </form>
-
+                    <form #rating="ngForm" (ngSubmit)="writeReview(rating)">
+                      <label>Kỹ năng</label>
+                      <rating ngModel name="ratesk" [max]="5" required></rating>
+                      <br>
+                      <label>Dịch vụ</label>
+                      <rating ngModel name="ratesv" [max]="5" required></rating>
+                      <input type="text" class="form-control"style="height:120px;" name="review" ngModel>
+                      <div style="text-align:center;">
+                        <button type="submit" class="btn-info btn">Xác nhận</button>
+                      </div>
+                    </form>
                 </div>
               </div>
             </div>
         </div>
       </div>
   </div>
-</div>

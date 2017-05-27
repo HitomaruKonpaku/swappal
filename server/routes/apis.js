@@ -210,7 +210,7 @@ router.route('/accounts/reg')
                 if (doc) {
                     res.json({
                         // msg: 'You have already signed up and verified your account.'
-                        msg: 'You have already signed up.'
+                        msg: 'Email đã tồn tại, xin chọn email khác'
                     })
                 } else {
                     acc = new Account({
@@ -339,9 +339,9 @@ router.route('/accounts/authenticate')
                         })
                 } else {
                     res.json({
-                        msg: 'error',
+                        msg: 'Email hoặc mật khẩu không đúng',
                         data: {
-                            msg: 'Invalid Email or Password'
+                            msg: 'Email hoặc mật khẩu không đúng'
                         }
                     })
                 }

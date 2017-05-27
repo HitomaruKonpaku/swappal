@@ -6,9 +6,6 @@
   <div class="web-background-color">
     <div class="container" style="background-color:#c4c9cd; height:110px; padding:7px;">
       <div class="row">
-        <!-- <div class="col-md-2">
-          <label>Kỹ năng tôi cần</label>
-        </div> -->
         <div class="col-md-10">
           <div class="form-group">
             <input  ng2-auto-complete
@@ -26,9 +23,6 @@
         </div>
       </div>
       <div class="row">
-        <!-- <div class="col-md-2">
-          <label>Kỹ năng tôi có</label>
-        </div> -->
         <div class="col-md-10">
             <input  ng2-auto-complete
                    [source]="skills"
@@ -42,11 +36,6 @@
         <div class="col-md-2">
         </div>
       </div>
-    </div>
-    <div style="text-align:center;font-size:50dp;" *ngIf="isShowData">
-      <p *ngIf="idskillhave.value.name && idskillneed.value.name">Bạn đang tìm kỹ năng {{idskillhave.value.name}} và kỹ năng {{idskillneed.value.name}} </p>
-      <p *ngIf="!idskillhave.value.name">Bạn đang tìm kỹ năng {{idskillneed.value.name}}</p>
-      <p *ngIf="!idskillneed.value.name">Bạn đang tìm kỹ năng {{idskillhave.value.name}}</p>
     </div>
       <div class="container" style="height:600px; margin-top:10px;">
         <div class="row" *ngIf="isShowData">
