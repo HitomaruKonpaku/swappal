@@ -1228,7 +1228,7 @@ router.route('/skill/edit')
 
         async.parallel({
             oldCat: (callback) => {
-                if (!oldcatid) return
+                if (!oldcatid) callback
                 SkillCat.findById(oldcatid)
                     .exec(callback)
             },
@@ -1254,7 +1254,8 @@ router.route('/skill/edit')
                 }
 
                 if (asyncResult.skillCheck && asyncResult.skillCheck.name === name ||
-                    asyncResult.oldCat.skills.indexOf(skillid) === -1) {
+                    asyncResult.oldCat && asyncResult.oldCat.skills.indexOf(skillid) === -1
+                ) {
                     responseInvalid(res)
                     return
                 }
@@ -1306,3 +1307,42 @@ router.route('/skill/edit')
 //====================================================================================================
 //====================================================================================================
 //====================================================================================================
+
+router.route('/reviews/list')
+    .get((req, res) => {
+        let email = req.query.email
+
+        Account.findOne({ 'email': email })
+            .then((acc) => {
+                if (!acc) {
+                    responseError(res)
+                    return
+                }
+
+                async.parallel([
+                    (callback) => {
+                        Request.find({
+                            'accFrom.acc': acc._id,
+                            'status.complete': { $exists: true, $ne: null },
+                        })
+                            .select('accFrom accTo')
+                            .exec(callback)
+                    },
+                    (callback) => {
+                        Request.find({
+                            'accTo.acc': acc._id,
+                            'status.complete': { $exists: true, $ne: null },
+                        })
+                            .exec(callback)
+                    },
+                ])
+                    .then((asyncRes) => {
+                        console.log(asyncRes)
+                        let newArr = asyncRes[0].concat(asyncRes[1])
+
+
+
+                        responseSuccuess(res, asyncRes)
+                    })
+            })
+    })
