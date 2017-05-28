@@ -17,7 +17,7 @@ import { FeedbackComponent } from './feedback/index';
 import { NewsComponent } from './news/index';
 import { ChartModule } from 'angular2-chartjs';
 import {MaterialModule} from '@angular/material';
-import {AlertService, APIService} from './_services/index';
+import {AlertService, APIService, ValidationService} from './_services/index';
 
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -60,6 +60,7 @@ import { AppComponent }  from './app.component';
    providers:[
      AlertService,
      APIService,
+     ValidationService,
    ],
    entryComponents: [
     SkillDialog,

@@ -175,6 +175,16 @@ function responseInvalid(res, data) {
 }
 
 //====================================================================================================
+//====================================================================================================
+//====================================================================================================
+
+function getTomorrow() {
+    var d = new Date()
+    d.setDate(d.getDate() + 1)
+    return d
+}
+
+//====================================================================================================
 //========== API - ACCOUNTS ==========================================================================
 //====================================================================================================
 // register
@@ -506,6 +516,7 @@ router.route('/accounts/profile')
         let exp = req.body.exp
         let achievement = req.body.achievement
         let facebook = req.body.facebook
+        let description = req.body.description
 
         if (!email) {
             res.json({
@@ -529,6 +540,7 @@ router.route('/accounts/profile')
                             exp: exp,
                             achievement: achievement,
                             facebook: facebook,
+                            description: description,
                         }
                     })
                         .then(data => {
@@ -707,16 +719,6 @@ router.route('/news')
                 })
             })
     })
-
-//====================================================================================================
-//====================================================================================================
-//====================================================================================================
-
-function getTomorrow() {
-    var d = new Date()
-    d.setDate(d.getDate() + 1)
-    return d
-}
 
 //====================================================================================================
 //====================================================================================================
@@ -986,14 +988,8 @@ router.route('/request/list')
         let email = req.body.email
 
         Request.find({})
-            .populate({
-                path: 'accFrom.acc',
-                select: 'email',
-            })
-            .populate({
-                path: 'accTo.acc',
-                select: 'email',
-            })
+            .populate({ path: 'accFrom.acc', select: 'email profile.name' })
+            .populate({ path: 'accTo.acc', select: 'email profile.name' })
             .populate({ path: 'accFrom.skill' })
             .populate({ path: 'accTo.skill' })
             // .select({
@@ -1122,6 +1118,26 @@ router.route('/skillcat/add')
             })
     })
 
+router.route('/skillcat/edit')
+    .post((req, res) => {
+        let id = req.body.id
+        let name = req.body.name
+
+        SkillCat.findById(id)
+            .then((cate) => {
+                if (!cate) {
+                    responseInvalid(res)
+                    return
+                }
+
+                cate.name = name
+                cate.save()
+                    .then(() => {
+                        responseSuccuess(res)
+                    })
+            })
+    })
+
 //====================================================================================================
 //====================================================================================================
 //====================================================================================================
@@ -1205,13 +1221,14 @@ router.route('/skill/edit')
         let oldcatid = req.body.oldcatid
         let newcatid = req.body.newcatid
 
-        if (!skillid || !name || !oldcatid || !newcatid) {
+        if (!skillid || !name || !newcatid) {
             responseError(res)
             return
         }
 
         async.parallel({
             oldCat: (callback) => {
+                if (!oldcatid) callback
                 SkillCat.findById(oldcatid)
                     .exec(callback)
             },
@@ -1237,7 +1254,8 @@ router.route('/skill/edit')
                 }
 
                 if (asyncResult.skillCheck && asyncResult.skillCheck.name === name ||
-                    asyncResult.oldCat.skills.indexOf(skillid) === -1) {
+                    asyncResult.oldCat && asyncResult.oldCat.skills.indexOf(skillid) === -1
+                ) {
                     responseInvalid(res)
                     return
                 }
@@ -1289,3 +1307,42 @@ router.route('/skill/edit')
 //====================================================================================================
 //====================================================================================================
 //====================================================================================================
+
+router.route('/reviews/list')
+    .get((req, res) => {
+        let email = req.query.email
+
+        Account.findOne({ 'email': email })
+            .then((acc) => {
+                if (!acc) {
+                    responseError(res)
+                    return
+                }
+
+                async.parallel([
+                    (callback) => {
+                        Request.find({
+                            'accFrom.acc': acc._id,
+                            'status.complete': { $exists: true, $ne: null },
+                        })
+                            .select('accFrom accTo')
+                            .exec(callback)
+                    },
+                    (callback) => {
+                        Request.find({
+                            'accTo.acc': acc._id,
+                            'status.complete': { $exists: true, $ne: null },
+                        })
+                            .exec(callback)
+                    },
+                ])
+                    .then((asyncRes) => {
+                        console.log(asyncRes)
+                        let newArr = asyncRes[0].concat(asyncRes[1])
+
+
+
+                        responseSuccuess(res, asyncRes)
+                    })
+            })
+    })
