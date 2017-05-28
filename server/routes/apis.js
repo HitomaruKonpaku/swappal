@@ -1034,6 +1034,7 @@ router.route('/request/review')
                 if (!request ||
                     !request.status ||
                     !request.status.complete) {
+                    responseInvalid(res)
                     return
                 }
 
@@ -1323,21 +1324,23 @@ router.route('/reviews/list')
                     (callback) => {
                         Request.find({
                             'accFrom.acc': acc._id,
-                            'status.complete': { $exists: true, $ne: null },
+                            // 'status.complete': { $exists: true, $ne: null },
                         })
-                            .select('accFrom accTo')
+                            .select('accFrom accTo status reviews')
                             .exec(callback)
                     },
                     (callback) => {
                         Request.find({
                             'accTo.acc': acc._id,
-                            'status.complete': { $exists: true, $ne: null },
+                            // 'status.complete': { $exists: true, $ne: null },
                         })
+                            .select('accFrom accTo status reviews')
                             .exec(callback)
                     },
                 ])
                     .then((asyncRes) => {
                         console.log(asyncRes)
+
                         let newArr = asyncRes[0].concat(asyncRes[1])
 
 
