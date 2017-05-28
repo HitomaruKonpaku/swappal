@@ -38,25 +38,26 @@ export class SearchComponent implements OnInit{
             this.paramHave = params['have']
             this.paramNeed = params['need']
           });
-
+          console.log(this.paramHave)
+          console.log(this.paramNeed)
     var str: any;
-    if (!this.paramHave){
+    if (this.paramHave=="undefined"){
       str = '{"have":["'+this.paramNeed+'"]}'
-    }else if (!this.paramNeed){
+    }else if (this.paramNeed=="undefined"){
       str = '{"want":["'+this.paramHave+'"]}'
     }else {
       str = '{"have":["'+this.paramNeed+'"],"want":["'+this.paramHave+'"]}';
     }
     var json = JSON.parse(str);
+    console.log(json)
     this.searchSkill(json);
     this.apiService.getAllSkills().
     subscribe(
     data => {
-      this.objectskills = data.data.docs;
+      this.objectskills = data.data;
       for (let i = 0; i < this.objectskills.length; i++){
         this.skills[i] = this.objectskills[i];
       }
-      console.log(this.skills)
     },
     error => {
         console.log("error")
@@ -66,12 +67,12 @@ export class SearchComponent implements OnInit{
   onSubmit(){
     // this.searchData(this.idskillhave.value.id,this.idskillneed.value.id);
     var str: any;
-    if (!this.idskillhave.value.id){
-      str = '{"have":["'+this.idskillneed.value.id+'"]}'
-    }else if (!this.idskillneed){
-      str = '{"want":["'+this.idskillhave.value.id+'"]}'
+    if (!this.idskillhave.value._id){
+      str = '{"have":["'+this.idskillneed.value._id+'"]}'
+    }else if (!this.idskillneed.value._id){
+      str = '{"want":["'+this.idskillhave.value._id+'"]}'
     }else {
-      str = '{"have":["'+this.idskillneed.value.id+'"],"want":["'+this.idskillhave.value.id+'"]}';
+      str = '{"have":["'+this.idskillneed.value._id+'"],"want":["'+this.idskillhave.value._id+'"]}';
     }
     var json = JSON.parse(str);
 

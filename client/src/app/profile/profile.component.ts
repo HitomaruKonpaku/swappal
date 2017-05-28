@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from '../_services/index';
-import { NgForm } from '@angular/forms';
+import { NgForm,FormControl } from '@angular/forms';
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import {SearchComponent} from '../search/index';
 import {HeaderComponent} from '../_layouts/index';
@@ -39,6 +39,18 @@ export class ProfileComponent implements OnInit {
     SkillCount: any;
     ServiceCount: any;
     requestID: any;
+    filteredSkills: any;
+    cateList:any=[];
+    skillListbyCate:any=[];
+    cateNeedPosition:any;
+    cateHavePosition:any;
+    skillNeedEdit: FormControl;
+    skillHaveEdit: FormControl;
+
+    haveArr : any =[];
+    haveArrObj: any =[];
+    needArr: any =[];
+    needArrObj:any =[];
 
     constructor(
         private apiService: APIService,
@@ -64,6 +76,61 @@ export class ProfileComponent implements OnInit {
         }
         console.log(this.requestList)
         this.userCheck(this.currentEmail,this.otherEmail);
+        this.skillNeedEdit = new FormControl('');
+        this.filteredSkills = this.skillNeedEdit.valueChanges
+            .startWith(null)
+            .map(name => this.filterNeedSkills(name));
+        //have
+        this.skillHaveEdit = new FormControl('');
+        this.filteredSkills = this.skillHaveEdit.valueChanges
+            .startWith(null)
+            .map(name => this.filterHaveSkills(name));
+        this.apiService.getcate2().subscribe(
+          data=>{
+            this.cateList = data.data
+            console.log(this.cateList)
+            for(let i = 0; i < this.cateList.length;i++){
+            this.skillListbyCate[i] = this.cateList[i].skills
+            }
+          sessionStorage.setItem('dataskillListbyCate', JSON.stringify(this.skillListbyCate));
+          }
+
+        )
+    }
+    filterNeedSkills(val: any) {
+      return val ? this.skillListbyCate[this.cateNeedPosition].filter((s:any) => new RegExp(`^${val}`, 'gi').test(s))
+                 : this.skillListbyCate[this.cateNeedPosition];
+    }
+    filterHaveSkills(val: any) {
+      return val ? this.skillListbyCate[this.cateHavePosition].filter((s:any) => new RegExp(`^${val}`, 'gi').test(s))
+                 : this.skillListbyCate[this.cateHavePosition];
+    }
+    addHavetoArray(have: NgForm){
+      var value = have.value
+      console.log(value)
+      var skillList = JSON.parse(sessionStorage.getItem('dataskillListbyCate'))
+
+      for (let i =0;i < skillList[this.cateHavePosition].length;i++)
+      {
+        if(skillList[this.cateHavePosition][i].name == value.have)
+        {
+          this.haveArrObj.push(skillList[this.cateHavePosition][i])
+          this.haveArr.push(skillList[this.cateHavePosition][i]._id)
+        }
+      }
+    }
+    addNeedtoArray(need: NgForm){
+      var value = need.value
+      var skillList = JSON.parse(sessionStorage.getItem('dataskillListbyCate'))
+
+      for (let i =0;i < skillList[this.cateNeedPosition].length;i++)
+      {
+        if(skillList[this.cateNeedPosition][i].name == value.need)
+        {
+          this.needArrObj.push(skillList[this.cateNeedPosition][i])
+          this.needArr.push(skillList[this.cateNeedPosition][i]._id)
+        }
+      }
     }
 
     onSubmit(f:NgForm){

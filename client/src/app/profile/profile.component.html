@@ -137,9 +137,34 @@
                 </div>
                 <!-- edit skill have  -->
                 <div class="form-group" [hidden]="displayEdit">
+
                   <label for="inputEmail3"  class="col-md-2 control-label">Kỹ năng: </label>
+                  <ul>
+                    <li *ngFor="let have of skillHave">{{have.name}}</li>
+                  </ul>
                   <div class="col-md-10">
-                    <input type="email" class="form-control" id="inputEmail3" style="height:100px;">
+                    <!-- <input type="email" class="form-control" id="inputEmail3" style="height:100px;"> -->
+                    <div *ngIf="haveArrObj">
+                      <ul>
+                        <li *ngFor="let have of haveArrObj">{{have.name}}</li>
+                      </ul>
+                    </div>
+                    <form #have="ngForm" (ngSubmit)="addHavetoArray(have)">
+                      <div>
+                        <md-input-container>
+                            <input mdInput placeholder="Kỹ năng bạn có" ngModel name="have"[mdAutocomplete]="autoh" >
+                        </md-input-container>
+                        <md-autocomplete #autoh="mdAutocomplete">
+                          <md-option *ngFor="let skillHave of skillListbyCate[cateHavePosition]" [value]="skillHave.name">
+                            {{skillHave.name}}
+                          </md-option>
+                        </md-autocomplete>
+                        <md-select placeholder="Lĩnh vực" [(ngModel)]="cateHavePosition" [ngModelOptions]="{standalone: true}">
+                           <md-option [value]="i" *ngFor="let cate of cateList; let i = index;">{{cate.name}}</md-option>
+                        </md-select>
+                        <button md-button type="submit" name="button">Thêm</button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               <br>
@@ -155,7 +180,29 @@
               <div class="form-group" [hidden]="displayEdit">
                 <label for="inputEmail3"  class="col-md-2 control-label">Kỹ năng: </label>
                 <div class="col-md-10">
-                  <input type="email" class="form-control" id="inputEmail3" style="height:100px;">
+                  <ul>
+                    <li *ngFor="let want of skillWant">{{want.name}}</li>
+                  </ul>
+                  <!-- <input type="email" class="form-control" id="inputEmail3" style="height:100px;"> -->
+                  <div *ngIf="needArrObj">
+                    <ul>
+                      <li *ngFor="let need of needArrObj">{{need.name}}</li>
+                    </ul>
+                  </div>
+                  <form #need="ngForm" (ngSubmit)="addNeedtoArray(need)">
+                    <md-input-container>
+                        <input mdInput placeholder="Kỹ năng bạn cần" [mdAutocomplete]="auton" name="need" ngModel >
+                    </md-input-container>
+                    <md-autocomplete #auton="mdAutocomplete">
+                      <md-option *ngFor="let skillNeed of skillListbyCate[cateNeedPosition]" [value]="skillNeed.name">
+                        {{skillNeed.name}}
+                      </md-option>
+                    </md-autocomplete>
+                    <md-select placeholder="Lĩnh vực" [(ngModel)]="cateNeedPosition" [ngModelOptions]="{standalone: true}">
+                       <md-option [value]="i" *ngFor="let cate of cateList; let i = index;">{{cate.name}}</md-option>
+                    </md-select>
+                    <button md-button type="submit" name="button">Thêm</button>
+                  </form>
                 </div>
               </div>
               <br>
