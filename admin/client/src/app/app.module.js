@@ -67,6 +67,7 @@ AppModule = __decorate([
         providers: [
             index_10.AlertService,
             index_10.APIService,
+            index_10.ValidationService,
         ],
         entryComponents: [
             index_5.SkillDialog,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MdDialog, MdDialogRef,MdDialogConfig} from '@angular/material';
-import {APIService} from '../_services/index';
+import {APIService, ValidationService} from '../_services/index';
 import { Skill } from '../_models/index';
 import {FormControl} from '@angular/forms';
 import {NgForm} from '@angular/forms';
@@ -21,6 +21,7 @@ export class SkillComponent implements OnInit{
   constructor(
     public dialog: MdDialog,
     private apiService: APIService,
+
   ){
 
   }
@@ -96,38 +97,49 @@ export class SkillDialog implements OnInit{
   skillId: any;
   category: any;
   cateList:any=[];
+  nameCheck : boolean = false;
   constructor(
     public dialogRef: MdDialogRef<SkillDialog>,
     private apiService: APIService,
+    private validation: ValidationService,
   ) {}
-  ngOnInit(){
-    console.log(this.skillName)
-  }
+  ngOnInit(){}
   addSkill(add: NgForm){
 
     var value = add.value;
-    console.log(value)
-    this.apiService.addSkill(value).subscribe(
-      data=>{
-        location.reload();
-      },error=>{
-        console.log(error)
-      }
-    )
+    this.nameCheck = this.validation.NameValidation(value.name)
+    if (this.nameCheck == true){
+      this.apiService.addSkill(value).subscribe(
+        data=>{
+          location.reload();
+          alert("Thêm thành công");
+        }
+      )
+    } else{
+      alert("Tên kỹ năng không được để trống hoặc có ký tự đặc biệt");
+    }
+
 
   }
   editSkill(skill: NgForm ){
     var value = skill.value;
     value.skillid = this.skillId;
     console.log(value)
-    this.apiService.editSkill(value).subscribe(
-      data=>{
-        console.log(data)
-      },
-      error=>{
-        console.log("error")
-      }
-    )
+    this.nameCheck = this.validation.NameValidation(value.name)
+    if (this.nameCheck == true){
+      this.apiService.editSkill(value).subscribe(
+        data=>{
+          console.log(data)
+          alert("Sửa thành công");
+        },
+        error=>{
+          console.log(error)
+        }
+      )
+    }else{
+      alert("Tên kỹ năng không được để trống hoặc có ký tự đặc biệt")
+    }
+
   }
 
 }

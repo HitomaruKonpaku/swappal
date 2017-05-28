@@ -90,32 +90,43 @@ SkillComponent = __decorate([
 ], SkillComponent);
 exports.SkillComponent = SkillComponent;
 var SkillDialog = (function () {
-    function SkillDialog(dialogRef, apiService) {
+    function SkillDialog(dialogRef, apiService, validation) {
         this.dialogRef = dialogRef;
         this.apiService = apiService;
+        this.validation = validation;
         this.cateList = [];
+        this.nameCheck = false;
     }
-    SkillDialog.prototype.ngOnInit = function () {
-        console.log(this.skillName);
-    };
+    SkillDialog.prototype.ngOnInit = function () { };
     SkillDialog.prototype.addSkill = function (add) {
         var value = add.value;
-        console.log(value);
-        this.apiService.addSkill(value).subscribe(function (data) {
-            location.reload();
-        }, function (error) {
-            console.log(error);
-        });
+        this.nameCheck = this.validation.NameValidation(value.name);
+        if (this.nameCheck == true) {
+            this.apiService.addSkill(value).subscribe(function (data) {
+                location.reload();
+                alert("Thêm thành công");
+            });
+        }
+        else {
+            alert("Tên kỹ năng không được để trống hoặc có ký tự đặc biệt");
+        }
     };
     SkillDialog.prototype.editSkill = function (skill) {
         var value = skill.value;
         value.skillid = this.skillId;
         console.log(value);
-        this.apiService.editSkill(value).subscribe(function (data) {
-            console.log(data);
-        }, function (error) {
-            console.log("error");
-        });
+        this.nameCheck = this.validation.NameValidation(value.name);
+        if (this.nameCheck == true) {
+            this.apiService.editSkill(value).subscribe(function (data) {
+                console.log(data);
+                alert("Sửa thành công");
+            }, function (error) {
+                console.log(error);
+            });
+        }
+        else {
+            alert("Tên kỹ năng không được để trống hoặc có ký tự đặc biệt");
+        }
     };
     return SkillDialog;
 }());
@@ -125,7 +136,8 @@ SkillDialog = __decorate([
         templateUrl: 'app/skill/skillDialog.component.html',
     }),
     __metadata("design:paramtypes", [material_1.MdDialogRef,
-        index_1.APIService])
+        index_1.APIService,
+        index_1.ValidationService])
 ], SkillDialog);
 exports.SkillDialog = SkillDialog;
 //# sourceMappingURL=skill.component.js.map

@@ -29,6 +29,9 @@ export class APIService {
     addCate(name: any){
       return this.http.post(this.address+'/skillcat/add', name, this.jwt()).map((response: Response) => response.json());
     }
+    editCat(name:any){
+      return this.http.post(this.address+'/skillcat/edit', name, this.jwt()).map((response: Response) => response.json());
+    }
     addSkill(skill: any){
       return this.http.post(this.address+'/skill/add', skill, this.jwt()).map((response: Response) => response.json());
     }

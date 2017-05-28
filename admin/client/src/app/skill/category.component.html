@@ -37,8 +37,8 @@
            <td>{{cate.name}}</td>
            <td>{{cate._id}}</td>
            <td>
-             <button  class="btn btn-info" type="button" (click)="openEditDialog()" name="button"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-             <button class="btn btn-danger" type="button" (click)="deleteCategoryDialog()" name="button"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+             <button  class="btn btn-info" type="button" (click)="openEditDialog(cate.name,cate._id)" name="button"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+             <button class="btn btn-danger" type="button" (click)="deleteCategoryDialog(cate.name)" name="button"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
            </td>
          </tr>
        </tbody>
