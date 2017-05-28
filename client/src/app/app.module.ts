@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BaseRequestOptions } from '@angular/http';
-import { MaterialModule } from '@angular/material';
+import { MaterialModule, MdSelectModule } from '@angular/material';
 import {MdAutocompleteModule} from '@angular/material';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -13,15 +13,17 @@ import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, APIService, ValidationService } from './_services/index';
 import { Skill} from './_models/index';
 import { HeaderComponent, FooterComponent,ExchangeDialog } from './_layouts/index';
+import {MdDialogModule} from '@angular/material';
 import {RatingModule} from 'ngx-rating';
 import { HomeComponent } from './home/index';
-import { LoginComponent } from './login/index';
+import { LoginComponent,CreateProfileDialog } from './login/index';
 import { LogoutComponent } from './logout/index';
-import { RegisterComponent,VerificationComponent } from './register/index';
+import { RegisterComponent } from './register/index';
 import { ProfileComponent } from './profile/index';
 import { SearchComponent} from './search/index';
 import { ContactUsComponent, AboutUsComponent, FAQsComponent} from './foundation/index';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+import { News1Component,News2Component,News3Component,News4Component } from './news/index';
 
 let providers = {
     "google": {
@@ -46,6 +48,8 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     Angular2SocialLoginModule,
     RatingModule,
     Ng2AutoCompleteModule,
+    MdDialogModule,
+    MdSelectModule,
   ],
   declarations: [
     AppComponent,
@@ -61,8 +65,12 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     ContactUsComponent,
     AboutUsComponent,
     FAQsComponent,
-    VerificationComponent,
     ExchangeDialog,
+    News1Component,
+    News2Component,
+    News3Component,
+    News4Component,
+    CreateProfileDialog,
   ],
   providers: [
     AuthGuard,
@@ -72,9 +80,12 @@ Angular2SocialLoginModule.loadProvidersScripts(providers);
     APIService,
     Skill,
     SearchComponent,
+    HeaderComponent,
+    LoginComponent,
+
   ],
   entryComponents: [
-    ExchangeDialog
+    ExchangeDialog,CreateProfileDialog
   ],
   bootstrap: [
     AppComponent

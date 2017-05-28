@@ -2,7 +2,7 @@
 import { APIService } from '../_services/index';
 import { FormControl } from '@angular/forms';
 import {Skill} from '../_models/index';
-import { DomSanitizer,SafeHtml } from "@angular/platform-browser";;
+import { DomSanitizer,SafeHtml } from "@angular/platform-browser";
 @Component({
     moduleId: module.id,
     templateUrl: 'home.component.html'
@@ -13,12 +13,15 @@ export class HomeComponent implements OnInit {
     objectskills : any = {};
   idskillneed : FormControl;
   idskillhave : FormControl;
+  currentEmail:any;
   skills : Skill[] = [];
   constructor(
     private apiService : APIService,
     private _sanitizer: DomSanitizer,
   ){}
   ngOnInit(){
+    this.currentEmail = localStorage.getItem('currentEmail');
+
     this.idskillhave = new FormControl('')
     this.idskillneed = new FormControl('')
     this.apiService.getAllSkills().
@@ -28,10 +31,6 @@ export class HomeComponent implements OnInit {
       for (let i = 0; i < this.objectskills.length; i++){
         this.skills[i] = this.objectskills[i];
       }
-      console.log(this.skills)
-    },
-    error => {
-        console.log("error")
     })
   }
   autocompleListFormatter = (data: any) : SafeHtml => {

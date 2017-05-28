@@ -48,7 +48,6 @@ export class SearchComponent implements OnInit{
       str = '{"have":["'+this.paramNeed+'"],"want":["'+this.paramHave+'"]}';
     }
     var json = JSON.parse(str);
-    console.log(json)
     this.searchSkill(json);
     this.apiService.getAllSkills().
     subscribe(
@@ -87,7 +86,6 @@ export class SearchComponent implements OnInit{
     this.apiService.searchSkill(json)
     .subscribe(
       data =>{
-        console.log(data)
         if (data.result.docs.length==0){
           this.isShowData = false;
         }
@@ -96,7 +94,6 @@ export class SearchComponent implements OnInit{
             this.resultUser[i] = data.result.docs[i];
         }
           this.isShowData = true;
-          console.log(this.resultUser);
         }
       },
       error =>{

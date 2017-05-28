@@ -13,12 +13,15 @@ export class APIService {
       return this.http.get(this.address + '/accounts/profile' + '?email=' + email, this.jwt()).map((response: Response) => response.json())
 
     }
+    getcate2(){
+      return this.http.get(this.address + '/skillcat/all2', this.jwt()).map((response: Response) => response.json())
+    }
     getSkills(email: any){
       return this.http.get(this.address + '/accounts/skills' + '?email=' + email, this.jwt()).map((response: Response) => response.json())
 
     }
     getAllSkills(){
-        return this.http.get(this.address + '/skills' + '?=limit100', this.jwt()).map((response: Response) => response.json())
+        return this.http.get(this.address + '/skill/get', this.jwt()).map((response: Response) => response.json());
     }
     searchSkill(search : any){
       return this.http.post(this.address+'/search', search, this.jwt()).map((response: Response) => response.json());
@@ -29,6 +32,9 @@ export class APIService {
     }
     createProfile(user: any){
       return this.http.post(this.address + '/accounts/profile', user, this.jwt()).map((response: Response) => response.json());
+    }
+    createSkillProfile(email: any,skillhave:any, skillneed:any){
+      return this.http.post(this.address +'/accounts/skills',{email:email, have:skillhave, want:skillneed},this.jwt()).map((response: Response) => response.json());
     }
     updateProfile(user : any){
       return this.http.post(this.address + '/accounts/profile', user, this.jwt()).map((response: Response) => response.json());
@@ -51,6 +57,9 @@ export class APIService {
     }
     getRequest(email: any){
       return this.http.post(this.address + '/request/list', email,this.jwt()).map((response: Response) => response.json());
+    }
+    writeReview(request:any){
+      return this.http.post(this.address + '/request/review', request,this.jwt()).map((response: Response) => response.json());
     }
 
     // private helper methods
