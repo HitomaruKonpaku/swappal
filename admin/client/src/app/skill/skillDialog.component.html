@@ -2,20 +2,20 @@
   <div class="modal-title">
     <h2>THÊM KỸ NĂNG</h2>
   </div>
-  <form>
+  <form #add="ngForm" (ngSubmit)="addSkill(add)">
     <div class="row">
-      <md-input-container class="input-width">
-        <input mdInput placeholder="Tên kỹ năng" >
+      <md-input-container  class="input-width">
+        <input mdInput ngModel name="name" placeholder="Tên kỹ năng" >
       </md-input-container>
     </div>
     <div class="row">
-      <md-select placeholder="Danh mục" class="input-width" >
-         <md-option *ngFor="let cate of cateList">{{cate.name}}</md-option>
+      <md-select ngModel name="catid" placeholder="Danh mục" class="input-width" >
+         <md-option value="{{cate._id}}" *ngFor="let cate of cateList">{{cate.name}}</md-option>
       </md-select>
     </div>
     <div class="row">
       <div class="col-md-6">
-        <button type="button" class="btn btn-add" name="button">Thêm</button>
+        <button type="submit" class="btn btn-add" name="button">Thêm</button>
       </div>
       <div class="col-md-6">
         <button md-dialog-close type="button" class="btn btn-cancel" name="button">Huỷ</button>

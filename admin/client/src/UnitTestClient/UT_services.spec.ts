@@ -36,7 +36,7 @@ describe('Test _services',function(){
         };
         expect(banUser).toThrow();
     });
-    it('api.service - unbanUser: Get banUser from api server.', function () {
+    it('api.service - unbanUser: Get unbanUser from api server.', function () {
         var unbanUser = function (uid:any) {
             return this.http.post(this.address + '/accounts/unban', uid, this.jwt()).map(function (response:Response) { return response.json(); });
         };

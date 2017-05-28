@@ -175,6 +175,16 @@ function responseInvalid(res, data) {
 }
 
 //====================================================================================================
+//====================================================================================================
+//====================================================================================================
+
+function getTomorrow() {
+    var d = new Date()
+    d.setDate(d.getDate() + 1)
+    return d
+}
+
+//====================================================================================================
 //========== API - ACCOUNTS ==========================================================================
 //====================================================================================================
 // register
@@ -714,16 +724,6 @@ router.route('/news')
 //====================================================================================================
 //====================================================================================================
 
-function getTomorrow() {
-    var d = new Date()
-    d.setDate(d.getDate() + 1)
-    return d
-}
-
-//====================================================================================================
-//====================================================================================================
-//====================================================================================================
-
 router.route('/search')
     .post((req, res) => {
         let have = req.body.have || []
@@ -1034,6 +1034,7 @@ router.route('/request/review')
                 if (!request ||
                     !request.status ||
                     !request.status.complete) {
+                    responseInvalid(res)
                     return
                 }
 
@@ -1048,9 +1049,9 @@ router.route('/request/review')
                 let isFrom = email === request.accFrom.acc.email
 
                 if (isFrom) {
-                    request.reviews.from = reviewObj
+                    request.reviews['from'] = reviewObj
                 } else {
-                    request.reviews.to = reviewObj
+                    request.reviews['to'] = reviewObj
                 }
 
                 request.save()
@@ -1221,13 +1222,14 @@ router.route('/skill/edit')
         let oldcatid = req.body.oldcatid
         let newcatid = req.body.newcatid
 
-        if (!skillid || !name || !oldcatid || !newcatid) {
+        if (!skillid || !name || !newcatid) {
             responseError(res)
             return
         }
 
         async.parallel({
             oldCat: (callback) => {
+                if (!oldcatid) callback
                 SkillCat.findById(oldcatid)
                     .exec(callback)
             },
@@ -1253,7 +1255,8 @@ router.route('/skill/edit')
                 }
 
                 if (asyncResult.skillCheck && asyncResult.skillCheck.name === name ||
-                    asyncResult.oldCat.skills.indexOf(skillid) === -1) {
+                    asyncResult.oldCat && asyncResult.oldCat.skills.indexOf(skillid) === -1
+                ) {
                     responseInvalid(res)
                     return
                 }
@@ -1305,3 +1308,42 @@ router.route('/skill/edit')
 //====================================================================================================
 //====================================================================================================
 //====================================================================================================
+
+router.route('/reviews/list')
+    .get((req, res) => {
+        let email = req.query.email
+
+        Account.findOne({ 'email': email })
+            .then((acc) => {
+                if (!acc) {
+                    responseError(res)
+                    return
+                }
+
+                async.parallel([
+                    (callback) => {
+                        Request.find({
+                            'accFrom.acc': acc._id,
+                        })
+                            // .select('reviews.to')
+                            .exec(callback)
+                    },
+                    (callback) => {
+                        Request.find({
+                            'accTo.acc': acc._id,
+                        })
+                            .select('reviews.from')
+                            .exec(callback)
+                    },
+                ])
+                    .then((asyncRes) => {
+                        console.log(asyncRes)
+
+                        let newArr = asyncRes[0].concat(asyncRes[1])
+
+
+
+                        responseSuccuess(res, asyncRes)
+                    })
+            })
+    })

@@ -22,15 +22,15 @@
   <div class="modal-title">
     <h2>SỬA DANH MỤC</h2>
   </div>
-  <form>
+  <form #edit="ngForm" (ngSubmit)="editCate(edit)">
     <div class="row">
       <md-input-container class="input-width">
-        <input mdInput placeholder="{{category}}">
+        <input mdInput name="name" ngModel="{{category}}">
       </md-input-container>
     </div>
     <div class="row">
       <div class="col-md-6">
-        <button type="button" class="btn btn-add" name="button">Thêm</button>
+        <button type="submit" class="btn btn-add" name="button">Sửa</button>
       </div>
       <div class="col-md-6">
         <button md-dialog-close type="button" class="btn btn-cancel" name="button">Huỷ</button>

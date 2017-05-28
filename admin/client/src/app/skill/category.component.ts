@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MdDialog, MdDialogRef,MdDialogConfig } from '@angular/material';
-import {APIService} from '../_services/index';
+import {APIService, ValidationService} from '../_services/index';
 import {NgForm} from '@angular/forms';
 
 
@@ -51,7 +51,7 @@ export class CategoryComponent implements OnInit {
     dialogRef.componentInstance.isDelete = this.isDelete;
     dialogRef.componentInstance.category = category;
   }
-  openEditDialog(category: any){
+  openEditDialog(category: any, catid:any){
     this.isEdit = true;
     let config = new MdDialogConfig();
     let dialogRef:MdDialogRef<CategoryDialog> =  this.dialog.open(CategoryDialog,{
@@ -60,6 +60,7 @@ export class CategoryComponent implements OnInit {
     })
     dialogRef.componentInstance.isEdit = this.isEdit;
     dialogRef.componentInstance.category = category;
+    dialogRef.componentInstance.catid = catid;
   }
 }
 
@@ -71,18 +72,42 @@ export class CategoryComponent implements OnInit {
     isEdit :boolean;
     isDelete : boolean;
     category: any;
+    catid:any;
+    nameCheck : boolean = false;
     constructor(
       public dialogRef: MdDialogRef<CategoryDialog>,
       private apiService : APIService,
+      private validation: ValidationService,
     ) {}
 
     addCate(f: NgForm){
       var value = f.value
-      this.apiService.addCate(value).subscribe(
-        data=>{
-          location.reload();
-        }
-      )
+      this.nameCheck = this.validation.NameValidation(value.name)
+      if (this.nameCheck == true){
+        this.apiService.addCate(value).subscribe(
+          data=>{
+            location.reload();
+          }
+        )
+      }else{
+        alert("Tên danh mục không được để trống hoặc có ký tự đặc biệt");
+      }
 
+
+    }
+    editCate(edit:NgForm){
+      var value = edit.value
+      value.id = this.catid
+      this.nameCheck = this.validation.NameValidation(value.name)
+      if (this.nameCheck == true){
+        this.apiService.editCat(value).subscribe(
+          data=>{
+            location.reload();
+            alert("Sửa thành công");
+          }
+        )
+      }else{
+        alert("Tên danh mục không được để trống hoặc có ký tự đặc biệt");
+      }
     }
   }
