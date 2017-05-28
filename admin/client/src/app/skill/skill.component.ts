@@ -131,6 +131,7 @@ export class SkillDialog implements OnInit{
         data=>{
           console.log(data)
           alert("Sửa thành công");
+          location.reload();
         },
         error=>{
           console.log(error)

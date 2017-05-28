@@ -120,6 +120,7 @@ var SkillDialog = (function () {
             this.apiService.editSkill(value).subscribe(function (data) {
                 console.log(data);
                 alert("Sửa thành công");
+                location.reload();
             }, function (error) {
                 console.log(error);
             });
