@@ -1,0 +1,60 @@
+<div class="page">
+  <div class="row">
+    <div class="col-md-12">
+    <div class="card">
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-6" style="margin-top:10px;">
+              <md-input-container>
+                  <input mdInput placeholder="Skill" [mdAutocomplete]="auto" [formControl]="skillCtrl">
+              </md-input-container>
+              <md-autocomplete #auto="mdAutocomplete" >
+                <md-option *ngFor="let skill of skillListbyCate[catePosition]">
+                  {{skill.name}}
+                </md-option>
+              </md-autocomplete>
+              <md-select placeholder="Skill Category" [(ngModel)]="catePosition" name="cate"style="width:200px;">
+                 <md-option [value]="i" *ngFor="let cate of cateList; let i = index;">{{cate.name}}</md-option>
+              </md-select>
+              <button md-mini-fab class="btn-search"><i class="material-icons">search</i></button>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <button md-button class="btn-add" (click)="openAddDialog()">Thêm Kỹ Năng</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card card-margin">
+    <div class="card-block">
+     <table class="table">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Kỹ năng</th>
+          <th>ID</th>
+          <th>Category</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let skill of skillList; let i =index;" >
+          <th scope="row">{{i+1}}</th>
+          <td>{{skill.name}}</td>
+          <td>{{skill.id}}</td>
+          <td></td>
+          <td>
+            <button  class="btn btn-info" type="button" (click)="openEditDialog(skill.name,skill.id)" name="button"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button class="btn btn-danger" type="button" (click)="deleteSkillDialog(skill.name)" name="button"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+          </td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>

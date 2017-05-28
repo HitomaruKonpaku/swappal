@@ -1155,7 +1155,7 @@ router.route('/skill/get')
         let q = req.query
         let s = q.search || ''
         let p = q.page || 1
-        let l = q.limit || 10
+        let l = q.limit || 100
 
         Skill.paginate(
             {
