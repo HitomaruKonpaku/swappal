@@ -1,0 +1,65 @@
+<div class="modal-padding" *ngIf="isEdit==false">
+  <div class="modal-title">
+    <h2>THÊM KỸ NĂNG</h2>
+  </div>
+  <form #add="ngForm" (ngSubmit)="addSkill(add)">
+    <div class="row">
+      <md-input-container  class="input-width">
+        <input mdInput ngModel name="name" placeholder="Tên kỹ năng" >
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-select ngModel name="catid" placeholder="Danh mục" class="input-width" >
+         <md-option value="{{cate._id}}" *ngFor="let cate of cateList">{{cate.name}}</md-option>
+      </md-select>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-add" name="button">Thêm</button>
+      </div>
+      <div class="col-md-6">
+        <button md-dialog-close type="button" class="btn btn-cancel" name="button">Huỷ</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-padding" *ngIf="isEdit==true">
+  <div class="modal-title">
+    <h2>SỬA KỸ NĂNG</h2>
+  </div>
+  <form #skill="ngForm" (ngSubmit)="editSkill(skill)">
+    <div class="row">
+      <md-input-container class="input-width">
+        <input mdInput name="name" ngModel="{{skillName}}">
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-select ngModel name="newcatid" placeholder="{{skillid}}" class="input-width">
+         <md-option value="{{cate._id}}" *ngFor="let cate of cateList">{{cate.name}}</md-option>
+      </md-select>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-add" name="button">Sửa</button>
+      </div>
+      <div class="col-md-6">
+        <button md-dialog-close type="button" class="btn btn-cancel" name="button">Huỷ</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-padding" *ngIf="isDelete==true">
+  <div class="modal-title">
+    <h3>Bạn có chắc xoá kỹ năng {{skill}}</h3>
+  </div>
+  <form>
+    <div class="row">
+      <div class="col-md-6">
+        <button type="button" class="btn btn-add" name="button">Xoá</button>
+      </div>
+      <div class="col-md-6">
+        <button md-dialog-close type="button" class="btn btn-cancel" name="button">Huỷ</button>
+      </div>
+    </div>
+  </form>
+</div>

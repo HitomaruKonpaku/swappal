@@ -17,7 +17,7 @@ export class ValidationService{
     return Passwordvalidation.test(password);
   }
   FullNameValidation(fullname: any){
-    var fullnamevalidation = /^[^!@#$%^&*()\[\]]{1,}$/;
+    var fullnamevalidation = /[^!@#$%^&*()\[\]][a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+/;
     return fullnamevalidation.test(fullname);
   }
   MessageValidation(message: any ){

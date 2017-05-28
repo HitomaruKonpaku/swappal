@@ -7,7 +7,8 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-12">
-              {{request.accFrom.acc.email}} gửi yêu cầu đến bạn
+            <a [routerLink]="['/profile']" [queryParams]="{email: request.accFrom.acc.email}" (click)="location.reload()">{{request.accFrom.acc.profile.name}}</a>   gửi yêu cầu đến
+            <a [routerLink]="['/profile']" [queryParams]="{email: request.accTo.acc.email}" (click)="location.reload()">{{request.accTo.acc.profile.name}}</a>
             </div>
             <!-- <div class="col-12" *ngIf="">
 

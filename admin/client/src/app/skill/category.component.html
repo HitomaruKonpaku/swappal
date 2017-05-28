@@ -1,0 +1,48 @@
+<div class="page">
+  <div class="row">
+    <div class="col-md-12">
+    <div class="card">
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-6" style="margin-top:10px;">
+              <md-input-container>
+                <input mdInput placeholder="Tìm danh mục theo tên"style="width:400px;">
+              </md-input-container>
+              <button md-mini-fab class="btn-search"><i class="material-icons">search</i></button>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <button md-button class="btn-add" (click)="openAddDialog()">Thêm danh mục</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card card-margin">
+    <div class="card-block">
+      <table class="table">
+       <thead>
+         <tr>
+           <th>No.</th>
+           <th>Tên Danh mục</th>
+           <th>ID</th>
+           <th></th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr *ngFor="let cate of categoryList;let i = index;">
+           <th scope="row">{{i+1}}</th>
+           <td>{{cate.name}}</td>
+           <td>{{cate._id}}</td>
+           <td>
+             <button  class="btn btn-info" type="button" (click)="openEditDialog(cate.name,cate._id)" name="button"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+             <button class="btn btn-danger" type="button" (click)="deleteCategoryDialog(cate.name)" name="button"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+           </td>
+         </tr>
+       </tbody>
+       </table>
+    </div>
+  </div>
+</div>

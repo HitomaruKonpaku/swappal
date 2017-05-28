@@ -2,7 +2,7 @@ import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod, XHR
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 describe("Test _helpers",function(){
-    it('fake-backend - setTimeout (get user)',function(){
+    it('fake-backend - setTimeout (get user): Time limited user can connect.',function(){
         var setTimeout = function(connection:any,users:any){
             if (connection.request.url.endsWith('/api/users') && connection.request.method === RequestMethod.Get) {
                 if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
@@ -16,7 +16,7 @@ describe("Test _helpers",function(){
         }
         expect(setTimeout).toThrow();
     })
-    it('fake-backend - setTimeout (get user by id)',function(){
+    it('fake-backend - setTimeout (get user by id): Time limited user can connect by id.',function(){
         var setTimeout = function(connection:any,user:any){
             if (connection.request.url.match(/\/api\/users\/\d+$/) && connection.request.method === RequestMethod.Get) {
                 if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
@@ -30,7 +30,7 @@ describe("Test _helpers",function(){
         }
         expect(setTimeout).toThrow();
     })
-    it('fake-backend - setTimeout (create user)',function(){
+    it('fake-backend - setTimeout (create user): Time limited can create user.',function(){
         var setTimeout = function(connection:any,users:any){
             if (connection.request.url.endsWith('/api/users') && connection.request.method === RequestMethod.Post) {
                     // get new user object from post body
@@ -51,7 +51,7 @@ describe("Test _helpers",function(){
         }
         expect(setTimeout).toThrow();
     })
-    it('fake-backend - setTimeout (delete user)',function(){
+    it('fake-backend - setTimeout (delete user): Time limited delete user.',function(){
         var setTimeout = function(connection:any,users:any){
             if (connection.request.url.match(/\/api\/users\/\d+$/) && connection.request.method === RequestMethod.Delete) {
                     // check for fake auth token in header and return user if valid, this security is implemented server side in a real application

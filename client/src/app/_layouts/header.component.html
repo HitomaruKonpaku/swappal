@@ -19,11 +19,13 @@
                   <a class="nav-link" routerLink="/profile" routerLinkActive="active">Xin chào, {{profile.name}}!</a>
                 </li>
                 <li class="nav-item" *ngIf="isLogin">
-                  <button md-button class="btn-noti" [mdMenuTriggerFor]="menu"><i class="material-icons">supervisor_account</i></button>
+                  <button md-button [mdMenuTriggerFor]="menu" ><i class="material-icons">supervisor_account</i></button>
                     <md-menu #menu="mdMenu" class="noti-style">
                       <md-nav-list *ngFor="let request of requests; let i = index">
-                         <button md-button *ngIf="isEmail[i]==true" (click)="openDialog(request)" type="button">{{request.accFrom.acc.email}} requested you</button>
-                         <button md-button *ngIf="isEmail[i]==false && request.messages.length>=2" (click)="openDialog(request)" type="button">{{request.accTo.acc.email}} reply you</button>
+                         <button md-button *ngIf="isEmail[i]==true" (click)="openDialog(request)" type="button">{{request.accFrom.acc.profile.name}} yêu cầu trao đổi</button>
+                         <button md-button *ngIf="isEmail[i]==false && request.messages.length>=2" (click)="openDialog(request)" type="button">{{request.accTo.acc.profile.name}} trả lời yêu cầu của bạn</button>
+                         <button md-button *ngIf="isEmail[i]==false && isAccept[i]==true" (click)="openDialog(request)" type="button">{{request.accTo.acc.profile.name}} chấp nhận yêu cầu của bạn</button>
+                         <button md-button *ngIf="isEmail[i]==false && isDecline[i]==true" disabled type="button">{{request.accTo.acc.email}} từ chối yêu cầu của bạn</button>
                       </md-nav-list>
                     </md-menu>
                 </li>
