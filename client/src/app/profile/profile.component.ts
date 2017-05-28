@@ -258,15 +258,8 @@ export class ProfileComponent implements OnInit {
       var value = rating.value;
       value.token = this.currentToken;
       value.email = this.currentEmail;
-      value.requestid = "592ad643d7b816103639a5b3";
-      this.apiService.writeReview(value).subscribe(
-        data=>{
-          console.log(data)
-        },
-        error=>{
-          console.log(error)
-        }
-      )
+      value.requestid = this.requestID;
+      this.apiService.writeReview(value).subscribe()
     }
     userCheck(current: any, other:any){
       for (let i =0; i < this.requestList.length;i++){
