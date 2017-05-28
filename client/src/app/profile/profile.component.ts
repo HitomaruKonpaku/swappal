@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService } from '../_services/index';
+import { APIService , ValidationService} from '../_services/index';
 import { NgForm,FormControl } from '@angular/forms';
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import {SearchComponent} from '../search/index';
 import {HeaderComponent} from '../_layouts/index';
+
 declare var $: any;
 @Component({
     moduleId: module.id,
@@ -22,7 +23,11 @@ export class ProfileComponent implements OnInit {
     currentEmail: string;
     loading = false;
     displayInformation: boolean = false;
+    displayHeadInformation: boolean = false;
+    displaySkillInformation: boolean = false;
+    displayEditHead:boolean = true;
     displayEdit: boolean = true;
+    displayEditSkill: boolean = true;
     displayButton: boolean = true;
     displayButtonEdit: boolean = true;
     currentToken: string;
@@ -46,17 +51,20 @@ export class ProfileComponent implements OnInit {
     cateHavePosition:any;
     skillNeedEdit: FormControl;
     skillHaveEdit: FormControl;
-
     haveArr : any =[];
     haveArrObj: any =[];
     needArr: any =[];
     needArrObj:any =[];
+    dobCheck: boolean =false;
+    nameCheck:boolean = false;
+    idComplete: any ;
 
     constructor(
         private apiService: APIService,
         private activatedRoute: ActivatedRoute,
         private foundUser: SearchComponent,
         private header : HeaderComponent,
+        private validation: ValidationService,
     ) { }
     ngOnInit() {
       this.currentEmail = localStorage.getItem('currentEmail');
@@ -65,7 +73,7 @@ export class ProfileComponent implements OnInit {
       this.activatedRoute.queryParams.subscribe((params: Params) => {
               this.otherEmail = params['email'];
             });
-        if (!this.otherEmail){
+        if (!this.otherEmail || this.currentEmail == this.otherEmail){
           this.getProfile(this.currentEmail);
           this.displayButtonEdit = false;
         }
@@ -74,7 +82,6 @@ export class ProfileComponent implements OnInit {
           this.getCurrentUserSkill(this.currentEmail);
           this.displayButton = false;
         }
-        console.log(this.requestList)
         this.userCheck(this.currentEmail,this.otherEmail);
         this.skillNeedEdit = new FormControl('');
         this.filteredSkills = this.skillNeedEdit.valueChanges
@@ -88,14 +95,13 @@ export class ProfileComponent implements OnInit {
         this.apiService.getcate2().subscribe(
           data=>{
             this.cateList = data.data
-            console.log(this.cateList)
             for(let i = 0; i < this.cateList.length;i++){
             this.skillListbyCate[i] = this.cateList[i].skills
             }
           sessionStorage.setItem('dataskillListbyCate', JSON.stringify(this.skillListbyCate));
           }
-
         )
+
     }
     filterNeedSkills(val: any) {
       return val ? this.skillListbyCate[this.cateNeedPosition].filter((s:any) => new RegExp(`^${val}`, 'gi').test(s))
@@ -107,7 +113,6 @@ export class ProfileComponent implements OnInit {
     }
     addHavetoArray(have: NgForm){
       var value = have.value
-      console.log(value)
       var skillList = JSON.parse(sessionStorage.getItem('dataskillListbyCate'))
 
       for (let i =0;i < skillList[this.cateHavePosition].length;i++)
@@ -132,22 +137,46 @@ export class ProfileComponent implements OnInit {
         }
       }
     }
-
-    onSubmit(f:NgForm){
+    // editDescription(des:NgForm){
+    //   var value = des.value;
+    //   value.email = localStorage.getItem('currentEmail');
+    //   this.apiService.createProfile(value)
+    //   .subscribe(
+    //   data => {
+    //       location.reload()
+    //   }
+    //   );
+    // }
+    editProfile(f:NgForm){
       var value = f.value;
       value.email = localStorage.getItem('currentEmail');
-      this.apiService.createProfile(value)
-          .subscribe(
-          data => {
-              switch (data.msg) {
-                  case 'success':
-                  break;
-                    default: this.loading = false;
+      this.nameCheck = this.validation.FullNameValidation(value.name)
+      var dobArr = value.dob.split("-")
+      if (dobArr[0]<=2001){
+        this.dobCheck = true;
+      }
+      if (this.nameCheck == true && this.dobCheck == true){
+        this.apiService.createProfile(value)
+            .subscribe(
+            data => {
+                switch (data.msg) {
+                    case 'success':
+                      location.reload()
                     break;
-              }
-          },
-          error => {
-          });
+                      default: this.loading = false;
+                      break;
+                }
+            });
+      }
+    }
+    editSkill(){
+      this.apiService.createSkillProfile(this.currentEmail,this.haveArr, this.needArr)
+      .subscribe(
+        data=>{
+          console.log(data)
+          location.reload();
+        }
+      )
     }
     switchForm(){
       if (this.displayInformation == true){
@@ -156,6 +185,24 @@ export class ProfileComponent implements OnInit {
       }else {
         this.displayInformation = true;
         this.displayEdit = false;
+      }
+    }
+    switchSkillForm(){
+      if (this.displaySkillInformation == true){
+        this.displaySkillInformation = false;
+        this.displayEditSkill = true;
+      }else {
+        this.displaySkillInformation = true;
+        this.displayEditSkill = false;
+      }
+    }
+    switchHeadForm(){
+      if (this.displayHeadInformation == true){
+        this.displayHeadInformation = false;
+        this.displayEditHead = true;
+      }else {
+        this.displayHeadInformation = true;
+        this.displayEditHead = false;
       }
     }
 
@@ -182,7 +229,6 @@ export class ProfileComponent implements OnInit {
             .subscribe(
               data=>{
                 this.userSkills = data.data.skills
-                console.log(this.userSkills)
                 for (let i = 0; i < this.userSkills.have.length;i++){
                   this.currentHave[i] = this.userSkills.have[i];
                 }
@@ -190,14 +236,11 @@ export class ProfileComponent implements OnInit {
     }
     sendRequest(r:NgForm){
       var value = r.value;
-      console.log(value);
       value.sfrom = this.sfrom
       value.sto = this.sto
 
       this.apiService.newRequest(value).subscribe(
         data=>{
-          console.log(data)
-
           switch (data.msg) {
               case 'success':
                 this.isRequest = true;
@@ -212,12 +255,10 @@ export class ProfileComponent implements OnInit {
 
     }
     writeReview(rating: NgForm){
-      // console.log(rating)
       var value = rating.value;
       value.token = this.currentToken;
       value.email = this.currentEmail;
-      value.requestid = "59255dedc125b80c6e0e8400";
-      console.log(value)
+      value.requestid = "592ad643d7b816103639a5b3";
       this.apiService.writeReview(value).subscribe(
         data=>{
           console.log(data)

@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit{
     }
     onSubmit(f: NgForm) {
         var v = f.value;
-        console.log(v)
         this.loading = true;
         this.mailCheck = this.validation.EmailValidation(v.email);
         this.passwordCheck = this.validation.PasswordValidation(v.pwd);
@@ -93,7 +92,6 @@ export class LoginComponent implements OnInit{
     SocialLogin(email:any, userid : any){
       var str = '{"email":"'+email+'","pwd":"'+userid+'"}'
       var json = JSON.parse(str);
-      console.log(json)
       this.apiService.create(json)
       this.authenticationService.login(json)
       .subscribe(
@@ -257,14 +255,7 @@ export class CreateProfileDialog implements OnInit {
                     break;
               }
           })
-      this.apiService.createSkillProfile(value.email,this.haveArr, this.needArr).subscribe(
-        data=>{
-          console.log(data)
-        },
-        error=>{
-          console.log(error)
-        }
-      )
+      this.apiService.createSkillProfile(value.email,this.haveArr, this.needArr)
     }
     else if (this.nameCheck == false){
       this.alertService.error("Tên người dùng không được để trống hoặc sử dụng kí tự đặc biệt")

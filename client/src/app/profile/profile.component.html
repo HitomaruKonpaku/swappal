@@ -2,25 +2,37 @@
   <div class="container">
     <div class="card">
       <div class="card-block">
-        <div class="row">
-          <div class="col-md-3">
-            <a href="#" class=" thumbnail" style="margin-top: 10px;">
-              <img src="../../images/user.jpg" class="img-fluid" alt="profile-picture">
-            </a>
-          </div>
-          <div class="col-md-6 col-7 flex-container-column">
-            <div class="flex-item-profile">
-              <!-- <p class="p-name-profile">{{ profile.nickname }}</p> -->
-              <p class="p-name-profile">{{ profile.name }}</p>
+        <form #des="ngForm" (ngSubmit)="editDescription(des)">
+          <div class="row">
+            <div class="col-md-3">
+              <a href="#" class=" thumbnail" style="margin-top: 10px;">
+                <img src="../../images/user.jpg" class="img-fluid" alt="profile-picture">
+              </a>
             </div>
-            <div class="flex-item-profile">
-              <p>description</p>
+
+            <div class="col-md-6 col-7 flex-container-column">
+              <div class="flex-item-profile">
+                <!-- <p class="p-name-profile">{{ profile.nickname }}</p> -->
+                <p class="p-name-profile">{{ profile.name }}</p>
+              </div>
+              <div class="flex-item-profile" [hidden]="displayHeadInformation">
+                <p>{{profile.description}}</p>
+              </div>
+              <div class="flex-item-profile" [hidden]=displayEditHead>
+                <input type="text" value="{{profile.description}}" ngModel name="description"class="form-control" id="inputLocation" placeholder="Mô tả về bạn">
+              </div>
+
+            </div>
+            <div class="col-md-3">
+              <a role="link" [hidden]="displayButtonEdit" (click)="switchHeadForm()" style="color:#4eb1ba"><i class="material-icons">border_color</i> Chỉnh sửa</a>
+              <br>
+              <div [hidden]=displayEditHead>
+                <button  type="submit" class="btn btn-info" name="Save">Lưu</button>
+                <button  type="button" class="btn btn-warning" name="Cancel" (click)="switchForm()">Huỷ</button>
+              </div>
             </div>
           </div>
-          <div class="col-md-3">
-            <a role="link" [hidden]="displayButtonEdit" (click)="switchForm()" style="color:#4eb1ba"><i class="material-icons">border_color</i> Chỉnh sửa</a>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
     <!-- swap me button -->
@@ -75,8 +87,6 @@
                   <div class="col-6">
                     <p><label>Kỹ năng có</label></p>
                     <select [(ngModel)]="sfrom" name="sfrom" class="form-control">
-                      <!-- <option ngValue="">Choose Skill</option> -->
-                      <!-- <option ngValue= null>Chọn kĩ năng</option> -->
                         <option *ngFor="let skill of currentHave" ngValue="{{skill._id}}">{{skill.name}}</option>
                     </select>
                     <input type="text" [hidden]=true name="from" ngModel="{{currentEmail}}">
@@ -86,8 +96,6 @@
                   <div class="col-6">
                     <p><label>Kỹ năng cần</label></p>
                     <select [(ngModel)]="sto" name="sto" class="form-control">
-                      <!-- <option ngValue="">Choose Skill</option> -->
-                      <!-- <option ngValue= null>Chọn kĩ năng</option> -->
                         <option *ngFor="let skill of skillHave" ngValue="{{skill._id}}">{{skill.name}}</option>
                     </select>
                   </div>
@@ -125,25 +133,24 @@
                   <h3>Kỹ năng tôi đang có</h3>
                 </div>
                 <div class="col-md-3 col-sm-3 col-lg-3">
-                  <a role="link" [hidden]="displayButtonEdit" (click)="switchForm()" style="color:#4eb1ba"><i class="material-icons">border_color</i> Chỉnh sửa</a>
+                  <a role="link" [hidden]="displayButtonEdit" (click)="switchSkillForm()" style="color:#4eb1ba"><i class="material-icons">border_color</i> Chỉnh sửa</a>
                 </div>
               </div>
               <hr>
                 <!-- display skill have -->
-                <div [hidden]="displayInformation">
+                <div [hidden]="displaySkillInformation">
                   <ul>
                     <li *ngFor="let have of skillHave">{{have.name}}</li>
                   </ul>
                 </div>
                 <!-- edit skill have  -->
-                <div class="form-group" [hidden]="displayEdit">
+                <div class="form-group" [hidden]="displayEditSkill">
 
                   <label for="inputEmail3"  class="col-md-2 control-label">Kỹ năng: </label>
                   <ul>
                     <li *ngFor="let have of skillHave">{{have.name}}</li>
                   </ul>
                   <div class="col-md-10">
-                    <!-- <input type="email" class="form-control" id="inputEmail3" style="height:100px;"> -->
                     <div *ngIf="haveArrObj">
                       <ul>
                         <li *ngFor="let have of haveArrObj">{{have.name}}</li>
@@ -171,13 +178,13 @@
               <h3>Kỹ năng tôi đang cần</h3>
               <hr>
               <!-- display skill need -->
-              <div [hidden]="displayInformation">
+              <div [hidden]="displaySkillInformation">
                 <ul>
                   <li *ngFor="let want of skillWant">{{want.name}}</li>
                 </ul>
               </div>
               <!-- edit skill need-->
-              <div class="form-group" [hidden]="displayEdit">
+              <div class="form-group" [hidden]="displayEditSkill">
                 <label for="inputEmail3"  class="col-md-2 control-label">Kỹ năng: </label>
                 <div class="col-md-10">
                   <ul>
@@ -209,20 +216,20 @@
                 <h3>Chi tiết về kỹ năng của tôi</h3>
                 <hr>
                 <!-- display detail -->
-                <div class="containerform" [hidden]="displayInformation">
+                <div class="containerform" [hidden]="displaySkillInformation">
                   <p>{{skills.detail}}</p>
                 </div>
                 <!-- edit detail -->
-                <div [hidden]=displayEdit>
+                <div [hidden]=displayEditSkill>
                   <textarea class="form-control" rows="3"></textarea>
                   <div class="form-group" style="text-align:center;margin-top:10px;">
-                    <button type="submit" class="btn btn-info" name="Save">Lưu</button>
-                    <button type="submit" class="btn btn-warning" name="Cancel" (click)="switchForm()">Huỷ</button>
+                    <button type="button" (click)="editSkill()" class="btn btn-info" name="Save">Lưu</button>
+                    <button type="button" class="btn btn-warning" name="Cancel" (click)="switchSkillForm()">Huỷ</button>
                   </div>
                 </div>
             </div>
             <div class="tab-pane" id="aboutme" role="tabpanel">
-              <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+              <form #f="ngForm" (ngSubmit)="editProfile(f)">
               <div class="row">
                 <div class="col-md-9">
                   <h3>Thông tin chung</h3>

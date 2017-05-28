@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
     this.apiService.getAllSkills().
     subscribe(
     data => {
-      console.log(data)
       this.objectskills = data.data;
       for (let i = 0; i < this.objectskills.length; i++){
         this.skills[i] = this.objectskills[i];

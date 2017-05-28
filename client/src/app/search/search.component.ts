@@ -34,7 +34,6 @@ export class SearchComponent implements OnInit{
     this.idskillhave = new FormControl('')
     this.idskillneed = new FormControl('')
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-            // this.otherEmail = params['email'];
             this.paramHave = params['have']
             this.paramNeed = params['need']
           });
@@ -49,7 +48,6 @@ export class SearchComponent implements OnInit{
       str = '{"have":["'+this.paramNeed+'"],"want":["'+this.paramHave+'"]}';
     }
     var json = JSON.parse(str);
-    console.log(json)
     this.searchSkill(json);
     this.apiService.getAllSkills().
     subscribe(
@@ -58,14 +56,10 @@ export class SearchComponent implements OnInit{
       for (let i = 0; i < this.objectskills.length; i++){
         this.skills[i] = this.objectskills[i];
       }
-    },
-    error => {
-        console.log("error")
     })
   }
 
   onSubmit(){
-    // this.searchData(this.idskillhave.value.id,this.idskillneed.value.id);
     var str: any;
     if (!this.idskillhave.value._id){
       str = '{"have":["'+this.idskillneed.value._id+'"]}'
@@ -96,9 +90,6 @@ export class SearchComponent implements OnInit{
         }
           this.isShowData = true;
         }
-      },
-      error =>{
-        console.log("error")
       }
     )
   }
