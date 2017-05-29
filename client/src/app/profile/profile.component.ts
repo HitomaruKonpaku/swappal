@@ -259,7 +259,11 @@ export class ProfileComponent implements OnInit {
       value.token = this.currentToken;
       value.email = this.currentEmail;
       value.requestid = this.requestID;
-      this.apiService.writeReview(value).subscribe()
+      this.apiService.writeReview(value).subscribe(
+        data=>{
+          location.reload()
+        }
+      )
     }
     userCheck(current: any, other:any){
       for (let i =0; i < this.requestList.length;i++){
