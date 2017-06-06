@@ -37,6 +37,7 @@ export class ProfileComponent implements OnInit {
     emailfrom: string;
     isAccept: boolean;
     isEmail: boolean;
+    isLogin: boolean = false;
     isRequest: boolean = false;
     isProgress : boolean =false;
     isOtherRequest: boolean = false;
@@ -68,7 +69,7 @@ export class ProfileComponent implements OnInit {
     ) { }
     ngOnInit() {
       this.currentEmail = localStorage.getItem('currentEmail');
-      this.currentToken = localStorage.getItem('currentToken');
+      this.currentToken = localStorage.getItem('currentUser');
       this.requestList = JSON.parse(sessionStorage.getItem('dataRequests'));
       this.activatedRoute.queryParams.subscribe((params: Params) => {
               this.otherEmail = params['email'];
@@ -137,16 +138,6 @@ export class ProfileComponent implements OnInit {
         }
       }
     }
-    // editDescription(des:NgForm){
-    //   var value = des.value;
-    //   value.email = localStorage.getItem('currentEmail');
-    //   this.apiService.createProfile(value)
-    //   .subscribe(
-    //   data => {
-    //       location.reload()
-    //   }
-    //   );
-    // }
     editProfile(f:NgForm){
       var value = f.value;
       value.email = localStorage.getItem('currentEmail');
@@ -266,39 +257,48 @@ export class ProfileComponent implements OnInit {
       )
     }
     userCheck(current: any, other:any){
-      for (let i =0; i < this.requestList.length;i++){
-        if(this.requestList[i].accFrom.acc.email == current && this.requestList[i].accTo.acc.email == other )
-        {
-          this.isRequest = true;
+      if (this.currentToken)
+      {
+        this.isLogin = true;
+        for (let i =0; i < this.requestList.length;i++){
+          if(this.requestList[i].accFrom.acc.email == current && this.requestList[i].accTo.acc.email == other )
+          {
+            this.isRequest = true;
 
-          if (this.requestList[i].status)
-          {
-            if (this.requestList[i].status.accept.from && this.requestList[i].status.accept.to)
+            if (this.requestList[i].status)
             {
-              this.isProgress = true;
-              this.requestID = this.requestList[i]._id
-            }
+              if (this.requestList[i].status.accept.from && this.requestList[i].status.accept.to)
+              {
+                this.isProgress = true;
+                this.requestID = this.requestList[i]._id
+              }
 
-          }else
-          {
-            return
-          }
-        } else if(this.requestList[i].accFrom.acc.email == other && this.requestList[i].accTo.acc.email == current )
-        {
-          this.isOtherRequest = true;
-          if (this.requestList[i].status)
-          {
-            if (this.requestList[i].status.accept.from && this.requestList[i].status.accept.to)
+            }else
             {
-              this.isProgress = true;
-              this.requestID = this.requestList[i]._id
+              return
             }
-          }else
+          } else if(this.requestList[i].accFrom.acc.email == other && this.requestList[i].accTo.acc.email == current )
           {
-            return
+            this.isOtherRequest = true;
+            if (this.requestList[i].status)
+            {
+              if (this.requestList[i].status.accept.from && this.requestList[i].status.accept.to)
+              {
+                this.isProgress = true;
+                this.requestID = this.requestList[i]._id
+              }
+            }else
+            {
+              return
+            }
           }
         }
       }
+      else
+      {
+        return
+      }
+
     }
 
 }
