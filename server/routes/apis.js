@@ -192,12 +192,20 @@ router.route('/accounts/reg')
     .post((req, res) => {
         let eml = req.body.email
         let pwd = req.body.pwd
+        let repwd = req.body.repwd
 
-        if (!eml || !pwd) {
+        if (!eml || !pwd || !repwd) {
             res.json({
-                msg: msgMissingData
+                msg: "Vui lòng nhập đầy đủ thông tin"
             })
             return
+        }
+        if (repwd != pwd)
+        {
+          res.json({
+              msg: "Sai mật khẩu xác nhận"
+          })
+          return
         }
 
         let acc = new AccountReg({
@@ -219,7 +227,6 @@ router.route('/accounts/reg')
             .then(function (doc) {
                 if (doc) {
                     res.json({
-                        // msg: 'You have already signed up and verified your account.'
                         msg: 'Email đã tồn tại, xin chọn email khác'
                     })
                 } else {
@@ -317,9 +324,6 @@ router.route('/accounts/authenticate')
             })
             return
         }
-
-        console.log('Logging in as ' + email)
-
         Account.findOne({ 'email': email, 'passHash': hash(pass) }).exec()
             .then(data => {
                 console.log(data)
