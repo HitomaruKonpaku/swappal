@@ -21,7 +21,7 @@ export class APIService {
 
     }
     getAllSkills(){
-        return this.http.get(this.address + '/skill/get', this.jwt()).map((response: Response) => response.json());
+        return this.http.get(this.address + '/skill/all', this.jwt()).map((response: Response) => response.json());
     }
     searchSkill(search : any){
       return this.http.post(this.address+'/search', search, this.jwt()).map((response: Response) => response.json());

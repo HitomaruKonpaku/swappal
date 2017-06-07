@@ -192,12 +192,20 @@ router.route('/accounts/reg')
     .post((req, res) => {
         let eml = req.body.email
         let pwd = req.body.pwd
+        let repwd = req.body.repwd
 
-        if (!eml || !pwd) {
+        if (!eml || !pwd || !repwd) {
             res.json({
-                msg: msgMissingData
+                msg: "Vui lòng nhập đầy đủ thông tin"
             })
             return
+        }
+        if (repwd != pwd)
+        {
+          res.json({
+              msg: "Sai mật khẩu xác nhận"
+          })
+          return
         }
 
         let acc = new AccountReg({
@@ -219,7 +227,6 @@ router.route('/accounts/reg')
             .then(function (doc) {
                 if (doc) {
                     res.json({
-                        // msg: 'You have already signed up and verified your account.'
                         msg: 'Email đã tồn tại, xin chọn email khác'
                     })
                 } else {
@@ -317,9 +324,6 @@ router.route('/accounts/authenticate')
             })
             return
         }
-
-        console.log('Logging in as ' + email)
-
         Account.findOne({ 'email': email, 'passHash': hash(pass) }).exec()
             .then(data => {
                 console.log(data)
@@ -1034,6 +1038,7 @@ router.route('/request/review')
                 if (!request ||
                     !request.status ||
                     !request.status.complete) {
+                    responseInvalid(res)
                     return
                 }
 
@@ -1323,21 +1328,23 @@ router.route('/reviews/list')
                     (callback) => {
                         Request.find({
                             'accFrom.acc': acc._id,
-                            'status.complete': { $exists: true, $ne: null },
+                            // 'status.complete': { $exists: true, $ne: null },
                         })
-                            .select('accFrom accTo')
+                            .select('accFrom accTo status reviews')
                             .exec(callback)
                     },
                     (callback) => {
                         Request.find({
                             'accTo.acc': acc._id,
-                            'status.complete': { $exists: true, $ne: null },
+                            // 'status.complete': { $exists: true, $ne: null },
                         })
+                            .select('accFrom accTo status reviews')
                             .exec(callback)
                     },
                 ])
                     .then((asyncRes) => {
                         console.log(asyncRes)
+
                         let newArr = asyncRes[0].concat(asyncRes[1])
 
 
