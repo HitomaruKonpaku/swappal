@@ -22,7 +22,6 @@ input[type=date]{
   width: 250px!important;
   margin-left: 5px;
   height: 40px!important;
-  z-index:1!important;
 }
 
 .page-panel{
@@ -60,6 +59,7 @@ input[type=date]{
   position:absolute;
   top:60%;
   left:50%;
+  z-index:10;
   transform:translate(-50%,-50%);
   -ms-transform:translate(-50%,-50%);
   text-align:center!important;
