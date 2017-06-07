@@ -1049,9 +1049,9 @@ router.route('/request/review')
                 let isFrom = email === request.accFrom.acc.email
 
                 if (isFrom) {
-                    request.reviews.from = reviewObj
+                    request.reviews['from'] = reviewObj
                 } else {
-                    request.reviews.to = reviewObj
+                    request.reviews['to'] = reviewObj
                 }
 
                 request.save()
@@ -1324,17 +1324,15 @@ router.route('/reviews/list')
                     (callback) => {
                         Request.find({
                             'accFrom.acc': acc._id,
-                            // 'status.complete': { $exists: true, $ne: null },
                         })
-                            .select('accFrom accTo status reviews')
+                            // .select('reviews.to')
                             .exec(callback)
                     },
                     (callback) => {
                         Request.find({
                             'accTo.acc': acc._id,
-                            // 'status.complete': { $exists: true, $ne: null },
                         })
-                            .select('accFrom accTo status reviews')
+                            .select('reviews.from')
                             .exec(callback)
                     },
                 ])

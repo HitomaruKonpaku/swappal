@@ -111,12 +111,13 @@ export class LoginComponent implements OnInit{
                 this.alertService.success('Đăng nhập thành công', true);
 
                   break;
-              default:
-                  this.alertService.error(data.msg);
-                  this.loading = false;
+              case 'error':
+                  console.log("error")
+                  break;
           }
       },
       error => {
+
           this.alertService.error(error);
           this.loading = false;
       });
