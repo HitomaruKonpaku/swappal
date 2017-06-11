@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit{
     SocialLogin(email:any, userid : any){
       var str = '{"email":"'+email+'","pwd":"'+userid+'"}'
       var json = JSON.parse(str);
-      this.apiService.create(json)
+
       this.authenticationService.login(json)
       .subscribe(
       data => {
@@ -111,15 +111,36 @@ export class LoginComponent implements OnInit{
                 this.alertService.success('Đăng nhập thành công', true);
 
                   break;
-              case 'error':
-                  console.log("error")
-                  break;
+              default:
+                  this.alertService.error(data.msg);
+                  this.loading = false;
           }
       },
       error => {
+          this.apiService.create(json)
+          this.authenticationService.login(json)
+          .subscribe(
+          data => {
+              switch (data.msg) {
+                  case 'success':
+                    this.profile = data.acc.profile;
+                    if (!this.profile){
 
-          this.alertService.error(error);
-          this.loading = false;
+                      this.email = localStorage.getItem('currentEmail');
+                      this.openCreateDialog(this.email);
+                    }
+                    else{
+                      location.reload();
+                      this.router.navigate(['/']);
+                    }
+                    this.alertService.success('Đăng nhập thành công', true);
+
+                      break;
+                  default:
+                      this.alertService.error(data.msg);
+                      this.loading = false;
+              }
+          });
       });
     }
   signIn(provider : any){

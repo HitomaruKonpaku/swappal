@@ -35,8 +35,16 @@
         </form>
       </div>
     </div>
+    <!-- login notice button -->
+    <div class="row" *ngIf=" isLogin == false">
+        <div class="col-md-8">
+        </div>
+        <div  class="col-md-4 md-dialog-container div-swapme-button" id="Mydialogcontaine">
+          <button md-button type="button" [hidden]=displayButton class="notice-swap" disabled="true">ĐĂNG NHẬP ĐỂ TRAO ĐỔI</button>
+        </div>
+    </div>
     <!-- swap me button -->
-    <div class="row" *ngIf="isRequest==false && isProgress==false && isOtherRequest==false">
+    <div class="row" *ngIf="isRequest==false && isProgress==false && isOtherRequest==false &&isLogin== true">
         <div class="col-md-8">
         </div>
         <div  class="col-md-4 md-dialog-container div-swapme-button" id="Mydialogcontaine">

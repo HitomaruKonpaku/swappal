@@ -192,12 +192,20 @@ router.route('/accounts/reg')
     .post((req, res) => {
         let eml = req.body.email
         let pwd = req.body.pwd
+        let repwd = req.body.repwd
 
-        if (!eml || !pwd) {
+        if (!eml || !pwd || !repwd) {
             res.json({
-                msg: msgMissingData
+                msg: "Vui lòng nhập đầy đủ thông tin"
             })
             return
+        }
+        if (repwd != pwd)
+        {
+          res.json({
+              msg: "Xác nhận lại mật khẩu"
+          })
+          return
         }
 
         let acc = new AccountReg({
